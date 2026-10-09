@@ -166,8 +166,65 @@
 
   .comments-section { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: none; }
   .comments-section.open { display: block; }
-  .comment { background: var(--comment-bg); padding: 10px; border-radius: 12px; margin-bottom: 8px; font-size: 14px; }
+  
+  /* Стили для комментариев с лайками и ответами */
+  .comment { 
+    background: var(--comment-bg); 
+    padding: 10px; 
+    border-radius: 12px; 
+    margin-bottom: 8px; 
+    font-size: 14px;
+    position: relative;
+  }
+  .comment-reply {
+    margin-left: 25px;
+    border-left: 3px solid var(--border-color);
+    padding-left: 10px;
+  }
   .comment-author { font-weight: bold; color: #74C0FC; font-size: 12px; }
+  .comment-reply-to { color: #FF1493; font-size: 11px; font-weight: bold; }
+  .comment-text { margin: 4px 0; word-break: break-word; }
+  .comment-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 5px;
+    font-size: 11px;
+  }
+  .comment-action-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-secondary);
+    font-family: inherit;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 10px;
+    transition: all 0.2s;
+  }
+  .comment-action-btn:hover { background: rgba(255,20,147,0.1); color: #FF1493; }
+  .comment-action-btn.liked { color: #FF1493; font-weight: bold; }
+  
+  .reply-input-row {
+    display: flex;
+    gap: 8px;
+    margin-top: 8px;
+    margin-left: 25px;
+    padding: 8px;
+    background: rgba(255,20,147,0.05);
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+  }
+  .reply-input-row input {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    padding: 6px 12px;
+    outline: none;
+    background: var(--input-bg);
+    color: var(--text-color);
+    font-size: 13px;
+  }
+  
   .comment-input-row { display: flex; gap: 8px; margin-top: 10px; }
   .comment-input-row input {
     flex: 1; border: 1px solid var(--border-color); border-radius: 15px; padding: 8px 12px; 
@@ -535,24 +592,6 @@
     margin: 10px 0;
   }
 
-  /* ===== СТИЛИ ДЛЯ PICKER АВАТАРОВ С ЭМОДЗИ ===== */
-  .avatar-picker-emoji-item {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 3px solid #fff;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 28px;
-    transition: transform 0.2s;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  }
-  .avatar-picker-emoji-item:hover {
-    transform: scale(1.1);
-  }
-
   @media (max-width: 600px) {
     header { padding: 10px 15px; }
     header h1 { font-size: 20px; }
@@ -571,6 +610,8 @@
     .login-screen { padding: 30px 15px; margin-top: 10px; }
     .login-screen h2 { font-size: 20px; }
     .message-wrapper:hover .message-actions { display: flex; }
+    .comment-reply { margin-left: 15px; }
+    .reply-input-row { margin-left: 15px; }
   }
 
   @media (max-width: 400px) {
@@ -598,7 +639,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;"> Войти по Email</button>
+      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
@@ -606,16 +647,15 @@
 
   <div id="appScreen" class="hidden">
     <div id="anonWarning" class="anon-warning hidden">
-      ⚠️ Ты вошёл анонимно. Все функции доступны, но если ты выйдешь, твой профиль и посты не сохранятся. 
+      ️ Ты вошёл анонимно. Все функции доступны, но если ты выйдешь, твой профиль и посты не сохранятся. 
       <button onclick="showEmailLogin()" class="btn btn-primary" style="margin-top: 10px; font-size: 12px;">Создать аккаунт</button>
     </div>
 
-    <!-- Контейнер историй -->
     <div id="storiesContainer" class="stories-container hidden"></div>
 
     <div class="nav-tabs">
       <div class="nav-tab active" data-tab="feed">📰 Лента</div>
-      <div class="nav-tab" data-tab="chats">💬 Чаты<span id="unreadBadgeTab" class="unread-badge-tab hidden">0</span></div>
+      <div class="nav-tab" data-tab="chats"> Чаты<span id="unreadBadgeTab" class="unread-badge-tab hidden">0</span></div>
       <div class="nav-tab" data-tab="profile">👤 Профиль</div>
     </div>
 
@@ -647,7 +687,7 @@
         <img id="chatImagePreview" class="chat-image-preview">
         <div class="chat-input-row">
           <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
-          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
+          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото"></button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
           <button onclick="sendMessage()" class="btn btn-primary">➤</button>
         </div>
@@ -671,7 +711,7 @@
 
 <div id="emailModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;"> Вход по Email</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
     <div id="emailStep1">
       <input type="email" id="emailInput" placeholder="your@email.com">
       <div class="password-wrapper">
@@ -694,11 +734,11 @@
 
 <div id="registerModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;"> Регистрация</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Регистрация</h3>
     <input type="email" id="regEmailInput" placeholder="your@email.com">
     <div class="password-wrapper">
       <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
-      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordInput', this)">👁️</button>
+      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordInput', this)">️</button>
     </div>
     <div class="password-wrapper">
       <input type="password" id="regPasswordConfirm" placeholder="Повтори пароль">
@@ -732,8 +772,6 @@
     <p style="font-size: 12px; color: var(--text-secondary); margin: 15px 0 5px;">Или загрузи свою картинку:</p>
     <input type="file" id="avatarFileInput" accept="image/*" style="font-size: 13px;">
     <img id="avatarPreview" class="avatar-preview-box">
-    <p style="font-size: 12px; color: var(--text-secondary); margin: 15px 0 5px;">Или выбери персонажа:</p>
-    <div style="display: flex; gap: 5px; justify-content: center; flex-wrap: wrap; margin-bottom: 15px;" id="avatarPicker"></div>
     <div style="display: flex; gap: 10px;">
       <button onclick="closeEditModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
       <button onclick="saveProfile()" class="btn btn-primary" style="flex:1;">Сохранить</button>
@@ -743,9 +781,9 @@
 
 <div id="createStoryModal" class="modal create-story-modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📸 Новая история</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;"> Новая история</h3>
     <input type="file" id="storyImageInput" accept="image/*" style="display: none;">
-    <button onclick="document.getElementById('storyImageInput').click()" class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;">🖼️ Выбрать фото</button>
+    <button onclick="document.getElementById('storyImageInput').click()" class="btn btn-secondary" style="width: 100%; margin-bottom: 10px;">️ Выбрать фото</button>
     <img id="storyPreviewImage" class="story-preview-image" style="display: none;">
     <textarea id="storyTextInput" class="story-text-input" placeholder="Добавь текст (необязательно)..." maxlength="200"></textarea>
     <div style="display: flex; gap: 10px;">
@@ -823,27 +861,14 @@
   let storyImageData = null;
   let storyViewerTimeout = null;
   let storyProgressInterval = null;
+  let openReplyInputs = {}; // Хранит открытые поля ответа для комментариев
 
-  // ===== АВАТАРЫ С ЭМОДЗИ (работают везде: и на ПК, и на телефоне) =====
-  const smesharikiAvatars = [
-    { name: 'Крош',      emoji: '🐰', color: '#4FC3F7' },
-    { name: 'Нюша',      emoji: '🐷', color: '#F06292' },
-    { name: 'Ёжик',      emoji: '🦔', color: '#A1887F' },
-    { name: 'Бараш',     emoji: '🐑', color: '#BA68C8' },
-    { name: 'Лосяш',     emoji: '🦌', color: '#FFD54F' },
-    { name: 'Копатыч',   emoji: '🐻', color: '#FF8A65' },
-    { name: 'Пин',       emoji: '🐧', color: '#424242' },
-    { name: 'Совунья',   emoji: '🦉', color: '#AB47BC' },
-    { name: 'Кар-Карыч', emoji: '🐦', color: '#546E7A' }
-  ];
-
-  // Функция создания data URI аватарки с эмодзи (работает на всех устройствах)
-  function makeAvatarDataUrl(color, emoji) {
-    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
-      <circle cx="100" cy="100" r="95" fill="${color}" stroke="#fff" stroke-width="5"/>
-      <text x="100" y="130" font-family="Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, Arial" font-size="100" text-anchor="middle">${emoji}</text>
-    </svg>`;
-    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  function createAvatarFallback(name, size = 50) {
+    const letter = (name || '?').charAt(0).toUpperCase();
+    const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B'];
+    const colorIndex = (name || '').length % colors.length;
+    const color = colors[colorIndex];
+    return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`;
   }
 
   function initAudio() {
@@ -891,14 +916,6 @@
     }
   };
 
-  function createAvatarFallback(name, size = 50) {
-    const letter = (name || '?').charAt(0).toUpperCase();
-    const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B'];
-    const colorIndex = (name || '').length % colors.length;
-    const color = colors[colorIndex];
-    return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`;
-  }
-
   function setupAvatarFallbacks(container) {
     container.querySelectorAll('img.post-avatar, img.chat-avatar, img.profile-avatar, img.story-avatar, img.story-header-avatar').forEach(img => {
       if (!img.dataset.fallbackSetup) {
@@ -915,7 +932,7 @@
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '';
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
@@ -923,23 +940,6 @@
     localStorage.setItem('theme', newTheme);
     themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   };
-
-  // ===== СОЗДАНИЕ PICKER АВАТАРОВ С ЭМОДЗИ =====
-  const avatarPicker = document.getElementById('avatarPicker');
-  smesharikiAvatars.forEach(av => {
-    const btn = document.createElement('div');
-    btn.className = 'avatar-picker-emoji-item';
-    btn.style.background = av.color;
-    btn.textContent = av.emoji;
-    btn.title = av.name;
-    btn.onclick = () => { 
-      const avatarUrl = makeAvatarDataUrl(av.color, av.emoji);
-      document.getElementById('editAvatar').value = avatarUrl; 
-      document.getElementById('avatarPreview').src = avatarUrl;
-      document.getElementById('avatarPreview').style.display = 'block';
-    };
-    avatarPicker.appendChild(btn);
-  });
 
   document.querySelectorAll('.nav-tab').forEach(tab => {
     tab.addEventListener('click', () => switchTab(tab.dataset.tab));
@@ -969,11 +969,9 @@
       if (userDoc.exists()) {
         userData = userDoc.data();
       } else {
-        // По умолчанию используем первого персонажа (Крош)
-        const defaultAv = smesharikiAvatars[0];
         userData = {
           name: user.displayName || user.email?.split('@')[0] || 'Аноним',
-          avatar: makeAvatarDataUrl(defaultAv.color, defaultAv.emoji),
+          avatar: createAvatarFallback(user.displayName || user.email?.split('@')[0] || 'А', 200),
           bio: 'Привет! Я фанат Смешариков!'
         };
         await setDoc(userDocRef, userData);
@@ -989,7 +987,7 @@
       
       if (user.isAnonymous) {
         document.getElementById('anonWarning').classList.remove('hidden');
-        document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)';
+        document.getElementById('authBtn').textContent = ' Выйти (аноним)';
       } else {
         document.getElementById('anonWarning').classList.add('hidden');
         document.getElementById('authBtn').textContent = '🚪 Выйти';
@@ -1115,7 +1113,7 @@
     } else if (userData) {
       document.getElementById('profileName').textContent = userData.name || 'Аноним';
       document.getElementById('profileBio').textContent = userData.bio || '';
-      avatarImg.src = userData.avatar || makeAvatarDataUrl(smesharikiAvatars[0].color, smesharikiAvatars[0].emoji);
+      avatarImg.src = userData.avatar || createAvatarFallback(userData.name || 'А', 200);
       avatarImg.dataset.name = userData.name || 'П';
       document.getElementById('editName').value = userData.name || '';
       document.getElementById('editBio').value = userData.bio || '';
@@ -1259,19 +1257,133 @@
     catch (err) { alert('Ошибка при публикации: ' + err.message); }
   };
 
+  // ===== РЕНДЕРИНГ КОММЕНТАРИЕВ С ЛАЙКАМИ И ОТВЕТАМИ =====
+  function renderComments(postId, comments) {
+    if (!comments || comments.length === 0) return '';
+    
+    // Разделяем комментарии на обычные и ответы
+    const topLevel = comments.filter(c => !c.replyTo);
+    const replies = comments.filter(c => c.replyTo);
+    
+    let html = '';
+    topLevel.forEach(c => {
+      html += renderSingleComment(postId, c, false);
+      // Находим ответы на этот комментарий
+      const commentReplies = replies.filter(r => r.replyTo === c.authorName + '_' + c.timestamp);
+      commentReplies.forEach(r => {
+        html += renderSingleComment(postId, r, true);
+      });
+    });
+    // Показываем ответы без родителя (если родитель удалён)
+    replies.forEach(r => {
+      const hasParent = topLevel.some(c => c.authorName + '_' + c.timestamp === r.replyTo);
+      if (!hasParent) {
+        html += renderSingleComment(postId, r, false);
+      }
+    });
+    return html;
+  }
+
+  function renderSingleComment(postId, c, isReply) {
+    const isLiked = c.likes && c.likes.includes(currentUser?.uid);
+    const likeCount = c.likes ? c.likes.length : 0;
+    const replyKey = c.authorName + '_' + c.timestamp;
+    const isReplyOpen = openReplyInputs[replyKey];
+    const replyToText = c.replyTo ? `<div class="comment-reply-to">↪ Ответ ${escapeHtml(c.replyTo.split('_')[0] || '')}</div>` : '';
+    
+    return `
+      <div class="comment ${isReply ? 'comment-reply' : ''}">
+        ${replyToText}
+        <div class="comment-author">${escapeHtml(c.authorName)}</div>
+        <div class="comment-text">${escapeHtml(c.text)}</div>
+        <div class="comment-actions">
+          <button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">
+            ❤️ ${likeCount > 0 ? likeCount : 'Нравится'}
+          </button>
+          ${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}
+        </div>
+        ${isReplyOpen ? `
+          <div class="reply-input-row">
+            <input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}...">
+            <button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')">➤</button>
+          </div>
+        ` : ''}
+      </div>
+    `;
+  }
+
+  window.toggleCommentLike = async function(postId, authorName, timestamp) {
+    if (!currentUser) return;
+    const postRef = doc(db, 'posts', postId);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists()) return;
+    const postData = postSnap.data();
+    let comments = postData.comments || [];
+    const comment = comments.find(c => c.authorName === authorName && c.timestamp === timestamp);
+    if (!comment) return;
+    if (!comment.likes) comment.likes = [];
+    if (comment.likes.includes(currentUser.uid)) {
+      comment.likes = comment.likes.filter(id => id !== currentUser.uid);
+    } else {
+      comment.likes.push(currentUser.uid);
+    }
+    await updateDoc(postRef, { comments });
+  };
+
+  window.toggleReplyInput = function(postId, replyKey) {
+    if (openReplyInputs[replyKey]) {
+      delete openReplyInputs[replyKey];
+    } else {
+      // Закрываем все другие открытые поля
+      openReplyInputs = {};
+      openReplyInputs[replyKey] = true;
+    }
+    // Перерисовываем комментарии
+    const postRef = doc(db, 'posts', postId);
+    getDoc(postRef).then(postSnap => {
+      if (postSnap.exists()) {
+        const postData = postSnap.data();
+        const commentsSection = document.getElementById(`comments-${postId}`);
+        if (commentsSection) {
+          const existingComments = commentsSection.querySelectorAll('.comment');
+          const commentsHtml = renderComments(postId, postData.comments || []);
+          // Заменяем только комментарии, оставляя поле ввода нового комментария
+          const inputRow = commentsSection.querySelector('.comment-input-row');
+          commentsSection.innerHTML = commentsHtml + (inputRow ? inputRow.outerHTML : '');
+        }
+      }
+    });
+  };
+
+  window.submitReply = async function(postId, replyKey, replyToName) {
+    if (!currentUser || !userData) return;
+    const input = document.getElementById(`reply-input-${replyKey}`);
+    const text = input.value.trim();
+    if (!text) return;
+    
+    const postRef = doc(db, 'posts', postId);
+    const postSnap = await getDoc(postRef);
+    if (!postSnap.exists()) return;
+    const postData = postSnap.data();
+    let comments = postData.comments || [];
+    comments.push({ 
+      authorId: currentUser.uid, 
+      authorName: userData.name, 
+      authorAvatar: userData.avatar,
+      text: text, 
+      timestamp: Date.now(),
+      replyTo: replyKey,
+      likes: []
+    });
+    await updateDoc(postRef, { comments });
+    delete openReplyInputs[replyKey];
+  };
+
   function renderPost(post, isMyPost = false) {
     const isLiked = post.likes && post.likes.includes(currentUser.uid);
     const likeCount = post.likes ? post.likes.length : 0;
     const timeStr = post.timestamp ? new Date(post.timestamp.toDate()).toLocaleString('ru-RU', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : 'только что';
-    let commentsHtml = '';
-    if (post.comments && post.comments.length > 0) {
-      commentsHtml = post.comments.map(c => `
-        <div class="comment">
-          <div class="comment-author">${escapeHtml(c.authorName)}</div>
-          <div>${escapeHtml(c.text)}</div>
-        </div>
-      `).join('');
-    }
+    const commentsHtml = renderComments(post.id, post.comments || []);
     const imageHtml = post.image ? `<img src="${post.image}" class="post-image" onclick="openImageModal(this.src)">` : '';
     return `
       <div class="post" data-author-id="${post.authorId}" data-author-name="${escapeHtml(post.authorName)}" data-author-avatar="${escapeHtml(post.authorAvatar || '')}">
@@ -1292,7 +1404,7 @@
             💬 Комментарии (${post.comments ? post.comments.length : 0})
           </button>
           <button class="action-btn chat-trigger-btn">✉️ Написать</button>
-          ${isMyPost ? `<button class="action-btn" style="margin-left:auto; color:#f33;" onclick="deletePost('${post.id}')">️ Удалить</button>` : ''}
+          ${isMyPost ? `<button class="action-btn" style="margin-left:auto; color:#f33;" onclick="deletePost('${post.id}')">🗑️ Удалить</button>` : ''}
         </div>
         <div id="comments-${post.id}" class="comments-section">
           ${commentsHtml}
@@ -1368,7 +1480,14 @@
     if (!postSnap.exists()) return;
     const postData = postSnap.data();
     let comments = postData.comments || [];
-    comments.push({ authorId: currentUser.uid, authorName: userData.name, text: text, timestamp: Date.now() });
+    comments.push({ 
+      authorId: currentUser.uid, 
+      authorName: userData.name, 
+      authorAvatar: userData.avatar,
+      text: text, 
+      timestamp: Date.now(),
+      likes: []
+    });
     await updateDoc(postRef, { comments });
     input.value = '';
   };
@@ -1667,7 +1786,7 @@
     userData.avatar = newAvatar;
     updateProfileUI();
     closeEditModal();
-    alert('Профиль успешно обновлён! 🎉');
+    alert('Профиль успешно обновлён! ');
   };
 
   document.getElementById('avatarFileInput').addEventListener('change', function(e) {
@@ -1708,7 +1827,6 @@
     const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
     
     onSnapshot(q, (snapshot) => {
-      // ✅ ИСПРАВЛЕНИЕ: всегда показываем контейнер, чтобы была кнопка "Добавить"
       storiesContainer.classList.remove('hidden');
       storiesContainer.innerHTML = '';
       
@@ -1737,7 +1855,6 @@
         storiesByUser[userId].stories.push(story);
       });
       
-      // Кнопка "Добавить" или "Твоя история" — ВСЕГДА видна
       if (currentUser && userData) {
         const myStories = storiesByUser[currentUser.uid];
         const hasMyStory = myStories && myStories.stories.length > 0;
@@ -1758,7 +1875,6 @@
         storiesContainer.appendChild(addStoryItem);
       }
       
-      // Истории других пользователей
       Object.values(storiesByUser).forEach(({ user, stories }) => {
         if (user.userId === currentUser?.uid) return;
         const storyItem = document.createElement('div');
@@ -1831,7 +1947,7 @@
     try {
       await addDoc(collection(db, 'stories'), storyData);
       closeCreateStoryModal();
-      alert('История опубликована! 🎉');
+      alert('История опубликована! ');
     } catch (err) { alert('Ошибка: ' + err.message); }
   };
 
