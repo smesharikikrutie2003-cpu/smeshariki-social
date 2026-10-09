@@ -535,6 +535,24 @@
     margin: 10px 0;
   }
 
+  /* ===== СТИЛИ ДЛЯ PICKER АВАТАРОВ С ЭМОДЗИ ===== */
+  .avatar-picker-emoji-item {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    transition: transform 0.2s;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  .avatar-picker-emoji-item:hover {
+    transform: scale(1.1);
+  }
+
   @media (max-width: 600px) {
     header { padding: 10px 15px; }
     header h1 { font-size: 20px; }
@@ -564,9 +582,9 @@
 <body>
 
 <header>
-  <h1> Смешарики Social</h1>
+  <h1>🌟 Смешарики Social</h1>
   <div class="header-buttons">
-    <button id="themeBtn" class="btn btn-theme"></button>
+    <button id="themeBtn" class="btn btn-theme">🌙</button>
     <button id="authBtn" class="btn btn-google">🔑 Войти</button>
   </div>
 </header>
@@ -580,7 +598,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
+      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;"> Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
@@ -608,7 +626,7 @@
         <div id="profileBio" class="profile-bio"></div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
           <button id="editProfileBtn" onclick="openEditModal()" class="btn btn-secondary edit-profile-btn">✏️ Редактировать</button>
-          <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">️ Написать</button>
+          <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">✉️ Написать</button>
         </div>
       </div>
       <h3 class="profile-section-title" id="postsSectionTitle">Мои посты</h3>
@@ -642,7 +660,7 @@
         <input type="file" id="postImageInput" accept="image/*" style="display: none;">
         <img id="postImagePreview" class="image-preview" style="display: none;">
         <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary"> Фото</button>
+          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary">📷 Фото</button>
           <button onclick="createPost()" class="btn btn-primary" style="flex: 1;">🚀 Опубликовать</button>
         </div>
       </div>
@@ -651,10 +669,9 @@
   </div>
 </div>
 
-<!-- Модальное окно Email входа -->
 <div id="emailModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;"> Вход по Email</h3>
     <div id="emailStep1">
       <input type="email" id="emailInput" placeholder="your@email.com">
       <div class="password-wrapper">
@@ -677,7 +694,7 @@
 
 <div id="registerModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Регистрация</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;"> Регистрация</h3>
     <input type="email" id="regEmailInput" placeholder="your@email.com">
     <div class="password-wrapper">
       <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
@@ -724,7 +741,6 @@
   </div>
 </div>
 
-<!-- Модальное окно создания истории -->
 <div id="createStoryModal" class="modal create-story-modal">
   <div class="modal-content">
     <h3 style="color: #FF1493; margin-bottom: 15px;">📸 Новая история</h3>
@@ -739,7 +755,6 @@
   </div>
 </div>
 
-<!-- Просмотрщик историй -->
 <div id="storyViewer" class="story-viewer" onclick="closeStoryViewer()">
   <div class="story-viewer-content" onclick="event.stopPropagation()">
     <div class="story-progress-bar">
@@ -809,21 +824,27 @@
   let storyViewerTimeout = null;
   let storyProgressInterval = null;
 
-function makeAvatar(color, emoji) {
-  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="48" fill="${color}" stroke="#fff" stroke-width="3"/><text x="50" y="62" font-size="50" text-anchor="middle">${emoji}</text></svg>`)}`;
-}
+  // ===== АВАТАРЫ С ЭМОДЗИ (работают везде: и на ПК, и на телефоне) =====
+  const smesharikiAvatars = [
+    { name: 'Крош',      emoji: '🐰', color: '#4FC3F7' },
+    { name: 'Нюша',      emoji: '', color: '#F06292' },
+    { name: 'Ёжик',      emoji: '🦔', color: '#A1887F' },
+    { name: 'Бараш',     emoji: '🐑', color: '#BA68C8' },
+    { name: 'Лосяш',     emoji: '🦌', color: '#FFD54F' },
+    { name: 'Копатыч',   emoji: '🐻', color: '#FF8A65' },
+    { name: 'Пин',       emoji: '', color: '#424242' },
+    { name: 'Совунья',   emoji: '🦉', color: '#AB47BC' },
+    { name: 'Кар-Карыч', emoji: '🐦‍⬛', color: '#546E7A' }
+  ];
 
-const smesharikiAvatars = [
-  { name: 'Крош',      url: makeAvatar('#4FC3F7', '🐰') },
-  { name: 'Нюша',      url: makeAvatar('#F06292', '🐷') },
-  { name: 'Ёжик',      url: makeAvatar('#A1887F', '🦔') },
-  { name: 'Бараш',     url: makeAvatar('#BA68C8', '🐑') },
-  { name: 'Лосяш',     url: makeAvatar('#FFD54F', '🦌') },
-  { name: 'Копатыч',   url: makeAvatar('#FF8A65', '🐻') },
-  { name: 'Пин',       url: makeAvatar('#424242', '🐧') },
-  { name: 'Совунья',   url: makeAvatar('#AB47BC', '🦉') },
-  { name: 'Кар-Карыч', url: makeAvatar('#546E7A', '🐦‍⬛') }
-];
+  // Функция создания data URI аватарки с эмодзи (работает на всех устройствах)
+  function makeAvatarDataUrl(color, emoji) {
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200">
+      <circle cx="100" cy="100" r="95" fill="${color}" stroke="#fff" stroke-width="5"/>
+      <text x="100" y="130" font-family="Segoe UI Emoji, Apple Color Emoji, Noto Color Emoji, Arial" font-size="100" text-anchor="middle">${emoji}</text>
+    </svg>`;
+    return `data:image/svg+xml;charset=utf-8,${encodeURIComponent(svg)}`;
+  }
 
   function initAudio() {
     if (audioUnlocked) return;
@@ -903,14 +924,18 @@ const smesharikiAvatars = [
     themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   };
 
+  // ===== СОЗДАНИЕ PICKER АВАТАРОВ С ЭМОДЗИ =====
   const avatarPicker = document.getElementById('avatarPicker');
   smesharikiAvatars.forEach(av => {
     const btn = document.createElement('div');
-    btn.style.cssText = 'width:40px;height:40px;border-radius:50%;border:2px solid #fff;cursor:pointer;overflow:hidden;background:#fff;';
-    btn.innerHTML = `<img src="${av.url}" style="width:100%;height:100%;object-fit:cover;" title="${av.name}">`;
+    btn.className = 'avatar-picker-emoji-item';
+    btn.style.background = av.color;
+    btn.textContent = av.emoji;
+    btn.title = av.name;
     btn.onclick = () => { 
-      document.getElementById('editAvatar').value = av.url; 
-      document.getElementById('avatarPreview').src = av.url;
+      const avatarUrl = makeAvatarDataUrl(av.color, av.emoji);
+      document.getElementById('editAvatar').value = avatarUrl; 
+      document.getElementById('avatarPreview').src = avatarUrl;
       document.getElementById('avatarPreview').style.display = 'block';
     };
     avatarPicker.appendChild(btn);
@@ -944,9 +969,11 @@ const smesharikiAvatars = [
       if (userDoc.exists()) {
         userData = userDoc.data();
       } else {
+        // По умолчанию используем первого персонажа (Крош)
+        const defaultAv = smesharikiAvatars[0];
         userData = {
           name: user.displayName || user.email?.split('@')[0] || 'Аноним',
-          avatar: user.photoURL || smesharikiAvatars[0].url,
+          avatar: makeAvatarDataUrl(defaultAv.color, defaultAv.emoji),
           bio: 'Привет! Я фанат Смешариков!'
         };
         await setDoc(userDocRef, userData);
@@ -1088,7 +1115,7 @@ const smesharikiAvatars = [
     } else if (userData) {
       document.getElementById('profileName').textContent = userData.name || 'Аноним';
       document.getElementById('profileBio').textContent = userData.bio || '';
-      avatarImg.src = userData.avatar || smesharikiAvatars[0].url;
+      avatarImg.src = userData.avatar || makeAvatarDataUrl(smesharikiAvatars[0].color, smesharikiAvatars[0].emoji);
       avatarImg.dataset.name = userData.name || 'П';
       document.getElementById('editName').value = userData.name || '';
       document.getElementById('editBio').value = userData.bio || '';
@@ -1265,7 +1292,7 @@ const smesharikiAvatars = [
             💬 Комментарии (${post.comments ? post.comments.length : 0})
           </button>
           <button class="action-btn chat-trigger-btn">✉️ Написать</button>
-          ${isMyPost ? `<button class="action-btn" style="margin-left:auto; color:#f33;" onclick="deletePost('${post.id}')">🗑️ Удалить</button>` : ''}
+          ${isMyPost ? `<button class="action-btn" style="margin-left:auto; color:#f33;" onclick="deletePost('${post.id}')">️ Удалить</button>` : ''}
         </div>
         <div id="comments-${post.id}" class="comments-section">
           ${commentsHtml}
@@ -1681,31 +1708,25 @@ const smesharikiAvatars = [
     const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
     
     onSnapshot(q, (snapshot) => {
-      if (snapshot.empty) {
-        storiesContainer.classList.add('hidden');
-        return;
-      }
+      // ✅ ИСПРАВЛЕНИЕ: всегда показываем контейнер, чтобы была кнопка "Добавить"
+      storiesContainer.classList.remove('hidden');
+      storiesContainer.innerHTML = '';
       
       const now = Date.now();
       const twentyFourHours = 24 * 60 * 60 * 1000;
       const activeStories = [];
-      snapshot.docs.forEach(doc => {
-        const story = doc.data();
-        if (story.timestamp) {
-          const storyTime = story.timestamp.toDate ? story.timestamp.toDate().getTime() : new Date(story.timestamp).getTime();
-          if (now - storyTime < twentyFourHours) {
-            activeStories.push({ id: doc.id, ...story });
+      
+      if (!snapshot.empty) {
+        snapshot.docs.forEach(doc => {
+          const story = doc.data();
+          if (story.timestamp) {
+            const storyTime = story.timestamp.toDate ? story.timestamp.toDate().getTime() : new Date(story.timestamp).getTime();
+            if (now - storyTime < twentyFourHours) {
+              activeStories.push({ id: doc.id, ...story });
+            }
           }
-        }
-      });
-      
-      if (activeStories.length === 0) {
-        storiesContainer.classList.add('hidden');
-        return;
+        });
       }
-      
-      storiesContainer.classList.remove('hidden');
-      storiesContainer.innerHTML = '';
       
       const storiesByUser = {};
       activeStories.forEach(story => {
@@ -1716,7 +1737,8 @@ const smesharikiAvatars = [
         storiesByUser[userId].stories.push(story);
       });
       
-      if (currentUser) {
+      // Кнопка "Добавить" или "Твоя история" — ВСЕГДА видна
+      if (currentUser && userData) {
         const myStories = storiesByUser[currentUser.uid];
         const hasMyStory = myStories && myStories.stories.length > 0;
         
@@ -1736,6 +1758,7 @@ const smesharikiAvatars = [
         storiesContainer.appendChild(addStoryItem);
       }
       
+      // Истории других пользователей
       Object.values(storiesByUser).forEach(({ user, stories }) => {
         if (user.userId === currentUser?.uid) return;
         const storyItem = document.createElement('div');
