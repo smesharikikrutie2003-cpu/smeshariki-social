@@ -4,22 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Смешарики Social</title>
-<!-- Фавикон с ромашкой из Смешариков -->
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
   /* ===== БАЗОВЫЕ СТИЛИ ===== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
   :root {
-    --bg-gradient: linear-gradient(135deg, #87CEEB 0%, #FFB6C1 50%, #98FB98 100%);
+    /* Дневной фон - луг с облаками */
+    --bg-image: url('bg.jpg');
     --header-bg: linear-gradient(90deg, #FF6B9D, #FFA94D, #74C0FC, #A9E34B);
-    --card-bg: #fff;
+    --card-bg: rgba(255, 255, 255, 0.92);
     --text-color: #333;
     --text-secondary: #666;
     --border-color: #FFB6C1;
     --input-bg: #fff;
-    --comment-bg: #f8f9fa;
-    --shadow: rgba(0,0,0,0.1);
+    --comment-bg: rgba(248, 249, 250, 0.9);
+    --shadow: rgba(0,0,0,0.15);
     --modal-bg: rgba(0,0,0,0.6);
     --online-color: #4CAF50;
     --offline-color: #999;
@@ -27,24 +27,26 @@
   }
 
   [data-theme="dark"] {
-    --bg-gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-    --header-bg: linear-gradient(90deg, #e94560, #f39c12, #3498db, #2ecc71);
-    --card-bg: #2d2d44;
+    /* Ночной фон - Смешарики под луной */
+    --bg-image: url('bg-night.jpg');
+    --header-bg: linear-gradient(90deg, #1a1a3e, #2d2d5e, #1a1a4e, #0f0f2e);
+    --card-bg: rgba(30, 30, 60, 0.88);
     --text-color: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --border-color: #4a4a6a;
-    --input-bg: #1a1a2e;
-    --comment-bg: #1a1a2e;
-    --shadow: rgba(0,0,0,0.3);
-    --modal-bg: rgba(0,0,0,0.8);
+    --text-secondary: #b0b0b0;
+    --border-color: #4a4a7a;
+    --input-bg: rgba(20, 20, 50, 0.9);
+    --comment-bg: rgba(20, 20, 50, 0.9);
+    --shadow: rgba(0,0,0,0.5);
+    --modal-bg: rgba(0,0,0,0.85);
   }
 
   body {
     font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
-    background: var(--bg-gradient);
+    background: var(--bg-image) no-repeat center center fixed;
+    background-size: cover;
     min-height: 100vh;
     color: var(--text-color);
-    transition: all 0.3s ease;
+    transition: all 0.5s ease;
     overflow-x: hidden;
   }
   
@@ -58,6 +60,7 @@
     box-shadow: 0 4px 15px var(--shadow);
     flex-wrap: wrap;
     gap: 10px;
+    transition: all 0.5s ease;
   }
   header h1 { 
     font-size: 28px; 
@@ -87,7 +90,6 @@
   .btn-small { padding: 5px 10px; font-size: 12px; }
   .btn-danger { background: #f33; color: #fff; }
   
-  /* Кнопка записи голосового */
   .btn-record { 
     background: #ff3b3b !important; 
     color: #fff !important;
@@ -102,10 +104,16 @@
 
   /* ===== ЭКРАН ВХОДА ===== */
   .login-screen {
-    text-align: center; background: var(--card-bg); padding: 40px 20px; border-radius: 25px;
-    box-shadow: 0 8px 25px var(--shadow); margin-top: 20px;
+    text-align: center; 
+    background: var(--card-bg); 
+    padding: 40px 20px; 
+    border-radius: 25px;
+    box-shadow: 0 8px 25px var(--shadow); 
+    margin-top: 20px;
     position: relative;
     z-index: 5;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
   }
   .login-screen h2 { color: #FF1493; margin-bottom: 20px; font-size: 24px; }
   .login-buttons { display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto; }
@@ -113,14 +121,17 @@
 
   /* ===== ВКЛАДКИ НАВИГАЦИИ ===== */
   .nav-tabs {
-    display: flex; gap: 10px; margin-bottom: 20px; background: rgba(255,255,255,0.2);
+    display: flex; gap: 10px; margin-bottom: 20px; 
+    background: rgba(255,255,255,0.3);
     padding: 10px; border-radius: 20px;
+    backdrop-filter: blur(10px);
   }
   .nav-tab {
     flex: 1; padding: 12px; text-align: center; background: var(--card-bg); border-radius: 15px;
     cursor: pointer; font-weight: bold; color: var(--text-color); border: 2px solid transparent;
     font-size: 14px;
     position: relative;
+    transition: all 0.3s ease;
   }
   .nav-tab.active { background: #FF1493; color: #fff; border-color: #FF1493; }
   
@@ -143,6 +154,8 @@
   .profile-card {
     background: var(--card-bg); border-radius: 25px; padding: 25px; text-align: center;
     box-shadow: 0 4px 15px var(--shadow); margin-bottom: 20px;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
   }
   .profile-avatar {
     width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--border-color);
@@ -156,11 +169,14 @@
   .create-post, .post, .chat-list-item, .chat-window {
     background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px;
     box-shadow: 0 4px 15px var(--shadow);
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
   }
   .create-post textarea, .create-post input[type="text"], .modal-content input[type="email"], .modal-content input[type="password"], .modal-content input[type="text"] {
     width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px;
     font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; 
     outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px;
+    transition: all 0.3s ease;
   }
   .create-post textarea:focus, .modal-content input:focus { border-color: #FF1493; outline: none; }
   
@@ -206,6 +222,7 @@
     margin-bottom: 8px; 
     font-size: 14px;
     position: relative;
+    transition: all 0.3s ease;
   }
   .comment-reply {
     margin-left: 25px;
@@ -328,7 +345,6 @@
     font-style: italic;
   }
   
-  /* Анимация точек "печатает..." */
   @keyframes typing-dots {
     0%, 20% { opacity: 0; }
     50% { opacity: 1; }
@@ -504,6 +520,8 @@
     background: var(--card-bg); padding: 25px; border-radius: 25px;
     width: 100%; max-width: 400px; text-align: center;
     max-height: 90vh; overflow-y: auto;
+    backdrop-filter: blur(15px);
+    transition: all 0.5s ease;
   }
   .modal-content input {
     width: 100%; padding: 12px; margin: 10px 0;
@@ -534,13 +552,14 @@
   .profile-section-title { margin-bottom: 15px; color: #FF1493; }
 
   .anon-warning {
-    background: #fff3cd;
+    background: rgba(255, 243, 205, 0.95);
     border: 2px solid #ffc107;
     border-radius: 15px;
     padding: 15px;
     margin-bottom: 20px;
     color: #856404;
     font-size: 14px;
+    backdrop-filter: blur(10px);
   }
 
   .password-wrapper {
@@ -580,6 +599,8 @@
     display: flex;
     gap: 15px;
     scrollbar-width: none;
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
   }
   .stories-container::-webkit-scrollbar { display: none; }
 
@@ -769,6 +790,8 @@
     flex-direction: column;
     overflow: hidden;
     border: 2px solid var(--border-color);
+    backdrop-filter: blur(15px);
+    transition: all 0.5s ease;
   }
 
   .music-player.open {
@@ -1115,7 +1138,6 @@
         <div id="chatMessages" class="chat-messages"></div>
         <img id="chatImagePreview" class="chat-image-preview">
         
-        <!-- Индикатор записи голосового -->
         <div id="recordingIndicator" class="recording-indicator">
           <div class="recording-dot"></div>
           <span>🎤 Запись голосового...</span>
@@ -1262,7 +1284,6 @@
     <button onclick="closeMusicPlayer()" class="btn btn-small" style="background:#eee;color:#333;">✕</button>
   </div>
   
-  <!-- Информация о текущем треке -->
   <div class="music-player-info">
     <div class="music-player-cover">🎶</div>
     <div class="music-player-track-info">
@@ -1271,41 +1292,33 @@
     </div>
   </div>
   
-  <!-- Прогресс-бар -->
   <div class="music-player-progress">
     <span id="currentTime" class="music-time">0:00</span>
     <input type="range" id="progressBar" class="music-progress-bar" min="0" max="100" value="0">
     <span id="totalTime" class="music-time">0:00</span>
   </div>
   
-  <!-- Кнопки управления -->
   <div class="music-player-controls">
     <button onclick="previousTrack()" class="music-control-btn">⏮️</button>
     <button id="playPauseBtn" onclick="togglePlayPause()" class="music-control-btn music-play-btn">▶️</button>
-    <button onclick="nextTrack()" class="music-control-btn">️</button>
+    <button onclick="nextTrack()" class="music-control-btn">⏭️</button>
   </div>
   
-  <!-- Громкость -->
   <div class="music-player-volume">
     <span>🔊</span>
     <input type="range" id="volumeSlider" class="music-volume-slider" min="0" max="100" value="20">
   </div>
   
-  <!-- Плейлист -->
   <div class="music-player-playlist">
     <h4>Плейлист</h4>
-    <div id="playlistContainer" class="playlist-container">
-      <!-- Треки будут добавлены через JavaScript -->
-    </div>
+    <div id="playlistContainer" class="playlist-container"></div>
   </div>
 </div>
 
-<!-- Кнопка открытия плеера -->
 <button id="openMusicPlayerBtn" class="btn btn-theme" style="position: fixed; bottom: 20px; right: 20px; z-index: 1000; font-size: 24px; width: 50px; height: 50px; border-radius: 50%;" title="Открыть музыкальный плеер">
   🎵
 </button>
 
-<!-- Аудио элемент -->
 <audio id="audioPlayer"></audio>
 
 <script type="module">
@@ -1359,7 +1372,6 @@
   let storyProgressInterval = null;
   let openReplyInputs = {};
 
-  // Переменные для голосовых сообщений
   let mediaRecorder = null;
   let audioChunks = [];
   let isRecording = false;
@@ -1367,7 +1379,6 @@
   let recordingSeconds = 0;
   const MAX_RECORDING_SECONDS = 30;
 
-  // Переменные для статусов и печатания
   let lastSeenInterval = null;
   let typingTimeout = null;
   let typingData = {};
@@ -1375,7 +1386,6 @@
 
   // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
   
-  // Создание аватара-заглушки с первой буквой имени
   function createAvatarFallback(name, size = 50) {
     const letter = (name || '?').charAt(0).toUpperCase();
     const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B'];
@@ -1384,7 +1394,6 @@
     return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`;
   }
 
-  // Инициализация аудио (для звуковых эффектов)
   function initAudio() {
     if (audioUnlocked) return;
     try { 
@@ -1395,7 +1404,6 @@
   document.addEventListener('click', initAudio, { once: true });
   document.addEventListener('touchstart', initAudio, { once: true });
 
-  // Воспроизведение звуковых эффектов
   function playSound(type) {
     if (!audioUnlocked || !audioContext) return;
     try {
@@ -1420,7 +1428,6 @@
     } catch (e) { console.log('Ошибка звука:', e); }
   }
 
-  // Переключение видимости пароля
   window.togglePassword = function(inputId, button) {
     const input = document.getElementById(inputId);
     if (input.type === 'password') { 
@@ -1432,7 +1439,6 @@
     }
   };
 
-  // Настройка заглушек для аватаров
   function setupAvatarFallbacks(container) {
     container.querySelectorAll('img.post-avatar, img.chat-avatar, img.profile-avatar, img.story-avatar, img.story-header-avatar').forEach(img => {
       if (!img.dataset.fallbackSetup) {
@@ -1448,7 +1454,6 @@
 
   // ===== ФУНКЦИИ ДЛЯ СТАТУСОВ =====
   
-  // Обновление времени последнего посещения
   async function updateLastSeen() {
     if (!currentUser) return;
     try {
@@ -1458,14 +1463,12 @@
     }
   }
 
-  // Запуск периодического обновления lastSeen (каждые 30 секунд)
   function startLastSeenUpdater() {
     if (lastSeenInterval) clearInterval(lastSeenInterval);
     updateLastSeen();
     lastSeenInterval = setInterval(updateLastSeen, 30000);
   }
 
-  // Остановка обновления lastSeen
   function stopLastSeenUpdater() {
     if (lastSeenInterval) {
       clearInterval(lastSeenInterval);
@@ -1473,7 +1476,6 @@
     }
   }
 
-  // Определение статуса пользователя по lastSeen
   function getUserStatus(lastSeen) {
     if (!lastSeen) return { status: 'offline', text: 'не в сети' };
     
@@ -1492,7 +1494,6 @@
     }
   }
 
-  // Создание HTML для индикатора статуса
   function renderStatusIndicator(status) {
     const dotClass = status.status === 'online' ? 'online' : 'offline';
     const textClass = status.status === 'online' ? 'online' : 'offline';
@@ -1506,7 +1507,6 @@
 
   // ===== ФУНКЦИИ ДЛЯ ИНДИКАТОРА "ПЕЧАТАЕТ..." =====
   
-  // Обновление статуса "печатает" в чате
   async function updateTypingStatus(isTyping) {
     if (!currentChatId || !currentUser) return;
     try {
@@ -1524,7 +1524,6 @@
     }
   }
 
-  // Обработчик ввода текста в чате
   function setupTypingHandler() {
     const chatInput = document.getElementById('chatInput');
     if (!chatInput) return;
@@ -1555,7 +1554,7 @@
     const newTheme = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '';
   };
 
   // ===== НАВИГАЦИЯ ПО ВКЛАДКАМ =====
@@ -1574,7 +1573,7 @@
       stopLastSeenUpdater();
       document.getElementById('loginScreen').classList.remove('hidden');
       document.getElementById('appScreen').classList.add('hidden');
-      document.getElementById('authBtn').textContent = ' Войти';
+      document.getElementById('authBtn').textContent = '🔑 Войти';
       document.getElementById('authBtn').onclick = () => showEmailLogin();
       return;
     }
@@ -1608,7 +1607,7 @@
       
       if (user.isAnonymous) { 
         document.getElementById('anonWarning').classList.remove('hidden'); 
-        document.getElementById('authBtn').textContent = ' Выйти (аноним)'; 
+        document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; 
       } else { 
         document.getElementById('anonWarning').classList.add('hidden'); 
         document.getElementById('authBtn').textContent = '🚪 Выйти'; 
@@ -1626,7 +1625,6 @@
     }
   });
 
-  // Обработчики кнопок входа
   document.getElementById('loginBtnGoogle').onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
   document.getElementById('loginBtnEmail').onclick = () => showEmailLogin();
   document.getElementById('loginBtnAnon').onclick = async () => { 
@@ -1920,7 +1918,7 @@
     const isReplyOpen = openReplyInputs[replyKey];
     const replyToText = c.replyTo ? `<div class="comment-reply-to">↪ Ответ ${escapeHtml(c.replyTo.split('_')[0] || '')}</div>` : '';
     const isMyComment = currentUser && c.authorId === currentUser.uid;
-    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')"> Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">🗑️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')">➤</button></div>` : ''}</div>`;
+    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">🗑️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')"></button></div>` : ''}</div>`;
   }
 
   window.toggleCommentLike = async function(postId, authorName, timestamp) {
@@ -2324,7 +2322,7 @@
     isRecording = false; 
     clearInterval(recordingTimer);
     document.getElementById('recordingIndicator').classList.remove('active');
-    document.getElementById('recordBtn').textContent = '🎤';
+    document.getElementById('recordBtn').textContent = '';
     document.getElementById('recordBtn').classList.remove('btn-record');
     document.getElementById('chatInput').disabled = false;
   }
@@ -2335,7 +2333,7 @@
     clearInterval(recordingTimer); 
     audioChunks = [];
     document.getElementById('recordingIndicator').classList.remove('active');
-    document.getElementById('recordBtn').textContent = '';
+    document.getElementById('recordBtn').textContent = '🎤';
     document.getElementById('recordBtn').classList.remove('btn-record');
     document.getElementById('chatInput').disabled = false;
   };
@@ -2355,7 +2353,7 @@
     try {
       await setDoc(doc(db, 'chats', currentChatId), { 
         participants: [currentUser.uid, currentChatPartner.id], 
-        lastMessage: '🎤 Голосовое сообщение', 
+        lastMessage: ' Голосовое сообщение', 
         lastMessageTime: serverTimestamp(), 
         createdAt: serverTimestamp() 
       }, { merge: true });
@@ -2466,7 +2464,7 @@
       document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
       document.querySelectorAll('.voice-play-btn').forEach(b => b.textContent = '▶️');
       audio.play(); 
-      btn.textContent = '⏸️';
+      btn.textContent = '️';
       audio.onended = () => { btn.textContent = '▶️'; };
     } else { 
       audio.pause(); 
@@ -2786,10 +2784,7 @@
   const currentTrackArtistEl = document.getElementById('currentTrackArtist');
   const playlistContainer = document.getElementById('playlistContainer');
 
-  // ===== ПЛЕЙЛИСТ =====
-  // Чтобы добавить трек, просто добавь новую строку { name: '...', artist: '...', src: '...' },
-  // и загрузи соответствующий mp3 файл в репозиторий GitHub
-const playlist = [
+ const playlist = [
   { name: 'Lo Fi Hip Hop', artist: 'я хз кто автор', src: 'track1.mp3' },
   { name: 'Фоновая музыка для учёбы, работы и креатива', artist: 'я хз кто автор', src: 'track2.mp3' },
   { name: 'Музыка для кафе: Соло на саксафоне', artist: 'я хз кто автор', src: 'track3.mp3' },
@@ -2799,7 +2794,6 @@ const playlist = [
   let currentTrackIndex = 0;
   let isMusicPlaying = false;
 
-  // Инициализация плеера
   function initMusicPlayer() {
     renderPlaylist();
     loadTrack(0);
@@ -2814,7 +2808,6 @@ const playlist = [
     if (volumeSlider) volumeSlider.addEventListener('input', changeVolume);
   }
 
-  // Отображение плейлиста
   function renderPlaylist() {
     if (!playlistContainer) return;
     playlistContainer.innerHTML = '';
@@ -2833,7 +2826,6 @@ const playlist = [
     });
   }
 
-  // Загрузка трека
   function loadTrack(index) {
     if (!playlist[index]) return;
     
@@ -2855,7 +2847,6 @@ const playlist = [
     }
   }
 
-  // Переключение Play/Pause
   window.togglePlayPause = function() {
     if (isMusicPlaying) {
       audioPlayer.pause();
@@ -2864,7 +2855,7 @@ const playlist = [
       renderPlaylist();
     } else {
       audioPlayer.play().then(() => {
-        playPauseBtn.textContent = '️';
+        playPauseBtn.textContent = '⏸️';
         isMusicPlaying = true;
         renderPlaylist();
       }).catch(err => {
@@ -2874,7 +2865,6 @@ const playlist = [
     }
   };
 
-  // Следующий трек
   window.nextTrack = function() {
     if (playlist.length <= 1) {
       audioPlayer.currentTime = 0;
@@ -2886,7 +2876,6 @@ const playlist = [
     if (isMusicPlaying) audioPlayer.play();
   };
 
-  // Предыдущий трек
   window.previousTrack = function() {
     if (playlist.length <= 1) {
       audioPlayer.currentTime = 0;
@@ -2898,7 +2887,6 @@ const playlist = [
     if (isMusicPlaying) audioPlayer.play();
   };
 
-  // Когда трек закончился
   function handleTrackEnd() {
     if (playlist.length > 1) {
       nextTrack();
@@ -2908,7 +2896,6 @@ const playlist = [
     }
   }
 
-  // Обновление прогресса
   function updateProgress() {
     if (audioPlayer.duration && !isNaN(audioPlayer.duration)) {
       const progress = (audioPlayer.currentTime / audioPlayer.duration) * 100;
@@ -2921,7 +2908,6 @@ const playlist = [
     totalTimeEl.textContent = formatTime(audioPlayer.duration);
   }
 
-  // Перемотка
   function seek() {
     if (audioPlayer.duration) {
       const seekTime = (progressBar.value / 100) * audioPlayer.duration;
@@ -2929,12 +2915,10 @@ const playlist = [
     }
   }
 
-  // Громкость
   function changeVolume() {
     audioPlayer.volume = volumeSlider.value / 100;
   }
 
-  // Формат времени мм:сс
   function formatTime(seconds) {
     if (isNaN(seconds)) return '0:00';
     const mins = Math.floor(seconds / 60);
@@ -2942,7 +2926,6 @@ const playlist = [
     return `${mins}:${secs.toString().padStart(2, '0')}`;
   }
 
-  // Открытие/закрытие плеера
   document.getElementById('openMusicPlayerBtn').addEventListener('click', function() {
     document.getElementById('musicPlayer').classList.toggle('open');
   });
@@ -2951,7 +2934,6 @@ const playlist = [
     document.getElementById('musicPlayer').classList.remove('open');
   };
 
-  // Инициализация плеера
   initMusicPlayer();
 </script>
 </body>
