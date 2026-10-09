@@ -177,9 +177,61 @@
   }
   .chat-image { max-height: 250px; }
   
+  /* НОВОЕ: Галерея из нескольких фото */
+  .post-images-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 10px;
+    margin: 10px 0;
+  }
+  .post-images-gallery img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 15px;
+    cursor: pointer;
+  }
+  
   .image-preview {
     max-width: 200px; max-height: 150px; border-radius: 10px; margin: 10px 0;
     border: 2px solid var(--border-color);
+  }
+  
+  /* НОВОЕ: Превью нескольких фото */
+  .image-previews-container {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin: 10px 0;
+  }
+  .image-preview-item {
+    position: relative;
+    display: inline-block;
+  }
+  .image-preview-item img {
+    max-width: 150px;
+    max-height: 150px;
+    border-radius: 10px;
+    border: 2px solid var(--border-color);
+  }
+  .image-preview-remove {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background: #f33;
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .image-preview-remove:hover {
+    background: #d00;
   }
 
   @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
@@ -406,7 +458,6 @@
   }
   .message-action-btn:hover { background: rgba(0,0,0,0.1); }
   
-  /* ===== НОВОЕ: ЦИТАТА ПРИ ОТВЕТЕ ===== */
   .message-reply-quote {
     background: rgba(0,0,0,0.1);
     border-left: 3px solid #FF1493;
@@ -436,7 +487,6 @@
     opacity: 0.8;
   }
   
-  /* ===== НОВОЕ: ПАНЕЛЬ ОТВЕТА НАД ПОЛЕМ ВВОДА ===== */
   .reply-panel {
     display: none;
     background: var(--card-bg);
@@ -1147,7 +1197,7 @@
   </h1>
   <div class="header-buttons">
     <button id="themeBtn" class="btn btn-theme">🌙</button>
-    <button id="authBtn" class="btn btn-google"> Войти</button>
+    <button id="authBtn" class="btn btn-google">🔑 Войти</button>
   </div>
 </header>
 
@@ -1160,7 +1210,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;"> Войти по Email</button>
+      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
@@ -1175,7 +1225,7 @@
     <div id="storiesContainer" class="stories-container hidden"></div>
 
     <div class="nav-tabs">
-      <div class="nav-tab active" data-tab="feed">📰 Лента</div>
+      <div class="nav-tab active" data-tab="feed"> Лента</div>
       <div class="nav-tab" data-tab="chats">💬 Чаты<span id="unreadBadgeTab" class="unread-badge-tab hidden">0</span></div>
       <div class="nav-tab" data-tab="profile"> Профиль</div>
     </div>
@@ -1217,7 +1267,6 @@
           <button onclick="cancelRecording()" class="btn btn-small" style="background:#fff;color:#ff3b3b;margin-left:10px;">Отмена</button>
         </div>
         
-        <!-- НОВОЕ: Панель ответа на сообщение -->
         <div id="replyPanel" class="reply-panel">
           <div class="reply-panel-content">
             <div class="reply-panel-author" id="replyPanelAuthor"></div>
@@ -1227,8 +1276,8 @@
         </div>
         
         <div class="chat-input-row">
-          <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
-          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
+          <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*" multiple>
+          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото (макс. 3)">📷</button>
           <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;">🎤</button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
           <button onclick="sendMessage()" class="btn btn-primary">➤</button>
@@ -1239,10 +1288,10 @@
     <div id="feedTab">
       <div class="create-post">
         <textarea id="postText" placeholder="Что нового в Долине Смешариков?"></textarea>
-        <input type="file" id="postImageInput" accept="image/*" style="display: none;">
-        <img id="postImagePreview" class="image-preview" style="display: none;">
+        <input type="file" id="postImageInput" accept="image/*" style="display: none;" multiple>
+        <div id="postImagePreviews" class="image-previews-container"></div>
         <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary">📷 Фото</button>
+          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary">📷 Фото (макс. 3)</button>
           <button onclick="createPost()" class="btn btn-primary" style="flex: 1;">🚀 Опубликовать</button>
         </div>
       </div>
@@ -1359,12 +1408,12 @@
 
 <div id="musicPlayer" class="music-player">
   <div class="music-player-header">
-    <h3>🎵 Музыкальный плеер</h3>
+    <h3> Музыкальный плеер</h3>
     <button onclick="closeMusicPlayer()" class="btn btn-small" style="background:#eee;color:#333;">✕</button>
   </div>
   
   <div class="music-player-info">
-    <div class="music-player-cover"></div>
+    <div class="music-player-cover">🎶</div>
     <div class="music-player-track-info">
       <div id="currentTrackName" class="music-track-name">Выберите трек</div>
       <div id="currentTrackArtist" class="music-track-artist">—</div>
@@ -1430,8 +1479,8 @@
   let userData = null;
   let currentChatPartner = null;
   let currentChatId = null;
-  let postImageData = null;
-  let chatImageData = null;
+  let postImagesData = [];
+  let chatImagesData = [];
   let chatUnsubscribe = null;
   let viewingOtherProfile = false;
   let viewingProfileData = null;
@@ -1460,7 +1509,6 @@
   let typingData = {};
   let partnerTypingTimeout = null;
   
-  // НОВОЕ: Переменные для ответа на сообщение
   let replyingToMessage = null;
 
   function createAvatarFallback(name, size = 50) {
@@ -1512,7 +1560,7 @@
       button.textContent = '🙈'; 
     } else { 
       input.type = 'password'; 
-      button.textContent = '️'; 
+      button.textContent = '👁️'; 
     }
   };
 
@@ -1620,7 +1668,7 @@
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
@@ -1643,7 +1691,7 @@
       stopLastSeenUpdater();
       document.getElementById('loginScreen').classList.remove('hidden');
       document.getElementById('appScreen').classList.add('hidden');
-      document.getElementById('authBtn').textContent = '🔑 Войти';
+      document.getElementById('authBtn').textContent = ' Войти';
       document.getElementById('authBtn').onclick = () => showEmailLogin();
       return;
     }
@@ -1677,7 +1725,7 @@
       
       if (user.isAnonymous) { 
         document.getElementById('anonWarning').classList.remove('hidden'); 
-        document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; 
+        document.getElementById('authBtn').textContent = ' Выйти (аноним)'; 
       } else { 
         document.getElementById('anonWarning').classList.add('hidden'); 
         document.getElementById('authBtn').textContent = '🚪 Выйти'; 
@@ -1878,83 +1926,139 @@
     }
   };
 
+  // НОВОЕ: Обработка загрузки нескольких фото для поста (макс. 3)
   document.getElementById('postImageInput').addEventListener('change', function(e) {
-    const file = e.target.files[0]; 
-    if (!file) return;
-    if (file.size > 2 * 1024 * 1024) { alert('Файл слишком большой! Максимум 2 МБ.'); return; }
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const maxSize = 800;
-        let width = img.width, height = img.height;
-        if (width > height) { 
-          if (width > maxSize) { height *= maxSize / width; width = maxSize; } 
-        } else { 
-          if (height > maxSize) { width *= maxSize / height; height = maxSize; } 
-        }
-        canvas.width = width; 
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        postImageData = canvas.toDataURL('image/jpeg', 0.8);
-        const preview = document.getElementById('postImagePreview');
-        preview.src = postImageData; 
-        preview.style.display = 'block';
+    const files = Array.from(e.target.files);
+    
+    if (postImagesData.length + files.length > 3) {
+      alert('Можно загрузить максимум 3 фото!');
+      e.target.value = '';
+      return;
+    }
+    
+    let processedCount = 0;
+    files.forEach(file => {
+      if (file.size > 2 * 1024 * 1024) {
+        alert(`Файл ${file.name} слишком большой! Максимум 2 МБ.`);
+        processedCount++;
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxSize = 800;
+          let width = img.width, height = img.height;
+          if (width > height) { 
+            if (width > maxSize) { height *= maxSize / width; width = maxSize; } 
+          } else { 
+            if (height > maxSize) { width *= maxSize / height; height = maxSize; } 
+          }
+          canvas.width = width; 
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          const imageData = canvas.toDataURL('image/jpeg', 0.8);
+          postImagesData.push(imageData);
+          updatePostImagePreviews();
+        };
+        img.src = event.target.result;
       };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+      processedCount++;
+    });
   });
 
+  function updatePostImagePreviews() {
+    const container = document.getElementById('postImagePreviews');
+    container.innerHTML = '';
+    postImagesData.forEach((imgData, index) => {
+      const item = document.createElement('div');
+      item.className = 'image-preview-item';
+      item.innerHTML = `
+        <img src="${imgData}">
+        <button class="image-preview-remove" onclick="removePostImage(${index})">×</button>
+      `;
+      container.appendChild(item);
+    });
+  }
+
+  window.removePostImage = function(index) {
+    postImagesData.splice(index, 1);
+    updatePostImagePreviews();
+  };
+
+  // НОВОЕ: Обработка загрузки нескольких фото для чата (макс. 3)
   document.getElementById('chatImageInput').addEventListener('change', function(e) {
-    const file = e.target.files[0]; 
-    if (!file) return;
-    if (file.size > 2 * 1024 * 1024) { alert('Файл слишком большой! Максимум 2 МБ.'); return; }
-    const reader = new FileReader();
-    reader.onload = function(event) {
-      const img = new Image();
-      img.onload = function() {
-        const canvas = document.createElement('canvas');
-        const maxSize = 800;
-        let width = img.width, height = img.height;
-        if (width > height) { 
-          if (width > maxSize) { height *= maxSize / width; width = maxSize; } 
-        } else { 
-          if (height > maxSize) { width *= maxSize / height; height = maxSize; } 
-        }
-        canvas.width = width; 
-        canvas.height = height;
-        canvas.getContext('2d').drawImage(img, 0, 0, width, height);
-        chatImageData = canvas.toDataURL('image/jpeg', 0.8);
-        const preview = document.getElementById('chatImagePreview');
-        preview.src = chatImageData; 
-        preview.style.display = 'block';
+    const files = Array.from(e.target.files);
+    
+    if (chatImagesData.length + files.length > 3) {
+      alert('Можно загрузить максимум 3 фото!');
+      e.target.value = '';
+      return;
+    }
+    
+    files.forEach(file => {
+      if (file.size > 2 * 1024 * 1024) {
+        alert(`Файл ${file.name} слишком большой! Максимум 2 МБ.`);
+        return;
+      }
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          const maxSize = 800;
+          let width = img.width, height = img.height;
+          if (width > height) { 
+            if (width > maxSize) { height *= maxSize / width; width = maxSize; } 
+          } else { 
+            if (height > maxSize) { width *= maxSize / height; height = maxSize; } 
+          }
+          canvas.width = width; 
+          canvas.height = height;
+          canvas.getContext('2d').drawImage(img, 0, 0, width, height);
+          const imageData = canvas.toDataURL('image/jpeg', 0.8);
+          chatImagesData.push(imageData);
+          updateChatImagePreviews();
+        };
+        img.src = event.target.result;
       };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(file);
+      reader.readAsDataURL(file);
+    });
   });
+
+  function updateChatImagePreviews() {
+    const preview = document.getElementById('chatImagePreview');
+    if (chatImagesData.length > 0) {
+      preview.src = chatImagesData[0];
+      preview.style.display = 'block';
+    } else {
+      preview.style.display = 'none';
+    }
+  }
 
   window.createPost = async function() {
     const text = document.getElementById('postText').value.trim();
-    if (!text && !postImageData) return alert('Напиши что-нибудь или прикрепи фото!');
+    if (!text && postImagesData.length === 0) return alert('Напиши что-нибудь или прикрепи фото!');
     if (!userData) return alert('Подождите, загружается профиль...');
     document.getElementById('postText').value = '';
-    document.getElementById('postImagePreview').style.display = 'none';
+    
     const postData = { 
       authorId: currentUser.uid, 
       authorName: userData.name, 
       authorAvatar: userData.avatar, 
       text: text, 
+      images: postImagesData.length > 0 ? postImagesData : null,
       likes: [], 
       comments: [], 
       timestamp: serverTimestamp() 
     };
-    if (postImageData) { 
-      postData.image = postImageData; 
-      postImageData = null; 
-    }
+    
+    postImagesData = [];
+    updatePostImagePreviews();
+    document.getElementById('postImageInput').value = '';
+    
     try { await addDoc(collection(db, 'posts'), postData); } 
     catch (err) { alert('Ошибка при публикации: ' + err.message); }
   };
@@ -2060,7 +2164,20 @@
     const likeCount = post.likes ? post.likes.length : 0;
     const timeStr = post.timestamp ? new Date(post.timestamp.toDate()).toLocaleString('ru-RU', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : 'только что';
     const commentsHtml = renderComments(post.id, post.comments || []);
-    const imageHtml = post.image ? `<img src="${post.image}" class="post-image" onclick="openImageModal(this.src)">` : '';
+    
+    // НОВОЕ: Отображение галереи фото
+    let imagesHtml = '';
+    if (post.images && post.images.length > 0) {
+      if (post.images.length === 1) {
+        imagesHtml = `<img src="${post.images[0]}" class="post-image" onclick="openImageModal(this.src)">`;
+      } else {
+        imagesHtml = '<div class="post-images-gallery">';
+        post.images.forEach(img => {
+          imagesHtml += `<img src="${img}" onclick="openImageModal(this.src)">`;
+        });
+        imagesHtml += '</div>';
+      }
+    }
     
     const authorLastSeen = authorStatuses[post.authorId] || null;
     const authorStatus = getUserStatus(authorLastSeen);
@@ -2076,7 +2193,7 @@
         </div>
       </div>
       <div class="post-text">${escapeHtml(post.text)}</div>
-      ${imageHtml}
+      ${imagesHtml}
       <div class="post-actions">
         <button class="action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>
         <button class="action-btn" onclick="toggleComments('${post.id}')">💬 Комментарии (${post.comments ? post.comments.length : 0})</button>
@@ -2326,8 +2443,8 @@
     if (chatUnsubscribe) { chatUnsubscribe(); chatUnsubscribe = null; }
     currentChatPartner = null; 
     currentChatId = null; 
-    chatImageData = null;
-    document.getElementById('chatImagePreview').style.display = 'none';
+    chatImagesData = [];
+    updateChatImagePreviews();
     document.getElementById('chatImageInput').value = '';
     previousMessageIds.clear();
     if (isRecording) cancelRecording();
@@ -2361,7 +2478,7 @@
       isRecording = true; 
       recordingSeconds = 0;
       document.getElementById('recordingIndicator').classList.add('active');
-      document.getElementById('recordBtn').textContent = '⏹️';
+      document.getElementById('recordBtn').textContent = '️';
       document.getElementById('recordBtn').classList.add('btn-record');
       document.getElementById('chatInput').disabled = true;
       recordingTimer = setInterval(() => {
@@ -2440,7 +2557,6 @@
     return bars;
   }
 
-  // НОВОЕ: Функция для ответа на сообщение
   window.replyToMessage = function(messageId, senderName, messageText) {
     replyingToMessage = {
       id: messageId,
@@ -2448,16 +2564,13 @@
       text: messageText
     };
     
-    // Показываем панель ответа
     document.getElementById('replyPanelAuthor').textContent = senderName;
     document.getElementById('replyPanelText').textContent = messageText;
     document.getElementById('replyPanel').classList.add('active');
     
-    // Фокус на поле ввода
     document.getElementById('chatInput').focus();
   };
 
-  // НОВОЕ: Отмена ответа
   window.cancelReply = function() {
     replyingToMessage = null;
     document.getElementById('replyPanel').classList.remove('active');
@@ -2523,11 +2636,21 @@
           const duration = msg.duration || 0;
           contentHtml = `<div class="voice-message"><button class="voice-play-btn" onclick="playVoiceMessage(this, '${docSnap.id}')">▶️</button><div class="voice-wave">${generateWaveBars()}</div><div class="voice-duration">${formatDuration(duration)}</div></div><audio id="audio-${docSnap.id}" src="${msg.audio}" preload="none"></audio>`;
         } else {
-          const imageHtml = msg.image ? `<img src="${msg.image}" class="chat-image" onclick="openImageModal(this.src)">` : '';
-          contentHtml = `${imageHtml}${msg.text ? `<div class="message-text">${escapeHtml(msg.text)}</div>` : ''}`;
+          // НОВОЕ: Отображение нескольких фото в сообщении
+          if (msg.images && msg.images.length > 0) {
+            if (msg.images.length === 1) {
+              contentHtml += `<img src="${msg.images[0]}" class="chat-image" onclick="openImageModal(this.src)">`;
+            } else {
+              contentHtml += '<div class="post-images-gallery">';
+              msg.images.forEach(img => {
+                contentHtml += `<img src="${img}" onclick="openImageModal(this.src)">`;
+              });
+              contentHtml += '</div>';
+            }
+          }
+          contentHtml += msg.text ? `<div class="message-text">${escapeHtml(msg.text)}</div>` : '';
         }
         
-        // НОВОЕ: Отображение цитаты при ответе
         let replyHtml = '';
         if (msg.replyTo) {
           replyHtml = `
@@ -2541,7 +2664,6 @@
         const editedHtml = msg.edited ? '<span class="message-edited">(ред.)</span>' : '';
         const actionsHtml = isSent ? `<div class="message-actions">${msg.text ? `<button class="message-action-btn" onclick="openEditMessage('${docSnap.id}', '${escapeHtml(msg.text || '')}')" title="Редактировать">✏️</button>` : ''}<button class="message-action-btn" onclick="deleteMessage('${docSnap.id}')" title="Удалить">🗑️</button></div>` : '';
         
-        // НОВОЕ: Добавляем обработчики для ответа на сообщение
         const contextMenuHandler = `oncontextmenu="event.preventDefault(); replyToMessage('${docSnap.id}', '${escapeHtml(msg.senderName || '')}', '${escapeHtml(msg.text || '')}')" ontouchstart="handleTouchStart(event, '${docSnap.id}', '${escapeHtml(msg.senderName || '')}', '${escapeHtml(msg.text || '')}')"`;
         
         return `<div class="message-wrapper ${isSent ? 'sent' : 'received'}" ${contextMenuHandler}>${actionsHtml}<div class="message-bubble ${isSent ? 'sent' : 'received'}">${replyHtml}${contentHtml}<div class="message-time">${timeStr} ${editedHtml}</div></div></div>`;
@@ -2558,12 +2680,11 @@
     });
   }
 
-  // НОВОЕ: Обработчик долгого нажатия для мобильных
   let touchTimer;
   window.handleTouchStart = function(event, messageId, senderName, messageText) {
     touchTimer = setTimeout(() => {
       replyToMessage(messageId, senderName, messageText);
-    }, 500); // 500ms для долгого нажатия
+    }, 500);
   };
 
   window.addEventListener('touchend', function() {
@@ -2620,7 +2741,7 @@
   window.sendMessage = async function() {
     const input = document.getElementById('chatInput');
     const text = input.value.trim();
-    if (!text && !chatImageData) return;
+    if (!text && chatImagesData.length === 0) return;
     if (!currentChatId || !currentChatPartner) return;
     input.value = '';
     
@@ -2631,22 +2752,22 @@
       timestamp: serverTimestamp() 
     };
     
-    // НОВОЕ: Добавляем информацию об ответе
     if (replyingToMessage) {
       messageData.replyTo = {
         id: replyingToMessage.id,
         author: replyingToMessage.author,
         text: replyingToMessage.text
       };
-      cancelReply(); // Сбрасываем панель ответа
+      cancelReply();
     }
     
-    if (chatImageData) { 
-      messageData.image = chatImageData; 
-      chatImageData = null; 
-      document.getElementById('chatImagePreview').style.display = 'none'; 
-      document.getElementById('chatImageInput').value = ''; 
+    if (chatImagesData.length > 0) {
+      messageData.images = chatImagesData;
+      chatImagesData = [];
+      updateChatImagePreviews();
+      document.getElementById('chatImageInput').value = '';
     }
+    
     try { 
       await setDoc(doc(db, 'chats', currentChatId), { 
         participants: [currentUser.uid, currentChatPartner.id], 
@@ -2850,7 +2971,7 @@
     try { 
       await addDoc(collection(db, 'stories'), storyData); 
       closeCreateStoryModal(); 
-      alert('История опубликована! '); 
+      alert('История опубликована! 🎉'); 
     } catch (err) { alert('Ошибка: ' + err.message); }
   };
 
@@ -2897,7 +3018,6 @@
     return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); 
   }
 
-  // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР =====
   const audioPlayer = document.getElementById('audioPlayer');
   const playPauseBtn = document.getElementById('playPauseBtn');
   const progressBar = document.getElementById('progressBar');
