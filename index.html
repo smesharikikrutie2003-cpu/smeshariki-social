@@ -580,7 +580,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;"> Войти по Email</button>
+      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
@@ -607,8 +607,8 @@
         <div id="profileName" class="profile-name"></div>
         <div id="profileBio" class="profile-bio"></div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <button id="editProfileBtn" onclick="openEditModal()" class="btn btn-secondary edit-profile-btn">️ Редактировать</button>
-          <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">✉️ Написать</button>
+          <button id="editProfileBtn" onclick="openEditModal()" class="btn btn-secondary edit-profile-btn">✏️ Редактировать</button>
+          <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">️ Написать</button>
         </div>
       </div>
       <h3 class="profile-section-title" id="postsSectionTitle">Мои посты</h3>
@@ -631,7 +631,7 @@
           <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
           <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
-          <button onclick="sendMessage()" class="btn btn-primary"></button>
+          <button onclick="sendMessage()" class="btn btn-primary">➤</button>
         </div>
       </div>
     </div>
@@ -642,7 +642,7 @@
         <input type="file" id="postImageInput" accept="image/*" style="display: none;">
         <img id="postImagePreview" class="image-preview" style="display: none;">
         <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
-          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary">📷 Фото</button>
+          <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary"> Фото</button>
           <button onclick="createPost()" class="btn btn-primary" style="flex: 1;">🚀 Опубликовать</button>
         </div>
       </div>
@@ -654,7 +654,7 @@
 <!-- Модальное окно Email входа -->
 <div id="emailModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;"> Вход по Email</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
     <div id="emailStep1">
       <input type="email" id="emailInput" placeholder="your@email.com">
       <div class="password-wrapper">
@@ -696,7 +696,7 @@
 
 <div id="editMessageModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">️ Редактировать сообщение</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">✏️ Редактировать сообщение</h3>
     <textarea id="editMessageText" style="width:100%; min-height:100px; border:2px solid var(--border-color); border-radius:10px; padding:10px; font-family:inherit; font-size:14px; background:var(--input-bg); color:var(--text-color);"></textarea>
     <div style="display: flex; gap: 10px; margin-top: 15px;">
       <button onclick="closeEditMessageModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
@@ -809,17 +809,21 @@
   let storyViewerTimeout = null;
   let storyProgressInterval = null;
 
-  const smesharikiAvatars = [
-    { name: 'Крош', url: 'https://upload.wikimedia.org/wikipedia/ru/3/3e/Krosh.png' },
-    { name: 'Нюша', url: 'https://upload.wikimedia.org/wikipedia/ru/4/4e/Nyusha.png' },
-    { name: 'Ёжик', url: 'https://upload.wikimedia.org/wikipedia/ru/8/8e/Ezhik.png' },
-    { name: 'Бараш', url: 'https://upload.wikimedia.org/wikipedia/ru/5/5e/Barash.png' },
-    { name: 'Лосяш', url: 'https://upload.wikimedia.org/wikipedia/ru/6/6e/Losyash.png' },
-    { name: 'Копатыч', url: 'https://upload.wikimedia.org/wikipedia/ru/7/7e/Kopatych.png' },
-    { name: 'Пин', url: 'https://upload.wikimedia.org/wikipedia/ru/9/9e/Pin.png' },
-    { name: 'Совунья', url: 'https://upload.wikimedia.org/wikipedia/ru/a/ae/Sovunya.png' },
-    { name: 'Кар-Карыч', url: 'https://upload.wikimedia.org/wikipedia/ru/b/be/Kar-Karych.png' }
-  ];
+function makeAvatar(color, emoji) {
+  return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><circle cx="50" cy="50" r="48" fill="${color}" stroke="#fff" stroke-width="3"/><text x="50" y="62" font-size="50" text-anchor="middle">${emoji}</text></svg>`)}`;
+}
+
+const smesharikiAvatars = [
+  { name: 'Крош',      url: makeAvatar('#4FC3F7', '🐰') },
+  { name: 'Нюша',      url: makeAvatar('#F06292', '🐷') },
+  { name: 'Ёжик',      url: makeAvatar('#A1887F', '🦔') },
+  { name: 'Бараш',     url: makeAvatar('#BA68C8', '🐑') },
+  { name: 'Лосяш',     url: makeAvatar('#FFD54F', '🦌') },
+  { name: 'Копатыч',   url: makeAvatar('#FF8A65', '🐻') },
+  { name: 'Пин',       url: makeAvatar('#424242', '🐧') },
+  { name: 'Совунья',   url: makeAvatar('#AB47BC', '🦉') },
+  { name: 'Кар-Карыч', url: makeAvatar('#546E7A', '🐦‍⬛') }
+];
 
   function initAudio() {
     if (audioUnlocked) return;
@@ -896,7 +900,7 @@
     const newTheme = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '';
+    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   };
 
   const avatarPicker = document.getElementById('avatarPicker');
@@ -961,7 +965,7 @@
         document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)';
       } else {
         document.getElementById('anonWarning').classList.add('hidden');
-        document.getElementById('authBtn').textContent = ' Выйти';
+        document.getElementById('authBtn').textContent = '🚪 Выйти';
       }
       
       document.getElementById('authBtn').onclick = async () => {
@@ -1674,8 +1678,6 @@
   
   function loadStories() {
     const storiesContainer = document.getElementById('storiesContainer');
-    
-    // Загружаем все истории и фильтруем на клиенте (так надёжнее с serverTimestamp)
     const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
     
     onSnapshot(q, (snapshot) => {
@@ -1686,8 +1688,6 @@
       
       const now = Date.now();
       const twentyFourHours = 24 * 60 * 60 * 1000;
-      
-      // Фильтруем только актуальные истории (не старше 24 часов)
       const activeStories = [];
       snapshot.docs.forEach(doc => {
         const story = doc.data();
@@ -1707,20 +1707,15 @@
       storiesContainer.classList.remove('hidden');
       storiesContainer.innerHTML = '';
       
-      // Группируем истории по пользователям
       const storiesByUser = {};
       activeStories.forEach(story => {
         const userId = story.userId;
         if (!storiesByUser[userId]) {
-          storiesByUser[userId] = {
-            user: story,
-            stories: []
-          };
+          storiesByUser[userId] = { user: story, stories: [] };
         }
         storiesByUser[userId].stories.push(story);
       });
       
-      // Сначала добавляем свою историю (если есть)
       if (currentUser) {
         const myStories = storiesByUser[currentUser.uid];
         const hasMyStory = myStories && myStories.stories.length > 0;
@@ -1728,11 +1723,8 @@
         const addStoryItem = document.createElement('div');
         addStoryItem.className = 'story-item';
         addStoryItem.onclick = () => {
-          if (hasMyStory) {
-            viewStory(myStories.stories);
-          } else {
-            openCreateStoryModal();
-          }
+          if (hasMyStory) viewStory(myStories.stories);
+          else openCreateStoryModal();
         };
         addStoryItem.innerHTML = `
           <div class="story-avatar-wrapper">
@@ -1744,10 +1736,8 @@
         storiesContainer.appendChild(addStoryItem);
       }
       
-      // Добавляем истории других пользователей
       Object.values(storiesByUser).forEach(({ user, stories }) => {
         if (user.userId === currentUser?.uid) return;
-        
         const storyItem = document.createElement('div');
         storyItem.className = 'story-item';
         storyItem.onclick = () => viewStory(stories);
@@ -1781,10 +1771,7 @@
   document.getElementById('storyImageInput').addEventListener('change', function(e) {
     const file = e.target.files[0];
     if (!file) return;
-    if (file.size > 2 * 1024 * 1024) {
-      alert('Файл слишком большой! Максимум 2 МБ.');
-      return;
-    }
+    if (file.size > 2 * 1024 * 1024) { alert('Файл слишком большой! Максимум 2 МБ.'); return; }
     const reader = new FileReader();
     reader.onload = function(event) {
       const img = new Image();
@@ -1808,14 +1795,8 @@
 
   window.publishStory = async function() {
     const text = document.getElementById('storyTextInput').value.trim();
-    if (!storyImageData && !text) {
-      alert('Добавь фото или текст!');
-      return;
-    }
-    if (!userData) {
-      alert('Подожди, загружается профиль...');
-      return;
-    }
+    if (!storyImageData && !text) { alert('Добавь фото или текст!'); return; }
+    if (!userData) { alert('Подожди, загружается профиль...'); return; }
     const storyData = {
       userId: currentUser.uid,
       userName: userData.name,
@@ -1823,60 +1804,44 @@
       text: text,
       timestamp: serverTimestamp()
     };
-    if (storyImageData) {
-      storyData.image = storyImageData;
-    }
+    if (storyImageData) storyData.image = storyImageData;
     try {
       await addDoc(collection(db, 'stories'), storyData);
       closeCreateStoryModal();
       alert('История опубликована! 🎉');
-    } catch (err) {
-      alert('Ошибка: ' + err.message);
-    }
+    } catch (err) { alert('Ошибка: ' + err.message); }
   };
 
   window.viewStory = function(stories) {
     if (!stories || stories.length === 0) return;
     const story = stories[0];
-    
     document.getElementById('storyHeaderAvatar').src = story.userAvatar || '';
     document.getElementById('storyHeaderAvatar').dataset.name = story.userName || '';
     document.getElementById('storyHeaderName').textContent = story.userName || '';
-    
     const timeStr = story.timestamp ? new Date(story.timestamp.toDate()).toLocaleString('ru-RU', {hour:'2-digit', minute:'2-digit'}) : '';
     document.getElementById('storyHeaderTime').textContent = timeStr;
-    
     if (story.image) {
       document.getElementById('storyImage').src = story.image;
       document.getElementById('storyImage').style.display = 'block';
     } else {
       document.getElementById('storyImage').style.display = 'none';
     }
-    
     if (story.text) {
       document.getElementById('storyTextOverlay').textContent = story.text;
       document.getElementById('storyTextOverlay').style.display = 'block';
     } else {
       document.getElementById('storyTextOverlay').style.display = 'none';
     }
-    
     document.getElementById('storyViewer').classList.add('open');
-    
     let progress = 0;
     const progressBar = document.getElementById('storyProgressFill');
     progressBar.style.width = '0%';
-    
     storyProgressInterval = setInterval(() => {
       progress += 2;
       progressBar.style.width = progress + '%';
-      if (progress >= 100) {
-        closeStoryViewer();
-      }
+      if (progress >= 100) closeStoryViewer();
     }, 100);
-    
-    storyViewerTimeout = setTimeout(() => {
-      closeStoryViewer();
-    }, 5000);
+    storyViewerTimeout = setTimeout(() => closeStoryViewer(), 5000);
   };
 
   window.closeStoryViewer = function() {
