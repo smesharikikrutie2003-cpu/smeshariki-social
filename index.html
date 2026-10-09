@@ -6,11 +6,9 @@
 <title>Смешарики Social</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
-  /* ===== БАЗОВЫЕ СТИЛИ ===== */
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
   :root {
-    /* Дневной фон - луг с облаками */
     --bg-image: url('bg.jpg');
     --header-bg: linear-gradient(90deg, #FF6B9D, #FFA94D, #74C0FC, #A9E34B);
     --card-bg: rgba(255, 255, 255, 0.92);
@@ -27,7 +25,6 @@
   }
 
   [data-theme="dark"] {
-    /* Ночной фон - Смешарики под луной */
     --bg-image: url('bg-night.jpg');
     --header-bg: linear-gradient(90deg, #1a1a3e, #2d2d5e, #1a1a4e, #0f0f2e);
     --card-bg: rgba(30, 30, 60, 0.88);
@@ -50,7 +47,6 @@
     overflow-x: hidden;
   }
   
-  /* ===== ШАПКА САЙТА ===== */
   header {
     background: var(--header-bg);
     padding: 15px 20px;
@@ -72,7 +68,6 @@
   
   .header-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
   
-  /* ===== КНОПКИ ===== */
   .btn {
     padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer;
     font-weight: bold; font-family: inherit; font-size: 14px; transition: transform 0.2s;
@@ -102,7 +97,6 @@
 
   .container { max-width: 700px; margin: 20px auto; padding: 0 15px; }
 
-  /* ===== ЭКРАН ВХОДА ===== */
   .login-screen {
     text-align: center; 
     background: var(--card-bg); 
@@ -119,7 +113,6 @@
   .login-buttons { display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto; }
   .login-hint { font-size: 12px; color: var(--text-secondary); margin-top: 5px; }
 
-  /* ===== ВКЛАДКИ НАВИГАЦИИ ===== */
   .nav-tabs {
     display: flex; gap: 10px; margin-bottom: 20px; 
     background: rgba(255,255,255,0.3);
@@ -150,7 +143,6 @@
     border: 2px solid var(--card-bg);
   }
 
-  /* ===== КАРТОЧКА ПРОФИЛЯ ===== */
   .profile-card {
     background: var(--card-bg); border-radius: 25px; padding: 25px; text-align: center;
     box-shadow: 0 4px 15px var(--shadow); margin-bottom: 20px;
@@ -165,7 +157,6 @@
   .profile-bio { color: var(--text-secondary); font-style: italic; margin-bottom: 15px; }
   .edit-profile-btn { font-size: 12px; margin-top: 10px; }
 
-  /* ===== ОБЩИЕ СТИЛИ ДЛЯ КАРТОЧЕК ===== */
   .create-post, .post, .chat-list-item, .chat-window {
     background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px;
     box-shadow: 0 4px 15px var(--shadow);
@@ -191,7 +182,6 @@
     border: 2px solid var(--border-color);
   }
 
-  /* ===== АНИМАЦИИ ===== */
   @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
   
@@ -211,7 +201,6 @@
   .action-btn:hover { color: #FF1493; }
   .action-btn.liked { color: #FF1493; font-weight: bold; }
 
-  /* ===== КОММЕНТАРИИ ===== */
   .comments-section { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: none; }
   .comments-section.open { display: block; }
   
@@ -282,7 +271,6 @@
     outline: none; background: var(--input-bg); color: var(--text-color);
   }
 
-  /* ===== СПИСОК ЧАТОВ ===== */
   .chat-list { max-height: 500px; overflow-y: auto; }
   .chat-list-item {
     display: flex; align-items: center; gap: 12px; cursor: pointer;
@@ -311,7 +299,6 @@
     animation: pulse 1s ease-in-out;
   }
   
-  /* ===== СТАТУСЫ ПОЛЬЗОВАТЕЛЕЙ ===== */
   .status-indicator {
     display: inline-flex;
     align-items: center;
@@ -356,7 +343,6 @@
     animation: typing-dots 1.5s infinite;
   }
 
-  /* ===== ОКНО ЧАТА ===== */
   .chat-window { display: none; flex-direction: column; height: 500px; }
   .chat-window.active { display: flex; }
   .chat-header { 
@@ -420,7 +406,79 @@
   }
   .message-action-btn:hover { background: rgba(0,0,0,0.1); }
   
-  /* ===== ГОЛОСОВЫЕ СООБЩЕНИЯ ===== */
+  /* ===== НОВОЕ: ЦИТАТА ПРИ ОТВЕТЕ ===== */
+  .message-reply-quote {
+    background: rgba(0,0,0,0.1);
+    border-left: 3px solid #FF1493;
+    padding: 5px 10px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    font-size: 12px;
+  }
+  .message-bubble.sent .message-reply-quote {
+    background: rgba(255,255,255,0.2);
+    border-left-color: #fff;
+  }
+  .reply-quote-author {
+    font-weight: bold;
+    font-size: 11px;
+    color: #FF1493;
+    margin-bottom: 3px;
+  }
+  .message-bubble.sent .reply-quote-author {
+    color: #fff;
+  }
+  .reply-quote-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    opacity: 0.8;
+  }
+  
+  /* ===== НОВОЕ: ПАНЕЛЬ ОТВЕТА НАД ПОЛЕМ ВВОДА ===== */
+  .reply-panel {
+    display: none;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    padding: 10px 15px;
+    align-items: center;
+    gap: 10px;
+    backdrop-filter: blur(10px);
+  }
+  .reply-panel.active {
+    display: flex;
+  }
+  .reply-panel-content {
+    flex: 1;
+    border-left: 3px solid #FF1493;
+    padding-left: 10px;
+    overflow: hidden;
+  }
+  .reply-panel-author {
+    font-size: 12px;
+    font-weight: bold;
+    color: #FF1493;
+  }
+  .reply-panel-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .reply-panel-close {
+    background: none;
+    border: none;
+    font-size: 20px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    padding: 5px;
+  }
+  .reply-panel-close:hover {
+    color: #FF1493;
+  }
+  
   .voice-message {
     display: flex;
     align-items: center;
@@ -466,7 +524,6 @@
     transition: height 0.2s;
   }
   
-  /* ===== ИНДИКАТОР ЗАПИСИ ===== */
   .recording-indicator {
     display: none;
     align-items: center;
@@ -509,7 +566,6 @@
     display: none;
   }
 
-  /* ===== МОДАЛЬНЫЕ ОКНА ===== */
   .modal {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: var(--modal-bg); display: none; align-items: center; justify-content: center; z-index: 1000;
@@ -588,7 +644,6 @@
   }
   .toggle-password:hover { color: #FF1493; }
 
-  /* ===== ИСТОРИИ ===== */
   .stories-container {
     background: var(--card-bg);
     border-radius: 20px;
@@ -664,13 +719,19 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
     z-index: 3000;
     display: none;
     align-items: center;
     justify-content: center;
+    transition: all 0.3s ease;
   }
-  .story-viewer.open { display: flex; }
+
+  .story-viewer.open { 
+    display: flex; 
+  }
 
   .story-viewer-content {
     position: relative;
@@ -678,7 +739,21 @@
     max-width: 500px;
     height: 100%;
     max-height: 700px;
-    background: #000;
+    background: transparent;
+    border-radius: 20px;
+    overflow: hidden;
+  }
+
+  [data-theme="light"] .story-viewer {
+    background: rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+  }
+
+  [data-theme="dark"] .story-viewer {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
   }
 
   .story-progress-bar {
@@ -775,7 +850,6 @@
     margin: 10px 0;
   }
 
-  /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
   .music-player {
     position: fixed;
     bottom: 80px;
@@ -1028,7 +1102,6 @@
     color: var(--text-secondary);
   }
 
-  /* ===== АДАПТИВНОСТЬ ===== */
   @media (max-width: 600px) {
     header { padding: 10px 15px; }
     header h1 { font-size: 20px; }
@@ -1067,7 +1140,6 @@
 </head>
 <body>
 
-<!-- ===== ШАПКА С АНИМИРОВАННОЙ РОМАШКОЙ ===== -->
 <header>
   <h1>
     <img src="favicon.png" alt="Логотип" style="width: 35px; height: 35px; vertical-align: middle; margin-right: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
@@ -1075,7 +1147,7 @@
   </h1>
   <div class="header-buttons">
     <button id="themeBtn" class="btn btn-theme">🌙</button>
-    <button id="authBtn" class="btn btn-google">🔑 Войти</button>
+    <button id="authBtn" class="btn btn-google"> Войти</button>
   </div>
 </header>
 
@@ -1105,7 +1177,7 @@
     <div class="nav-tabs">
       <div class="nav-tab active" data-tab="feed">📰 Лента</div>
       <div class="nav-tab" data-tab="chats">💬 Чаты<span id="unreadBadgeTab" class="unread-badge-tab hidden">0</span></div>
-      <div class="nav-tab" data-tab="profile">👤 Профиль</div>
+      <div class="nav-tab" data-tab="profile"> Профиль</div>
     </div>
 
     <div id="profileTab" class="hidden">
@@ -1140,9 +1212,18 @@
         
         <div id="recordingIndicator" class="recording-indicator">
           <div class="recording-dot"></div>
-          <span>🎤 Запись голосового...</span>
+          <span> Запись голосового...</span>
           <span class="recording-timer" id="recordingTimer">0:00</span>
           <button onclick="cancelRecording()" class="btn btn-small" style="background:#fff;color:#ff3b3b;margin-left:10px;">Отмена</button>
+        </div>
+        
+        <!-- НОВОЕ: Панель ответа на сообщение -->
+        <div id="replyPanel" class="reply-panel">
+          <div class="reply-panel-content">
+            <div class="reply-panel-author" id="replyPanelAuthor"></div>
+            <div class="reply-panel-text" id="replyPanelText"></div>
+          </div>
+          <button class="reply-panel-close" onclick="cancelReply()">✕</button>
         </div>
         
         <div class="chat-input-row">
@@ -1170,10 +1251,9 @@
   </div>
 </div>
 
-<!-- Модальные окна -->
 <div id="emailModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;"> Вход по Email</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
     <div id="emailStep1">
       <input type="email" id="emailInput" placeholder="your@email.com">
       <div class="password-wrapper">
@@ -1204,7 +1284,7 @@
     </div>
     <div class="password-wrapper">
       <input type="password" id="regPasswordConfirm" placeholder="Повтори пароль">
-      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordConfirm', this)">️</button>
+      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordConfirm', this)">👁️</button>
     </div>
     <div style="display: flex; gap: 10px; margin-top: 15px;">
       <button onclick="closeRegisterModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
@@ -1277,7 +1357,6 @@
   <img id="modalImage" src="">
 </div>
 
-<!-- ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== -->
 <div id="musicPlayer" class="music-player">
   <div class="music-player-header">
     <h3>🎵 Музыкальный плеер</h3>
@@ -1285,7 +1364,7 @@
   </div>
   
   <div class="music-player-info">
-    <div class="music-player-cover">🎶</div>
+    <div class="music-player-cover"></div>
     <div class="music-player-track-info">
       <div id="currentTrackName" class="music-track-name">Выберите трек</div>
       <div id="currentTrackArtist" class="music-track-artist">—</div>
@@ -1322,7 +1401,6 @@
 <audio id="audioPlayer"></audio>
 
 <script type="module">
-  // ===== ИМПОРТ FIREBASE =====
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { 
     getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, 
@@ -1334,7 +1412,6 @@
     query, where, orderBy, serverTimestamp, deleteDoc, getDocs, writeBatch 
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-  // ===== КОНФИГУРАЦИЯ FIREBASE =====
   const firebaseConfig = {
     apiKey: "AIzaSyC8lTu5KGLu9mEF8X1efmnUo0fM4srTEU8",
     authDomain: "smeshariki-85f6c.firebaseapp.com",
@@ -1349,7 +1426,6 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
-  // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
   let currentUser = null;
   let userData = null;
   let currentChatPartner = null;
@@ -1383,9 +1459,10 @@
   let typingTimeout = null;
   let typingData = {};
   let partnerTypingTimeout = null;
-
-  // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
   
+  // НОВОЕ: Переменные для ответа на сообщение
+  let replyingToMessage = null;
+
   function createAvatarFallback(name, size = 50) {
     const letter = (name || '?').charAt(0).toUpperCase();
     const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B'];
@@ -1435,7 +1512,7 @@
       button.textContent = '🙈'; 
     } else { 
       input.type = 'password'; 
-      button.textContent = '👁️'; 
+      button.textContent = '️'; 
     }
   };
 
@@ -1452,8 +1529,6 @@
     });
   }
 
-  // ===== ФУНКЦИИ ДЛЯ СТАТУСОВ =====
-  
   async function updateLastSeen() {
     if (!currentUser) return;
     try {
@@ -1505,8 +1580,6 @@
     `;
   }
 
-  // ===== ФУНКЦИИ ДЛЯ ИНДИКАТОРА "ПЕЧАТАЕТ..." =====
-  
   async function updateTypingStatus(isTyping) {
     if (!currentChatId || !currentUser) return;
     try {
@@ -1544,25 +1617,22 @@
     });
   }
 
-  // ===== ТЕМА ОФОРМЛЕНИЯ =====
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '️' : '🌙';
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '';
+    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   };
 
-  // ===== НАВИГАЦИЯ ПО ВКЛАДКАМ =====
   document.querySelectorAll('.nav-tab').forEach(tab => { 
     tab.addEventListener('click', () => switchTab(tab.dataset.tab)); 
   });
 
-  // ===== АВТОРИЗАЦИЯ =====
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
       currentUser = null; 
@@ -1632,7 +1702,6 @@
     catch (error) { alert('Ошибка анонимного входа: ' + error.message); } 
   };
 
-  // ===== МОДАЛЬНЫЕ ОКНА ВХОДА/РЕГИСТРАЦИИ =====
   window.showEmailLogin = function() { 
     document.getElementById('emailModal').classList.add('open'); 
     document.getElementById('emailStep1').style.display = 'block'; 
@@ -1718,7 +1787,6 @@
     } catch (error) { alert('Ошибка проверки: ' + error.message); }
   };
 
-  // ===== ПРОФИЛЬ =====
   function updateProfileUI() {
     const avatarImg = document.getElementById('profileAvatar');
     const editBtn = document.getElementById('editProfileBtn');
@@ -1810,7 +1878,6 @@
     }
   };
 
-  // ===== ЗАГРУЗКА ИЗОБРАЖЕНИЙ =====
   document.getElementById('postImageInput').addEventListener('change', function(e) {
     const file = e.target.files[0]; 
     if (!file) return;
@@ -1869,7 +1936,6 @@
     reader.readAsDataURL(file);
   });
 
-  // ===== СОЗДАНИЕ ПОСТА =====
   window.createPost = async function() {
     const text = document.getElementById('postText').value.trim();
     if (!text && !postImageData) return alert('Напиши что-нибудь или прикрепи фото!');
@@ -1893,7 +1959,6 @@
     catch (err) { alert('Ошибка при публикации: ' + err.message); }
   };
 
-  // ===== КОММЕНТАРИИ =====
   function renderComments(postId, comments) {
     if (!comments || comments.length === 0) return '';
     const topLevel = comments.filter(c => !c.replyTo);
@@ -1918,7 +1983,7 @@
     const isReplyOpen = openReplyInputs[replyKey];
     const replyToText = c.replyTo ? `<div class="comment-reply-to">↪ Ответ ${escapeHtml(c.replyTo.split('_')[0] || '')}</div>` : '';
     const isMyComment = currentUser && c.authorId === currentUser.uid;
-    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">🗑️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')"></button></div>` : ''}</div>`;
+    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">🗑️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')">➤</button></div>` : ''}</div>`;
   }
 
   window.toggleCommentLike = async function(postId, authorName, timestamp) {
@@ -1990,7 +2055,6 @@
     delete openReplyInputs[replyKey];
   };
 
-  // ===== РЕНДЕРИНГ ПОСТА СО СТАТУСОМ АВТОРА =====
   function renderPost(post, isMyPost = false, authorStatuses = {}) {
     const isLiked = post.likes && post.likes.includes(currentUser.uid);
     const likeCount = post.likes ? post.likes.length : 0;
@@ -2037,7 +2101,6 @@
     }
   });
 
-  // ===== ЗАГРУЗКА ЛЕНТЫ С ЗАГРУЗКОЙ СТАТУСОВ АВТОРОВ =====
   function loadFeed() {
     const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
     onSnapshot(q, async (snapshot) => {
@@ -2070,7 +2133,6 @@
     });
   }
 
-  // ===== ЗАГРУЗКА МОИХ ПОСТОВ =====
   function loadMyPosts() {
     if (!currentUser) return;
     const q = query(collection(db, 'posts'), where('authorId', '==', currentUser.uid), orderBy('timestamp', 'desc'));
@@ -2132,7 +2194,6 @@
     if (confirm('Удалить этот пост?')) await deleteDoc(doc(db, 'posts', postId)); 
   };
 
-  // ===== ЧАТЫ =====
   function getChatId(uid1, uid2) { return [uid1, uid2].sort().join('_'); }
 
   function updateUnreadBadge() {
@@ -2275,7 +2336,6 @@
     if (currentUser) loadChats();
   };
 
-  // ===== ГОЛОСОВЫЕ СООБЩЕНИЯ =====
   window.toggleRecording = async function() { 
     if (isRecording) stopRecording(); 
     else startRecording(); 
@@ -2322,7 +2382,7 @@
     isRecording = false; 
     clearInterval(recordingTimer);
     document.getElementById('recordingIndicator').classList.remove('active');
-    document.getElementById('recordBtn').textContent = '';
+    document.getElementById('recordBtn').textContent = '🎤';
     document.getElementById('recordBtn').classList.remove('btn-record');
     document.getElementById('chatInput').disabled = false;
   }
@@ -2353,7 +2413,7 @@
     try {
       await setDoc(doc(db, 'chats', currentChatId), { 
         participants: [currentUser.uid, currentChatPartner.id], 
-        lastMessage: ' Голосовое сообщение', 
+        lastMessage: '🎤 Голосовое сообщение', 
         lastMessageTime: serverTimestamp(), 
         createdAt: serverTimestamp() 
       }, { merge: true });
@@ -2379,6 +2439,31 @@
     }
     return bars;
   }
+
+  // НОВОЕ: Функция для ответа на сообщение
+  window.replyToMessage = function(messageId, senderName, messageText) {
+    replyingToMessage = {
+      id: messageId,
+      author: senderName,
+      text: messageText
+    };
+    
+    // Показываем панель ответа
+    document.getElementById('replyPanelAuthor').textContent = senderName;
+    document.getElementById('replyPanelText').textContent = messageText;
+    document.getElementById('replyPanel').classList.add('active');
+    
+    // Фокус на поле ввода
+    document.getElementById('chatInput').focus();
+  };
+
+  // НОВОЕ: Отмена ответа
+  window.cancelReply = function() {
+    replyingToMessage = null;
+    document.getElementById('replyPanel').classList.remove('active');
+    document.getElementById('replyPanelAuthor').textContent = '';
+    document.getElementById('replyPanelText').textContent = '';
+  };
 
   function loadChatMessages() {
     if (!currentChatId) return;
@@ -2441,9 +2526,25 @@
           const imageHtml = msg.image ? `<img src="${msg.image}" class="chat-image" onclick="openImageModal(this.src)">` : '';
           contentHtml = `${imageHtml}${msg.text ? `<div class="message-text">${escapeHtml(msg.text)}</div>` : ''}`;
         }
+        
+        // НОВОЕ: Отображение цитаты при ответе
+        let replyHtml = '';
+        if (msg.replyTo) {
+          replyHtml = `
+            <div class="message-reply-quote">
+              <div class="reply-quote-author">↪ Ответ ${escapeHtml(msg.replyTo.author || '')}</div>
+              <div class="reply-quote-text">${escapeHtml(msg.replyTo.text || '')}</div>
+            </div>
+          `;
+        }
+        
         const editedHtml = msg.edited ? '<span class="message-edited">(ред.)</span>' : '';
         const actionsHtml = isSent ? `<div class="message-actions">${msg.text ? `<button class="message-action-btn" onclick="openEditMessage('${docSnap.id}', '${escapeHtml(msg.text || '')}')" title="Редактировать">✏️</button>` : ''}<button class="message-action-btn" onclick="deleteMessage('${docSnap.id}')" title="Удалить">🗑️</button></div>` : '';
-        return `<div class="message-wrapper ${isSent ? 'sent' : 'received'}">${actionsHtml}<div class="message-bubble ${isSent ? 'sent' : 'received'}">${contentHtml}<div class="message-time">${timeStr} ${editedHtml}</div></div></div>`;
+        
+        // НОВОЕ: Добавляем обработчики для ответа на сообщение
+        const contextMenuHandler = `oncontextmenu="event.preventDefault(); replyToMessage('${docSnap.id}', '${escapeHtml(msg.senderName || '')}', '${escapeHtml(msg.text || '')}')" ontouchstart="handleTouchStart(event, '${docSnap.id}', '${escapeHtml(msg.senderName || '')}', '${escapeHtml(msg.text || '')}')"`;
+        
+        return `<div class="message-wrapper ${isSent ? 'sent' : 'received'}" ${contextMenuHandler}>${actionsHtml}<div class="message-bubble ${isSent ? 'sent' : 'received'}">${replyHtml}${contentHtml}<div class="message-time">${timeStr} ${editedHtml}</div></div></div>`;
       }).join('');
       container.scrollTop = container.scrollHeight;
       if (currentUser && currentChatId) { 
@@ -2456,6 +2557,18 @@
       document.getElementById('chatMessages').innerHTML = '<div style="text-align:center; color:#f33; padding:20px;">Ошибка загрузки сообщений.</div>'; 
     });
   }
+
+  // НОВОЕ: Обработчик долгого нажатия для мобильных
+  let touchTimer;
+  window.handleTouchStart = function(event, messageId, senderName, messageText) {
+    touchTimer = setTimeout(() => {
+      replyToMessage(messageId, senderName, messageText);
+    }, 500); // 500ms для долгого нажатия
+  };
+
+  window.addEventListener('touchend', function() {
+    clearTimeout(touchTimer);
+  });
 
   window.playVoiceMessage = function(btn, messageId) {
     const audio = document.getElementById(`audio-${messageId}`);
@@ -2510,12 +2623,24 @@
     if (!text && !chatImageData) return;
     if (!currentChatId || !currentChatPartner) return;
     input.value = '';
+    
     const messageData = { 
       senderId: currentUser.uid, 
       senderName: userData.name, 
       text: text, 
       timestamp: serverTimestamp() 
     };
+    
+    // НОВОЕ: Добавляем информацию об ответе
+    if (replyingToMessage) {
+      messageData.replyTo = {
+        id: replyingToMessage.id,
+        author: replyingToMessage.author,
+        text: replyingToMessage.text
+      };
+      cancelReply(); // Сбрасываем панель ответа
+    }
+    
     if (chatImageData) { 
       messageData.image = chatImageData; 
       chatImageData = null; 
@@ -2622,7 +2747,6 @@
     document.getElementById('imageModal').classList.add('open'); 
   };
 
-  // ===== ИСТОРИИ =====
   function loadStories() {
     const storiesContainer = document.getElementById('storiesContainer');
     const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
@@ -2784,12 +2908,12 @@
   const currentTrackArtistEl = document.getElementById('currentTrackArtist');
   const playlistContainer = document.getElementById('playlistContainer');
 
- const playlist = [
-  { name: 'Lo Fi Hip Hop', artist: 'я хз кто автор', src: 'track1.mp3' },
-  { name: 'Фоновая музыка для учёбы, работы и креатива', artist: 'я хз кто автор', src: 'track2.mp3' },
-  { name: 'Музыка для кафе: Соло на саксафоне', artist: 'я хз кто автор', src: 'track3.mp3' },
-  { name: 'A Fresh Start in the City', artist: 'я хз кто автор', src: 'track4.mp3' }
-];
+  const playlist = [
+    { name: 'Lo Fi Hip Hop', artist: 'Неизвестный автор', src: 'track1.mp3' },
+    { name: 'Фоновая музыка для учёбы', artist: 'Неизвестный автор', src: 'track2.mp3' },
+    { name: 'Соло на саксофоне', artist: 'Неизвестный автор', src: 'track3.mp3' },
+    { name: 'A Fresh Start in the City', artist: 'Неизвестный автор', src: 'track4.mp3' }
+  ];
 
   let currentTrackIndex = 0;
   let isMusicPlaying = false;
