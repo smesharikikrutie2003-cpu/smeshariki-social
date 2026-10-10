@@ -2216,7 +2216,7 @@
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '️☀️' : '🌙';
   
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
@@ -2276,7 +2276,7 @@
       
       if (user.isAnonymous) { 
         document.getElementById('anonWarning').classList.remove('hidden'); 
-        document.getElementById('authBtn').textContent = ' Выйти (аноним)'; 
+        document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; 
       } else { 
         document.getElementById('anonWarning').classList.add('hidden'); 
         document.getElementById('authBtn').textContent = '🚪 Выйти'; 
@@ -3517,10 +3517,10 @@
     // ===== ПЛЕЙЛИСТ: Смешарики OST =====
   // Музыка к мультсериалу «Смешарики» написана композиторами Мариной Ландой и Сергеем Васильевым
   const playlist = [
-    { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki1.mp3' },
-    { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki2.mp3' },
-    { name: 'Винтики', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki3.mp3' },
-    { name: 'Коллекция', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki4.mp3' },
+    { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (OST Причастность)', src: 'smeshariki1.mp3' },
+    { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (OST Фотограф)', src: 'smeshariki2.mp3' },
+    { name: 'Винтики', artist: 'Марина Ланда и Сергей Васильев (OST Винтики)', src: 'smeshariki3.mp3' },
+    { name: 'Коллекция', artist: 'Марина Ланда и Сергей Васильев (OST Коллекция)', src: 'smeshariki4.mp3' },
     { name: 'Китай', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki5.mp3' },
     { name: 'Финал', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki6.mp3' },
     { name: 'Бараш в одуванчиках', artist: 'Марина Ланда и Сергей Васильев (OST Подарок судьбы)', src: 'smeshariki7.mp3' },
