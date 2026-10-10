@@ -6,9 +6,15 @@
 <title>Смешарики Social</title>
 <link rel="icon" type="image/png" href="favicon.png">
 <style>
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+  /* ===== БАЗОВЫЕ СТИЛИ ===== */
+  * { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+  }
   
   :root {
+    /* Цвета для светлой темы */
     --bg-image: url('bg.jpg');
     --header-bg: linear-gradient(90deg, #FF6B9D, #FFA94D, #74C0FC, #A9E34B);
     --card-bg: rgba(255, 255, 255, 0.92);
@@ -25,6 +31,7 @@
   }
 
   [data-theme="dark"] {
+    /* Цвета для тёмной темы */
     --bg-image: url('bg-night.jpg');
     --header-bg: linear-gradient(90deg, #1a1a3e, #2d2d5e, #1a1a4e, #0f0f2e);
     --card-bg: rgba(30, 30, 60, 0.88);
@@ -37,6 +44,7 @@
     --modal-bg: rgba(0,0,0,0.85);
   }
 
+  /* ===== ОСНОВНЫЕ СТИЛИ СТРАНИЦЫ ===== */
   body {
     font-family: 'Comic Sans MS', 'Arial Rounded MT Bold', sans-serif;
     background: var(--bg-image) no-repeat center center fixed;
@@ -47,6 +55,7 @@
     overflow-x: hidden;
   }
   
+  /* ===== ШАПКА САЙТА ===== */
   header {
     background: var(--header-bg);
     padding: 15px 20px;
@@ -58,6 +67,7 @@
     gap: 10px;
     transition: all 0.5s ease;
   }
+  
   header h1 { 
     font-size: 28px; 
     color: #fff; 
@@ -66,37 +76,109 @@
     align-items: center;
   }
   
-  .header-buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+  .header-buttons { 
+    display: flex; 
+    gap: 10px; 
+    flex-wrap: wrap; 
+  }
   
+  /* ===== СТИЛИ КНОПОК ===== */
   .btn {
-    padding: 10px 20px; border: none; border-radius: 20px; cursor: pointer;
-    font-weight: bold; font-family: inherit; font-size: 14px; transition: transform 0.2s;
+    padding: 10px 20px; 
+    border: none; 
+    border-radius: 20px; 
+    cursor: pointer;
+    font-weight: bold; 
+    font-family: inherit; 
+    font-size: 14px; 
+    transition: transform 0.2s;
     position: relative;
     z-index: 10;
   }
-  .btn:hover { transform: scale(1.05); }
-  .btn:active { transform: scale(0.95); }
-  .btn-google { background: #fff; color: #333; display: flex; align-items: center; gap: 8px; }
-  .btn-email { background: #74C0FC; color: #fff; display: flex; align-items: center; gap: 8px; }
-  .btn-anon { background: #A9E34B; color: #fff; display: flex; align-items: center; gap: 8px; }
-  .btn-primary { background: #FF1493; color: #fff; }
-  .btn-secondary { background: #74C0FC; color: #fff; }
-  .btn-theme { background: rgba(255,255,255,0.3); color: #fff; font-size: 18px; padding: 8px 15px; }
-  .btn-small { padding: 5px 10px; font-size: 12px; }
-  .btn-danger { background: #f33; color: #fff; }
+  
+  .btn:hover { 
+    transform: scale(1.05); 
+  }
+  
+  .btn:active { 
+    transform: scale(0.95); 
+  }
+  
+  .btn-google { 
+    background: #fff; 
+    color: #333; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+  }
+  
+  .btn-email { 
+    background: #74C0FC; 
+    color: #fff; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+  }
+  
+  .btn-anon { 
+    background: #A9E34B; 
+    color: #fff; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+  }
+  
+  .btn-primary { 
+    background: #FF1493; 
+    color: #fff; 
+  }
+  
+  .btn-secondary { 
+    background: #74C0FC; 
+    color: #fff; 
+  }
+  
+  .btn-theme { 
+    background: rgba(255,255,255,0.3); 
+    color: #fff; 
+    font-size: 18px; 
+    padding: 8px 15px; 
+  }
+  
+  .btn-small { 
+    padding: 5px 10px; 
+    font-size: 12px; 
+  }
+  
+  .btn-danger { 
+    background: #f33; 
+    color: #fff; 
+  }
   
   .btn-record { 
     background: #ff3b3b !important; 
     color: #fff !important;
     animation: pulse-record 1s infinite;
   }
+  
   @keyframes pulse-record {
-    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,59,59,0.7); }
-    50% { transform: scale(1.1); box-shadow: 0 0 0 10px rgba(255,59,59,0); }
+    0%, 100% { 
+      transform: scale(1); 
+      box-shadow: 0 0 0 0 rgba(255,59,59,0.7); 
+    }
+    50% { 
+      transform: scale(1.1); 
+      box-shadow: 0 0 0 10px rgba(255,59,59,0); 
+    }
   }
 
-  .container { max-width: 700px; margin: 20px auto; padding: 0 15px; }
+  .container { 
+    max-width: 700px; 
+    margin: 20px auto; 
+    padding: 0 15px; 
+  }
 
+  /* ===== ЭКРАН ВХОДА ===== */
   .login-screen {
     text-align: center; 
     background: var(--card-bg); 
@@ -109,9 +191,26 @@
     backdrop-filter: blur(10px);
     transition: all 0.5s ease;
   }
-  .login-screen h2 { color: #FF1493; margin-bottom: 20px; font-size: 24px; }
-  .login-buttons { display: flex; flex-direction: column; gap: 15px; max-width: 300px; margin: 0 auto; }
-  .login-hint { font-size: 12px; color: var(--text-secondary); margin-top: 5px; }
+  
+  .login-screen h2 { 
+    color: #FF1493; 
+    margin-bottom: 20px; 
+    font-size: 24px; 
+  }
+  
+  .login-buttons { 
+    display: flex; 
+    flex-direction: column; 
+    gap: 15px; 
+    max-width: 300px; 
+    margin: 0 auto; 
+  }
+  
+  .login-hint { 
+    font-size: 12px; 
+    color: var(--text-secondary); 
+    margin-top: 5px; 
+  }
   
   /* ===== ДИСКЛЕЙМЕР ===== */
   .disclaimer {
@@ -127,24 +226,42 @@
     margin-left: auto;
     margin-right: auto;
   }
-  .disclaimer strong {
-    color: var(--text-color);
+  
+  .disclaimer strong { 
+    color: var(--text-color); 
   }
 
+  /* ===== ВКЛАДКИ НАВИГАЦИИ ===== */
   .nav-tabs {
-    display: flex; gap: 10px; margin-bottom: 20px; 
+    display: flex; 
+    gap: 10px; 
+    margin-bottom: 20px; 
     background: rgba(255,255,255,0.3);
-    padding: 10px; border-radius: 20px;
+    padding: 10px; 
+    border-radius: 20px;
     backdrop-filter: blur(10px);
   }
+  
   .nav-tab {
-    flex: 1; padding: 12px; text-align: center; background: var(--card-bg); border-radius: 15px;
-    cursor: pointer; font-weight: bold; color: var(--text-color); border: 2px solid transparent;
+    flex: 1; 
+    padding: 12px; 
+    text-align: center; 
+    background: var(--card-bg); 
+    border-radius: 15px;
+    cursor: pointer; 
+    font-weight: bold; 
+    color: var(--text-color); 
+    border: 2px solid transparent;
     font-size: 14px;
     position: relative;
     transition: all 0.3s ease;
   }
-  .nav-tab.active { background: #FF1493; color: #fff; border-color: #FF1493; }
+  
+  .nav-tab.active { 
+    background: #FF1493; 
+    color: #fff; 
+    border-color: #FF1493; 
+  }
   
   .unread-badge-tab {
     position: absolute;
@@ -161,66 +278,193 @@
     border: 2px solid var(--card-bg);
   }
 
+  /* ===== КАРТОЧКА ПРОФИЛЯ ===== */
   .profile-card {
-    background: var(--card-bg); border-radius: 25px; padding: 25px; text-align: center;
-    box-shadow: 0 4px 15px var(--shadow); margin-bottom: 20px;
+    background: var(--card-bg); 
+    border-radius: 25px; 
+    padding: 25px; 
+    text-align: center;
+    box-shadow: 0 4px 15px var(--shadow); 
+    margin-bottom: 20px;
     backdrop-filter: blur(10px);
     transition: all 0.5s ease;
   }
+  
   .profile-avatar {
-    width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--border-color);
-    object-fit: cover; margin-bottom: 15px; background: #f0f0f0;
+    width: 100px; 
+    height: 100px; 
+    border-radius: 50%; 
+    border: 4px solid var(--border-color);
+    object-fit: cover; 
+    margin-bottom: 15px; 
+    background: #f0f0f0;
   }
-  .profile-name { font-size: 24px; color: #FF1493; margin-bottom: 5px; }
-  .profile-bio { color: var(--text-secondary); font-style: italic; margin-bottom: 15px; }
-  .edit-profile-btn { font-size: 12px; margin-top: 10px; }
+  
+  .profile-name { 
+    font-size: 24px; 
+    color: #FF1493; 
+    margin-bottom: 5px; 
+  }
+  
+  .profile-bio { 
+    color: var(--text-secondary); 
+    font-style: italic; 
+    margin-bottom: 15px; 
+  }
+  
+  .edit-profile-btn { 
+    font-size: 12px; 
+    margin-top: 10px; 
+  }
 
+  /* ===== ОБЩИЕ СТИЛИ ДЛЯ КАРТОЧЕК ===== */
   .create-post, .post, .chat-list-item, .chat-window {
-    background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px;
+    background: var(--card-bg); 
+    border-radius: 20px; 
+    padding: 20px; 
+    margin-bottom: 15px;
     box-shadow: 0 4px 15px var(--shadow);
     backdrop-filter: blur(10px);
     transition: all 0.5s ease;
   }
-  .create-post textarea, .create-post input[type="text"], .modal-content input[type="email"], .modal-content input[type="password"], .modal-content input[type="text"] {
-    width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px;
-    font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; 
-    outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px;
+  
+  .create-post textarea, 
+  .create-post input[type="text"], 
+  .modal-content input[type="email"], 
+  .modal-content input[type="password"], 
+  .modal-content input[type="text"] {
+    width: 100%; 
+    border: 2px solid var(--border-color); 
+    border-radius: 15px; 
+    padding: 12px;
+    font-family: inherit; 
+    resize: vertical; 
+    min-height: 80px; 
+    margin-bottom: 10px; 
+    outline: none; 
+    background: var(--input-bg); 
+    color: var(--text-color); 
+    font-size: 14px;
     transition: all 0.3s ease;
   }
-  .create-post textarea:focus, .modal-content input:focus { border-color: #FF1493; outline: none; }
+  
+  .create-post textarea:focus, 
+  .modal-content input:focus { 
+    border-color: #FF1493; 
+    outline: none; 
+  }
   
   .post-image, .chat-image {
-    width: 100%; max-height: 400px; object-fit: cover; border-radius: 15px;
-    margin: 10px 0; cursor: pointer;
+    width: 100%; 
+    max-height: 400px; 
+    object-fit: cover; 
+    border-radius: 15px;
+    margin: 10px 0; 
+    cursor: pointer;
   }
-  .chat-image { max-height: 250px; }
+  
+  .chat-image { 
+    max-height: 250px; 
+  }
   
   .image-preview {
-    max-width: 200px; max-height: 150px; border-radius: 10px; margin: 10px 0;
+    max-width: 200px; 
+    max-height: 150px; 
+    border-radius: 10px; 
+    margin: 10px 0;
     border: 2px solid var(--border-color);
   }
 
-  @keyframes slideIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-  @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-  
-  .post { animation: slideIn 0.3s ease-out; }
-  .post-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
-  .post-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border-color); cursor: pointer; background: #f0f0f0; }
-  .post-author { font-weight: bold; color: #FF1493; cursor: pointer; }
-  .post-time { font-size: 12px; color: var(--text-secondary); }
-  .post-text { line-height: 1.5; margin-bottom: 15px; white-space: pre-wrap; }
-  
-  .post-actions { display: flex; gap: 15px; border-top: 1px solid var(--border-color); padding-top: 12px; flex-wrap: wrap; }
-  .action-btn {
-    background: none; border: none; cursor: pointer; color: var(--text-secondary); 
-    font-family: inherit; font-size: 14px;
-    display: flex; align-items: center; gap: 5px; transition: color 0.2s;
+  /* ===== АНИМАЦИИ ===== */
+  @keyframes slideIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
   }
-  .action-btn:hover { color: #FF1493; }
-  .action-btn.liked { color: #FF1493; font-weight: bold; }
+  
+  @keyframes pulse { 
+    0%, 100% { transform: scale(1); } 
+    50% { transform: scale(1.1); } 
+  }
+  
+  .post { 
+    animation: slideIn 0.3s ease-out; 
+  }
+  
+  .post-header { 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    margin-bottom: 12px; 
+  }
+  
+  .post-avatar { 
+    width: 45px; 
+    height: 45px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 2px solid var(--border-color); 
+    cursor: pointer; 
+    background: #f0f0f0; 
+  }
+  
+  .post-author { 
+    font-weight: bold; 
+    color: #FF1493; 
+    cursor: pointer; 
+  }
+  
+  .post-time { 
+    font-size: 12px; 
+    color: var(--text-secondary); 
+  }
+  
+  .post-text { 
+    line-height: 1.5; 
+    margin-bottom: 15px; 
+    white-space: pre-wrap; 
+  }
+  
+  .post-actions { 
+    display: flex; 
+    gap: 15px; 
+    border-top: 1px solid var(--border-color); 
+    padding-top: 12px; 
+    flex-wrap: wrap; 
+  }
+  
+  .action-btn {
+    background: none; 
+    border: none; 
+    cursor: pointer; 
+    color: var(--text-secondary); 
+    font-family: inherit; 
+    font-size: 14px;
+    display: flex; 
+    align-items: center; 
+    gap: 5px; 
+    transition: color 0.2s;
+  }
+  
+  .action-btn:hover { 
+    color: #FF1493; 
+  }
+  
+  .action-btn.liked { 
+    color: #FF1493; 
+    font-weight: bold; 
+  }
 
-  .comments-section { margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border-color); display: none; }
-  .comments-section.open { display: block; }
+  /* ===== КОММЕНТАРИИ ===== */
+  .comments-section { 
+    margin-top: 12px; 
+    padding-top: 12px; 
+    border-top: 1px dashed var(--border-color); 
+    display: none; 
+  }
+  
+  .comments-section.open { 
+    display: block; 
+  }
   
   .comment { 
     background: var(--comment-bg); 
@@ -231,14 +475,30 @@
     position: relative;
     transition: all 0.3s ease;
   }
+  
   .comment-reply {
     margin-left: 25px;
     border-left: 3px solid var(--border-color);
     padding-left: 10px;
   }
-  .comment-author { font-weight: bold; color: #74C0FC; font-size: 12px; }
-  .comment-reply-to { color: #FF1493; font-size: 11px; font-weight: bold; }
-  .comment-text { margin: 4px 0; word-break: break-word; }
+  
+  .comment-author { 
+    font-weight: bold; 
+    color: #74C0FC; 
+    font-size: 12px; 
+  }
+  
+  .comment-reply-to { 
+    color: #FF1493; 
+    font-size: 11px; 
+    font-weight: bold; 
+  }
+  
+  .comment-text { 
+    margin: 4px 0; 
+    word-break: break-word; 
+  }
+  
   .comment-actions {
     display: flex;
     gap: 10px;
@@ -246,6 +506,7 @@
     font-size: 11px;
     flex-wrap: wrap;
   }
+  
   .comment-action-btn {
     background: none;
     border: none;
@@ -257,10 +518,24 @@
     border-radius: 10px;
     transition: all 0.2s;
   }
-  .comment-action-btn:hover { background: rgba(255,20,147,0.1); color: #FF1493; }
-  .comment-action-btn.liked { color: #FF1493; font-weight: bold; }
-  .comment-action-btn.delete-btn { color: #f33; }
-  .comment-action-btn.delete-btn:hover { background: rgba(255,50,50,0.1); }
+  
+  .comment-action-btn:hover { 
+    background: rgba(255,20,147,0.1); 
+    color: #FF1493; 
+  }
+  
+  .comment-action-btn.liked { 
+    color: #FF1493; 
+    font-weight: bold; 
+  }
+  
+  .comment-action-btn.delete-btn { 
+    color: #f33; 
+  }
+  
+  .comment-action-btn.delete-btn:hover { 
+    background: rgba(255,50,50,0.1); 
+  }
   
   .reply-input-row {
     display: flex;
@@ -272,6 +547,7 @@
     border-radius: 10px;
     border: 1px solid var(--border-color);
   }
+  
   .reply-input-row input {
     flex: 1;
     border: 1px solid var(--border-color);
@@ -283,27 +559,68 @@
     font-size: 13px;
   }
   
-  .comment-input-row { display: flex; gap: 8px; margin-top: 10px; }
+  .comment-input-row { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 10px; 
+  }
+  
   .comment-input-row input {
-    flex: 1; border: 1px solid var(--border-color); border-radius: 15px; padding: 8px 12px; 
-    outline: none; background: var(--input-bg); color: var(--text-color);
+    flex: 1; 
+    border: 1px solid var(--border-color); 
+    border-radius: 15px; 
+    padding: 8px 12px; 
+    outline: none; 
+    background: var(--input-bg); 
+    color: var(--text-color);
   }
 
-  .chat-list { max-height: 500px; overflow-y: auto; }
+  /* ===== СПИСОК ЧАТОВ ===== */
+  .chat-list { 
+    max-height: 500px; 
+    overflow-y: auto; 
+  }
+  
   .chat-list-item {
-    display: flex; align-items: center; gap: 12px; cursor: pointer;
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+    cursor: pointer;
     transition: background 0.2s;
     padding: 10px;
     position: relative;
   }
-  .chat-list-item:hover { background: rgba(255,20,147,0.1); }
-  .chat-avatar { 
-    width: 50px; height: 50px; border-radius: 50%; object-fit: cover;
-    border: 2px solid var(--border-color); background: #f0f0f0;
+  
+  .chat-list-item:hover { 
+    background: rgba(255,20,147,0.1); 
   }
-  .chat-info { flex: 1; min-width: 0; }
-  .chat-name { font-weight: bold; color: #FF1493; }
-  .chat-last-msg { font-size: 12px; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  
+  .chat-avatar { 
+    width: 50px; 
+    height: 50px; 
+    border-radius: 50%; 
+    object-fit: cover;
+    border: 2px solid var(--border-color); 
+    background: #f0f0f0;
+  }
+  
+  .chat-info { 
+    flex: 1; 
+    min-width: 0; 
+  }
+  
+  .chat-name { 
+    font-weight: bold; 
+    color: #FF1493; 
+  }
+  
+  .chat-last-msg { 
+    font-size: 12px; 
+    color: var(--text-secondary); 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+  }
   
   .unread-badge-chat {
     background: #ff3b3b;
@@ -317,6 +634,7 @@
     animation: pulse 1s ease-in-out;
   }
   
+  /* ===== СТАТУСЫ ПОЛЬЗОВАТЕЛЕЙ ===== */
   .status-indicator {
     display: inline-flex;
     align-items: center;
@@ -324,26 +642,32 @@
     font-size: 11px;
     margin-top: 2px;
   }
+  
   .status-dot {
     width: 8px;
     height: 8px;
     border-radius: 50%;
     display: inline-block;
   }
+  
   .status-dot.online {
     background: var(--online-color);
     box-shadow: 0 0 5px var(--online-color);
   }
+  
   .status-dot.offline {
     background: var(--offline-color);
   }
+  
   .status-text.online {
     color: var(--online-color);
     font-weight: bold;
   }
+  
   .status-text.offline {
     color: var(--offline-color);
   }
+  
   .status-text.typing {
     color: var(--typing-color);
     font-weight: bold;
@@ -355,52 +679,112 @@
     50% { opacity: 1; }
     100% { opacity: 0; }
   }
+  
   .typing-dots::after {
     content: '...';
     display: inline-block;
     animation: typing-dots 1.5s infinite;
   }
 
-  .chat-window { display: none; flex-direction: column; height: 500px; }
-  .chat-window.active { display: flex; }
+  /* ===== ОКНО ЧАТА ===== */
+  .chat-window { 
+    display: none; 
+    flex-direction: column; 
+    height: 500px; 
+  }
+  
+  .chat-window.active { 
+    display: flex; 
+  }
+  
   .chat-header { 
-    display: flex; align-items: center; gap: 10px; padding-bottom: 10px; 
-    border-bottom: 2px solid var(--border-color); margin-bottom: 10px;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    padding-bottom: 10px; 
+    border-bottom: 2px solid var(--border-color); 
+    margin-bottom: 10px;
   }
+  
   .chat-header-info {
-    display: flex; align-items: center; gap: 10px; cursor: pointer;
-    transition: opacity 0.2s; padding: 5px 10px; border-radius: 20px;
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    cursor: pointer;
+    transition: opacity 0.2s; 
+    padding: 5px 10px; 
+    border-radius: 20px;
   }
-  .chat-header-info:hover { background: rgba(255,20,147,0.1); }
+  
+  .chat-header-info:hover { 
+    background: rgba(255,20,147,0.1); 
+  }
+  
   .chat-header-status {
     font-size: 12px;
     margin-top: 2px;
   }
-  .chat-messages { flex: 1; overflow-y: auto; padding: 10px; display: flex; flex-direction: column; }
+  
+  .chat-messages { 
+    flex: 1; 
+    overflow-y: auto; 
+    padding: 10px; 
+    display: flex; 
+    flex-direction: column; 
+  }
+  
   .message-wrapper {
     display: flex;
     flex-direction: column;
     margin: 5px 0;
     position: relative;
   }
-  .message-wrapper.sent { align-items: flex-end; }
-  .message-wrapper.received { align-items: flex-start; }
+  
+  .message-wrapper.sent { 
+    align-items: flex-end; 
+  }
+  
+  .message-wrapper.received { 
+    align-items: flex-start; 
+  }
+  
   .message-bubble {
-    max-width: 75%; padding: 10px 15px; border-radius: 15px;
+    max-width: 75%; 
+    padding: 10px 15px; 
+    border-radius: 15px;
     word-wrap: break-word;
     position: relative;
   }
+  
   .message-bubble.sent { 
-    background: #FF1493; color: #fff; 
+    background: #FF1493; 
+    color: #fff; 
     border-bottom-right-radius: 5px;
   }
+  
   .message-bubble.received { 
-    background: var(--comment-bg); color: var(--text-color);
+    background: var(--comment-bg); 
+    color: var(--text-color);
     border-bottom-left-radius: 5px;
   }
-  .message-text { white-space: pre-wrap; word-break: break-word; }
-  .message-edited { font-size: 10px; opacity: 0.7; font-style: italic; }
-  .message-time { font-size: 10px; opacity: 0.7; margin-top: 5px; }
+  
+  .message-text { 
+    white-space: pre-wrap; 
+    word-break: break-word; 
+  }
+  
+  .message-edited { 
+    font-size: 10px; 
+    opacity: 0.7; 
+    font-style: italic; 
+  }
+  
+  .message-time { 
+    font-size: 10px; 
+    opacity: 0.7; 
+    margin-top: 5px; 
+  }
+  
   .message-actions {
     display: none;
     position: absolute;
@@ -412,7 +796,12 @@
     box-shadow: 0 2px 8px var(--shadow);
     z-index: 10;
   }
-  .message-wrapper:hover .message-actions { display: flex; gap: 3px; }
+  
+  .message-wrapper:hover .message-actions { 
+    display: flex; 
+    gap: 3px; 
+  }
+  
   .message-action-btn {
     background: none;
     border: none;
@@ -422,8 +811,12 @@
     border-radius: 5px;
     transition: background 0.2s;
   }
-  .message-action-btn:hover { background: rgba(0,0,0,0.1); }
   
+  .message-action-btn:hover { 
+    background: rgba(0,0,0,0.1); 
+  }
+  
+  /* ===== ЦИТАТА ПРИ ОТВЕТЕ ===== */
   .message-reply-quote {
     background: rgba(0,0,0,0.1);
     border-left: 3px solid #FF1493;
@@ -432,19 +825,23 @@
     border-radius: 5px;
     font-size: 12px;
   }
+  
   .message-bubble.sent .message-reply-quote {
     background: rgba(255,255,255,0.2);
     border-left-color: #fff;
   }
+  
   .reply-quote-author {
     font-weight: bold;
     font-size: 11px;
     color: #FF1493;
     margin-bottom: 3px;
   }
+  
   .message-bubble.sent .reply-quote-author {
     color: #fff;
   }
+  
   .reply-quote-text {
     white-space: nowrap;
     overflow: hidden;
@@ -453,6 +850,7 @@
     opacity: 0.8;
   }
   
+  /* ===== ПАНЕЛЬ ОТВЕТА ===== */
   .reply-panel {
     display: none;
     background: var(--card-bg);
@@ -462,20 +860,24 @@
     gap: 10px;
     backdrop-filter: blur(10px);
   }
+  
   .reply-panel.active {
     display: flex;
   }
+  
   .reply-panel-content {
     flex: 1;
     border-left: 3px solid #FF1493;
     padding-left: 10px;
     overflow: hidden;
   }
+  
   .reply-panel-author {
     font-size: 12px;
     font-weight: bold;
     color: #FF1493;
   }
+  
   .reply-panel-text {
     font-size: 12px;
     color: var(--text-secondary);
@@ -483,6 +885,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  
   .reply-panel-close {
     background: none;
     border: none;
@@ -491,10 +894,12 @@
     color: var(--text-secondary);
     padding: 5px;
   }
+  
   .reply-panel-close:hover {
     color: #FF1493;
   }
   
+  /* ===== ГОЛОСОВЫЕ СООБЩЕНИЯ ===== */
   .voice-message {
     display: flex;
     align-items: center;
@@ -502,6 +907,7 @@
     min-width: 200px;
     padding: 5px;
   }
+  
   .voice-play-btn {
     width: 40px;
     height: 40px;
@@ -517,14 +923,26 @@
     flex-shrink: 0;
     transition: all 0.2s;
   }
-  .voice-play-btn:hover { background: rgba(255,255,255,0.5); transform: scale(1.1); }
-  .message-bubble.received .voice-play-btn { background: rgba(0,0,0,0.1); }
-  .message-bubble.received .voice-play-btn:hover { background: rgba(0,0,0,0.2); }
+  
+  .voice-play-btn:hover { 
+    background: rgba(255,255,255,0.5); 
+    transform: scale(1.1); 
+  }
+  
+  .message-bubble.received .voice-play-btn { 
+    background: rgba(0,0,0,0.1); 
+  }
+  
+  .message-bubble.received .voice-play-btn:hover { 
+    background: rgba(0,0,0,0.2); 
+  }
+  
   .voice-duration {
     font-size: 12px;
     opacity: 0.9;
     font-weight: bold;
   }
+  
   .voice-wave {
     flex: 1;
     height: 30px;
@@ -532,6 +950,7 @@
     align-items: center;
     gap: 2px;
   }
+  
   .voice-wave-bar {
     width: 3px;
     background: currentColor;
@@ -540,6 +959,7 @@
     transition: height 0.2s;
   }
   
+  /* ===== ИНДИКАТОР ЗАПИСИ ===== */
   .recording-indicator {
     display: none;
     align-items: center;
@@ -553,7 +973,11 @@
     font-weight: bold;
     box-shadow: 0 4px 15px rgba(255,59,59,0.3);
   }
-  .recording-indicator.active { display: flex; }
+  
+  .recording-indicator.active { 
+    display: flex; 
+  }
+  
   .recording-dot {
     width: 12px;
     height: 12px;
@@ -561,18 +985,34 @@
     border-radius: 50%;
     animation: pulse-record 1s infinite;
   }
+  
   .recording-timer {
     font-size: 16px;
     font-weight: bold;
     margin-left: auto;
   }
   
-  .chat-input-row { display: flex; gap: 8px; margin-top: 10px; align-items: center; }
-  .chat-input-row input[type="text"] {
-    flex: 1; border: 2px solid var(--border-color); border-radius: 15px; padding: 10px;
-    outline: none; background: var(--input-bg); color: var(--text-color);
+  .chat-input-row { 
+    display: flex; 
+    gap: 8px; 
+    margin-top: 10px; 
+    align-items: center; 
   }
-  .chat-image-input { display: none; }
+  
+  .chat-input-row input[type="text"] {
+    flex: 1; 
+    border: 2px solid var(--border-color); 
+    border-radius: 15px; 
+    padding: 10px;
+    outline: none; 
+    background: var(--input-bg); 
+    color: var(--text-color);
+  }
+  
+  .chat-image-input { 
+    display: none; 
+  }
+  
   .chat-image-preview {
     max-width: 150px;
     max-height: 100px;
@@ -582,46 +1022,106 @@
     display: none;
   }
 
+  /* ===== МОДАЛЬНЫЕ ОКНА ===== */
   .modal {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: var(--modal-bg); display: none; align-items: center; justify-content: center; z-index: 1000;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: var(--modal-bg); 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 1000;
     padding: 20px;
   }
-  .modal.open { display: flex; }
+  
+  .modal.open { 
+    display: flex; 
+  }
+  
   .modal-content {
-    background: var(--card-bg); padding: 25px; border-radius: 25px;
-    width: 100%; max-width: 400px; text-align: center;
-    max-height: 90vh; overflow-y: auto;
+    background: var(--card-bg); 
+    padding: 25px; 
+    border-radius: 25px;
+    width: 100%; 
+    max-width: 400px; 
+    text-align: center;
+    max-height: 90vh; 
+    overflow-y: auto;
     backdrop-filter: blur(15px);
     transition: all 0.5s ease;
   }
+  
   .modal-content input {
-    width: 100%; padding: 12px; margin: 10px 0;
-    border: 2px solid var(--border-color); border-radius: 10px; 
-    font-family: inherit; background: var(--input-bg); color: var(--text-color);
+    width: 100%; 
+    padding: 12px; 
+    margin: 10px 0;
+    border: 2px solid var(--border-color); 
+    border-radius: 10px; 
+    font-family: inherit; 
+    background: var(--input-bg); 
+    color: var(--text-color);
     font-size: 16px;
   }
-  .modal-content input:focus { border-color: #FF1493; outline: none; }
-  .avatar-preview-box {
-    width: 80px; height: 80px; border-radius: 50%; object-fit: cover; 
-    margin: 10px auto; border: 3px solid var(--border-color); display: none;
+  
+  .modal-content input:focus { 
+    border-color: #FF1493; 
+    outline: none; 
   }
-  .hidden { display: none !important; }
+  
+  .avatar-preview-box {
+    width: 80px; 
+    height: 80px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    margin: 10px auto; 
+    border: 3px solid var(--border-color); 
+    display: none;
+  }
+  
+  .hidden { 
+    display: none !important; 
+  }
   
   .image-modal {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000;
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    background: rgba(0,0,0,0.9); 
+    display: none; 
+    align-items: center; 
+    justify-content: center; 
+    z-index: 2000;
   }
-  .image-modal.open { display: flex; }
-  .image-modal img { max-width: 90%; max-height: 90%; object-fit: contain; }
+  
+  .image-modal.open { 
+    display: flex; 
+  }
+  
+  .image-modal img { 
+    max-width: 90%; 
+    max-height: 90%; 
+    object-fit: contain; 
+  }
 
   .avatar-fallback {
-    display: flex; align-items: center; justify-content: center;
-    font-size: 24px; font-weight: bold; color: #fff;
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    font-size: 24px; 
+    font-weight: bold; 
+    color: #fff;
     background: linear-gradient(135deg, #FF6B9D, #FFA94D);
   }
   
-  .profile-section-title { margin-bottom: 15px; color: #FF1493; }
+  .profile-section-title { 
+    margin-bottom: 15px; 
+    color: #FF1493; 
+  }
 
   .anon-warning {
     background: rgba(255, 243, 205, 0.95);
@@ -639,11 +1139,13 @@
     width: 100%;
     margin: 10px 0;
   }
+  
   .password-wrapper input {
     width: 100%;
     padding-right: 45px !important;
     min-height: auto !important;
   }
+  
   .toggle-password {
     position: absolute;
     right: 10px;
@@ -658,8 +1160,12 @@
     transition: color 0.2s;
     z-index: 10;
   }
-  .toggle-password:hover { color: #FF1493; }
+  
+  .toggle-password:hover { 
+    color: #FF1493; 
+  }
 
+  /* ===== ИСТОРИИ ===== */
   .stories-container {
     background: var(--card-bg);
     border-radius: 20px;
@@ -673,7 +1179,10 @@
     backdrop-filter: blur(10px);
     transition: all 0.5s ease;
   }
-  .stories-container::-webkit-scrollbar { display: none; }
+  
+  .stories-container::-webkit-scrollbar { 
+    display: none; 
+  }
 
   .story-item {
     display: flex;
@@ -729,6 +1238,7 @@
     border: 2px solid var(--card-bg);
   }
 
+  /* ===== ПРОСМОТР ИСТОРИЙ С РАЗМЫТИЕМ ===== */
   .story-viewer {
     position: fixed;
     top: 0;
@@ -782,6 +1292,7 @@
     border-radius: 2px;
     z-index: 10;
   }
+  
   .story-progress-fill {
     height: 100%;
     background: #fff;
@@ -799,21 +1310,25 @@
     gap: 10px;
     z-index: 10;
   }
+  
   .story-header-avatar {
     width: 40px;
     height: 40px;
     border-radius: 50%;
     object-fit: cover;
   }
+  
   .story-header-name {
     color: #fff;
     font-weight: bold;
     font-size: 14px;
   }
+  
   .story-header-time {
     color: rgba(255,255,255,0.7);
     font-size: 12px;
   }
+  
   .story-close-btn {
     margin-left: auto;
     background: none;
@@ -829,6 +1344,7 @@
     height: 100%;
     object-fit: contain;
   }
+  
   .story-text-overlay {
     position: absolute;
     bottom: 50px;
@@ -846,6 +1362,7 @@
   .create-story-modal .modal-content {
     max-width: 500px;
   }
+  
   .story-text-input {
     width: 100%;
     min-height: 150px;
@@ -859,6 +1376,7 @@
     resize: vertical;
     margin: 15px 0;
   }
+  
   .story-preview-image {
     max-width: 100%;
     max-height: 300px;
@@ -866,6 +1384,7 @@
     margin: 10px 0;
   }
 
+  /* ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== */
   .music-player {
     position: fixed;
     bottom: 80px;
@@ -1135,6 +1654,7 @@
     animation: faviconGlow 2s ease-in-out infinite;
   }
 
+  /* ===== АДАПТИВНОСТЬ ===== */
   @media (max-width: 600px) {
     header { padding: 10px 15px; }
     header h1 { font-size: 20px; }
@@ -1174,18 +1694,20 @@
 </head>
 <body>
 
+<!-- ===== ШАПКА САЙТА ===== -->
 <header>
   <h1>
     <img src="favicon.png" alt="Логотип" class="favicon-glow" style="width: 35px; height: 35px; vertical-align: middle; margin-right: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
     Смешарики Social
   </h1>
   <div class="header-buttons">
-    <button id="themeBtn" class="btn btn-theme">🌙</button>
+    <button id="themeBtn" class="btn btn-theme"></button>
     <button id="authBtn" class="btn btn-google">🔑 Войти</button>
   </div>
 </header>
 
 <div class="container">
+  <!-- ===== ЭКРАН ВХОДА ===== -->
   <div id="loginScreen" class="login-screen">
     <h2>Добро пожаловать в Долину!</h2>
     <p style="margin-bottom: 20px; color: var(--text-secondary);">Войди, чтобы создать свой профиль, писать посты и общаться.</p>
@@ -1194,7 +1716,7 @@
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
+      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;"> Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
@@ -1205,6 +1727,7 @@
     </div>
   </div>
 
+  <!-- ===== ОСНОВНОЙ ЭКРАН ПРИЛОЖЕНИЯ ===== -->
   <div id="appScreen" class="hidden">
     <div id="anonWarning" class="anon-warning hidden">
       ⚠️ Ты вошёл анонимно. Все функции доступны, но если ты выйдешь, твой профиль и посты не сохранятся. 
@@ -1219,6 +1742,7 @@
       <div class="nav-tab" data-tab="profile"> Профиль</div>
     </div>
 
+    <!-- ВКЛАДКА ПРОФИЛЯ -->
     <div id="profileTab" class="hidden">
       <div class="profile-card">
         <img id="profileAvatar" src="" class="profile-avatar" alt="Avatar">
@@ -1233,6 +1757,7 @@
       <div id="myPosts"></div>
     </div>
 
+    <!-- ВКЛАДКА ЧАТОВ -->
     <div id="chatsTab" class="hidden">
       <div id="chatList" class="chat-list"></div>
       <div id="chatWindow" class="chat-window">
@@ -1251,7 +1776,7 @@
         
         <div id="recordingIndicator" class="recording-indicator">
           <div class="recording-dot"></div>
-          <span>🎤 Запись голосового...</span>
+          <span> Запись голосового...</span>
           <span class="recording-timer" id="recordingTimer">0:00</span>
           <button onclick="cancelRecording()" class="btn btn-small" style="background:#fff;color:#ff3b3b;margin-left:10px;">Отмена</button>
         </div>
@@ -1267,13 +1792,14 @@
         <div class="chat-input-row">
           <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
           <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
-          <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;"></button>
+          <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;">🎤</button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
           <button onclick="sendMessage()" class="btn btn-primary">➤</button>
         </div>
       </div>
     </div>
 
+    <!-- ВКЛАДКА ЛЕНТЫ -->
     <div id="feedTab">
       <div class="create-post">
         <textarea id="postText" placeholder="Что нового в Долине Смешариков?"></textarea>
@@ -1289,6 +1815,7 @@
   </div>
 </div>
 
+<!-- ===== МОДАЛЬНЫЕ ОКНА ===== -->
 <div id="emailModal" class="modal">
   <div class="modal-content">
     <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
@@ -1314,7 +1841,7 @@
 
 <div id="registerModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Регистрация</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;"> Регистрация</h3>
     <input type="email" id="regEmailInput" placeholder="your@email.com">
     <div class="password-wrapper">
       <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
@@ -1333,7 +1860,7 @@
 
 <div id="editMessageModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">✏️ Редактировать сообщение</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">️ Редактировать сообщение</h3>
     <textarea id="editMessageText" style="width:100%; min-height:100px; border:2px solid var(--border-color); border-radius:10px; padding:10px; font-family:inherit; font-size:14px; background:var(--input-bg); color:var(--text-color);"></textarea>
     <div style="display: flex; gap: 10px; margin-top: 15px;">
       <button onclick="closeEditMessageModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
@@ -1395,6 +1922,7 @@
   <img id="modalImage" src="">
 </div>
 
+<!-- ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР ===== -->
 <div id="musicPlayer" class="music-player">
   <div class="music-player-header">
     <h3>🎵 Музыкальный плеер</h3>
@@ -1402,7 +1930,7 @@
   </div>
   
   <div class="music-player-info">
-    <div class="music-player-cover"></div>
+    <div class="music-player-cover">🎶</div>
     <div class="music-player-track-info">
       <div id="currentTrackName" class="music-track-name">Выберите трек</div>
       <div id="currentTrackArtist" class="music-track-artist">—</div>
@@ -1416,7 +1944,7 @@
   </div>
   
   <div class="music-player-controls">
-    <button onclick="previousTrack()" class="music-control-btn">⏮️</button>
+    <button onclick="previousTrack()" class="music-control-btn">️</button>
     <button id="playPauseBtn" onclick="togglePlayPause()" class="music-control-btn music-play-btn">▶️</button>
     <button onclick="nextTrack()" class="music-control-btn">⏭️</button>
   </div>
@@ -1439,6 +1967,7 @@
 <audio id="audioPlayer"></audio>
 
 <script type="module">
+  // ===== ИМПОРТ FIREBASE =====
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
   import { 
     getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, 
@@ -1450,6 +1979,7 @@
     query, where, orderBy, serverTimestamp, deleteDoc, getDocs, writeBatch 
   } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
+  // ===== КОНФИГУРАЦИЯ FIREBASE =====
   const firebaseConfig = {
     apiKey: "AIzaSyC8lTu5KGLu9mEF8X1efmnUo0fM4srTEU8",
     authDomain: "smeshariki-85f6c.firebaseapp.com",
@@ -1464,6 +1994,7 @@
   const auth = getAuth(app);
   const db = getFirestore(app);
 
+  // ===== ГЛОБАЛЬНЫЕ ПЕРЕМЕННЫЕ =====
   let currentUser = null;
   let userData = null;
   let currentChatPartner = null;
@@ -1486,6 +2017,7 @@
   let storyProgressInterval = null;
   let openReplyInputs = {};
 
+  // Переменные для голосовых сообщений
   let mediaRecorder = null;
   let audioChunks = [];
   let isRecording = false;
@@ -1493,13 +2025,18 @@
   let recordingSeconds = 0;
   const MAX_RECORDING_SECONDS = 30;
 
+  // Переменные для статусов и печатания
   let lastSeenInterval = null;
   let typingTimeout = null;
   let typingData = {};
   let partnerTypingTimeout = null;
   
+  // Переменная для ответа на сообщение
   let replyingToMessage = null;
 
+  // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+  
+  // Создание аватара-заглушки с первой буквой имени
   function createAvatarFallback(name, size = 50) {
     const letter = (name || '?').charAt(0).toUpperCase();
     const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B'];
@@ -1508,16 +2045,21 @@
     return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`;
   }
 
+  // Инициализация аудио (для звуковых эффектов)
   function initAudio() {
     if (audioUnlocked) return;
     try { 
       audioContext = new (window.AudioContext || window.webkitAudioContext)(); 
       audioUnlocked = true; 
-    } catch (e) { console.log('Audio не поддерживается:', e); }
+    } catch (e) { 
+      console.log('Audio не поддерживается:', e); 
+    }
   }
+  
   document.addEventListener('click', initAudio, { once: true });
   document.addEventListener('touchstart', initAudio, { once: true });
 
+  // Воспроизведение звуковых эффектов
   function playSound(type) {
     if (!audioUnlocked || !audioContext) return;
     try {
@@ -1525,6 +2067,7 @@
       const gainNode = audioContext.createGain();
       oscillator.connect(gainNode);
       gainNode.connect(audioContext.destination);
+      
       if (type === 'receive') {
         oscillator.frequency.setValueAtTime(880, audioContext.currentTime);
         oscillator.frequency.setValueAtTime(1100, audioContext.currentTime + 0.1);
@@ -1539,20 +2082,24 @@
         oscillator.start(audioContext.currentTime);
         oscillator.stop(audioContext.currentTime + 0.15);
       }
-    } catch (e) { console.log('Ошибка звука:', e); }
+    } catch (e) { 
+      console.log('Ошибка звука:', e); 
+    }
   }
 
+  // Переключение видимости пароля
   window.togglePassword = function(inputId, button) {
     const input = document.getElementById(inputId);
     if (input.type === 'password') { 
       input.type = 'text'; 
-      button.textContent = ''; 
+      button.textContent = '🙈'; 
     } else { 
       input.type = 'password'; 
-      button.textContent = '️'; 
+      button.textContent = '👁️'; 
     }
   };
 
+  // Настройка заглушек для аватаров
   function setupAvatarFallbacks(container) {
     container.querySelectorAll('img.post-avatar, img.chat-avatar, img.profile-avatar, img.story-avatar, img.story-header-avatar').forEach(img => {
       if (!img.dataset.fallbackSetup) {
@@ -1566,6 +2113,9 @@
     });
   }
 
+  // ===== ФУНКЦИИ ДЛЯ СТАТУСОВ =====
+  
+  // Обновление времени последнего посещения
   async function updateLastSeen() {
     if (!currentUser) return;
     try {
@@ -1575,12 +2125,14 @@
     }
   }
 
+  // Запуск периодического обновления lastSeen (каждые 30 секунд)
   function startLastSeenUpdater() {
     if (lastSeenInterval) clearInterval(lastSeenInterval);
     updateLastSeen();
     lastSeenInterval = setInterval(updateLastSeen, 30000);
   }
 
+  // Остановка обновления lastSeen
   function stopLastSeenUpdater() {
     if (lastSeenInterval) {
       clearInterval(lastSeenInterval);
@@ -1588,6 +2140,7 @@
     }
   }
 
+  // Определение статуса пользователя по lastSeen
   function getUserStatus(lastSeen) {
     if (!lastSeen) return { status: 'offline', text: 'не в сети' };
     
@@ -1606,6 +2159,7 @@
     }
   }
 
+  // Создание HTML для индикатора статуса
   function renderStatusIndicator(status) {
     const dotClass = status.status === 'online' ? 'online' : 'offline';
     const textClass = status.status === 'online' ? 'online' : 'offline';
@@ -1617,6 +2171,9 @@
     `;
   }
 
+  // ===== ФУНКЦИИ ДЛЯ ИНДИКАТОРА "ПЕЧАТАЕТ..." =====
+  
+  // Обновление статуса "печатает" в чате
   async function updateTypingStatus(isTyping) {
     if (!currentChatId || !currentUser) return;
     try {
@@ -1634,6 +2191,7 @@
     }
   }
 
+  // Обработчик ввода текста в чате
   function setupTypingHandler() {
     const chatInput = document.getElementById('chatInput');
     if (!chatInput) return;
@@ -1654,10 +2212,12 @@
     });
   }
 
+  // ===== ТЕМА ОФОРМЛЕНИЯ =====
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '️' : '🌙';
+  
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
@@ -1666,10 +2226,12 @@
     themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
   };
 
+  // ===== НАВИГАЦИЯ ПО ВКЛАДКАМ =====
   document.querySelectorAll('.nav-tab').forEach(tab => { 
     tab.addEventListener('click', () => switchTab(tab.dataset.tab)); 
   });
 
+  // ===== АВТОРИЗАЦИЯ =====
   onAuthStateChanged(auth, async (user) => {
     if (!user) {
       currentUser = null; 
@@ -1714,7 +2276,7 @@
       
       if (user.isAnonymous) { 
         document.getElementById('anonWarning').classList.remove('hidden'); 
-        document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; 
+        document.getElementById('authBtn').textContent = ' Выйти (аноним)'; 
       } else { 
         document.getElementById('anonWarning').classList.add('hidden'); 
         document.getElementById('authBtn').textContent = '🚪 Выйти'; 
@@ -1732,6 +2294,7 @@
     }
   });
 
+  // Обработчики кнопок входа
   document.getElementById('loginBtnGoogle').onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
   document.getElementById('loginBtnEmail').onclick = () => showEmailLogin();
   document.getElementById('loginBtnAnon').onclick = async () => { 
@@ -1739,6 +2302,7 @@
     catch (error) { alert('Ошибка анонимного входа: ' + error.message); } 
   };
 
+  // ===== МОДАЛЬНЫЕ ОКНА ВХОДА/РЕГИСТРАЦИИ =====
   window.showEmailLogin = function() { 
     document.getElementById('emailModal').classList.add('open'); 
     document.getElementById('emailStep1').style.display = 'block'; 
@@ -1824,6 +2388,7 @@
     } catch (error) { alert('Ошибка проверки: ' + error.message); }
   };
 
+  // ===== ПРОФИЛЬ =====
   function updateProfileUI() {
     const avatarImg = document.getElementById('profileAvatar');
     const editBtn = document.getElementById('editProfileBtn');
@@ -1915,6 +2480,7 @@
     }
   };
 
+  // ===== ЗАГРУЗКА ИЗОБРАЖЕНИЙ =====
   document.getElementById('postImageInput').addEventListener('change', function(e) {
     const file = e.target.files[0]; 
     if (!file) return;
@@ -1973,6 +2539,7 @@
     reader.readAsDataURL(file);
   });
 
+  // ===== СОЗДАНИЕ ПОСТА =====
   window.createPost = async function() {
     const text = document.getElementById('postText').value.trim();
     if (!text && !postImageData) return alert('Напиши что-нибудь или прикрепи фото!');
@@ -1996,6 +2563,7 @@
     catch (err) { alert('Ошибка при публикации: ' + err.message); }
   };
 
+  // ===== КОММЕНТАРИИ =====
   function renderComments(postId, comments) {
     if (!comments || comments.length === 0) return '';
     const topLevel = comments.filter(c => !c.replyTo);
@@ -2020,7 +2588,7 @@
     const isReplyOpen = openReplyInputs[replyKey];
     const replyToText = c.replyTo ? `<div class="comment-reply-to">↪ Ответ ${escapeHtml(c.replyTo.split('_')[0] || '')}</div>` : '';
     const isMyComment = currentUser && c.authorId === currentUser.uid;
-    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')">➤</button></div>` : ''}</div>`;
+    return `<div class="comment ${isReply ? 'comment-reply' : ''}">${replyToText}<div class="comment-author">${escapeHtml(c.authorName)}</div><div class="comment-text">${escapeHtml(c.text)}</div><div class="comment-actions"><button class="comment-action-btn ${isLiked ? 'liked' : ''}" onclick="toggleCommentLike('${postId}', '${c.authorName}', ${c.timestamp})">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button>${!isReply ? `<button class="comment-action-btn" onclick="toggleReplyInput('${postId}', '${replyKey}')">↪ Ответить</button>` : ''}${isMyComment ? `<button class="comment-action-btn delete-btn" onclick="deleteComment('${postId}', '${c.authorName}', ${c.timestamp})">🗑️ Удалить</button>` : ''}</div>${isReplyOpen ? `<div class="reply-input-row"><input type="text" id="reply-input-${replyKey}" placeholder="Ответ для ${escapeHtml(c.authorName)}..."><button class="btn btn-primary btn-small" onclick="submitReply('${postId}', '${replyKey}', '${escapeHtml(c.authorName)}')">➤</button></div>` : ''}</div>`;
   }
 
   window.toggleCommentLike = async function(postId, authorName, timestamp) {
@@ -2092,6 +2660,7 @@
     delete openReplyInputs[replyKey];
   };
 
+  // ===== РЕНДЕРИНГ ПОСТА СО СТАТУСОМ АВТОРА =====
   function renderPost(post, isMyPost = false, authorStatuses = {}) {
     const isLiked = post.likes && post.likes.includes(currentUser.uid);
     const likeCount = post.likes ? post.likes.length : 0;
@@ -2138,6 +2707,7 @@
     }
   });
 
+  // ===== ЗАГРУЗКА ЛЕНТЫ С ЗАГРУЗКОЙ СТАТУСОВ АВТОРОВ =====
   function loadFeed() {
     const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc'));
     onSnapshot(q, async (snapshot) => {
@@ -2170,6 +2740,7 @@
     });
   }
 
+  // ===== ЗАГРУЗКА МОИХ ПОСТОВ =====
   function loadMyPosts() {
     if (!currentUser) return;
     const q = query(collection(db, 'posts'), where('authorId', '==', currentUser.uid), orderBy('timestamp', 'desc'));
@@ -2231,6 +2802,7 @@
     if (confirm('Удалить этот пост?')) await deleteDoc(doc(db, 'posts', postId)); 
   };
 
+  // ===== ЧАТЫ =====
   function getChatId(uid1, uid2) { return [uid1, uid2].sort().join('_'); }
 
   function updateUnreadBadge() {
@@ -2251,7 +2823,7 @@
     chatsUnsubscribe = onSnapshot(q, async (snapshot) => {
       const container = document.getElementById('chatList');
       if (snapshot.empty) { 
-        container.innerHTML = '<div style="text-align:center; color:var(--text-secondary); padding:20px;">У тебя пока нет чатов. Найди кого-нибудь в ленте и нажми "️ Написать"!</div>'; 
+        container.innerHTML = '<div style="text-align:center; color:var(--text-secondary); padding:20px;">У тебя пока нет чатов. Найди кого-нибудь в ленте и нажми "✉️ Написать"!</div>'; 
         unreadCounts = {}; 
         updateUnreadBadge(); 
         return; 
@@ -2373,6 +2945,7 @@
     if (currentUser) loadChats();
   };
 
+  // ===== ГОЛОСОВЫЕ СООБЩЕНИЯ =====
   window.toggleRecording = async function() { 
     if (isRecording) stopRecording(); 
     else startRecording(); 
@@ -2430,7 +3003,7 @@
     clearInterval(recordingTimer); 
     audioChunks = [];
     document.getElementById('recordingIndicator').classList.remove('active');
-    document.getElementById('recordBtn').textContent = '🎤';
+    document.getElementById('recordBtn').textContent = '';
     document.getElementById('recordBtn').classList.remove('btn-record');
     document.getElementById('chatInput').disabled = false;
   };
@@ -2477,6 +3050,7 @@
     return bars;
   }
 
+  // ===== ОТВЕТ НА СООБЩЕНИЕ =====
   window.replyToMessage = function(messageId, senderName, messageText) {
     replyingToMessage = {
       id: messageId,
@@ -2589,6 +3163,7 @@
     });
   }
 
+  // Обработчик долгого нажатия для мобильных
   let touchTimer;
   window.handleTouchStart = function(event, messageId, senderName, messageText) {
     touchTimer = setTimeout(() => {
@@ -2777,6 +3352,7 @@
     document.getElementById('imageModal').classList.add('open'); 
   };
 
+  // ===== ИСТОРИИ =====
   function loadStories() {
     const storiesContainer = document.getElementById('storiesContainer');
     const q = query(collection(db, 'stories'), orderBy('timestamp', 'desc'));
@@ -2939,17 +3515,23 @@
   const playlistContainer = document.getElementById('playlistContainer');
 
   // ===== ПЛЕЙЛИСТ: Lo-Fi + Смешарики OST =====
+  // Музыка к мультсериалу «Смешарики» написана композиторами Мариной Ландой и Сергеем Васильевым
   const playlist = [
     // Lo-Fi музыка
     { name: 'Lo Fi Hip Hop', artist: 'Неизвестный автор', src: 'track1.mp3' },
     { name: 'Фоновая музыка для учёбы', artist: 'Неизвестный автор', src: 'track2.mp3' },
     { name: 'Соло на саксофоне', artist: 'Неизвестный автор', src: 'track3.mp3' },
     { name: 'A Fresh Start in the City', artist: 'Неизвестный автор', src: 'track4.mp3' },
-    // Музыка из Смешариков (OST)
-    { name: 'Причастность', artist: 'Смешарики OST (Riki Group)', src: 'smeshariki1.mp3' },
-    { name: 'Регтайм', artist: 'Смешарики OST (Riki Group)', src: 'smeshariki2.mp3' },
-    { name: 'Винтики', artist: 'Смешарики OST (Riki Group)', src: 'smeshariki3.mp3' },
-    { name: 'Коллекция', artist: 'Смешарики OST (Riki Group)', src: 'smeshariki4.mp3' }
+    
+    // Музыка из Смешариков (OST) — композиторы Марина Ланда и Сергей Васильев
+    { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki1.mp3' },
+    { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki2.mp3' },
+    { name: 'Винтики', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki3.mp3' },
+    { name: 'Коллекция', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki4.mp3' },
+    { name: 'Китай', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki5.mp3' },
+    { name: 'Финал', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki6.mp3' },
+    { name: 'Бараш в одуванчиках', artist: 'Марина Ланда и Сергей Васильев (OST Подарок судьбы)', src: 'smeshariki7.mp3' },
+    { name: 'Смешарики (главная тема)', artist: 'Марина Ланда и Сергей Васильев (Riki Group)', src: 'smeshariki8.mp3' }
   ];
 
   let currentTrackIndex = 0;
@@ -3016,7 +3598,7 @@
       renderPlaylist();
     } else {
       audioPlayer.play().then(() => {
-        playPauseBtn.textContent = '️';
+        playPauseBtn.textContent = '⏸️';
         isMusicPlaying = true;
         renderPlaylist();
       }).catch(err => {
@@ -3095,6 +3677,7 @@
     document.getElementById('musicPlayer').classList.remove('open');
   };
 
+  // Инициализация плеера
   initMusicPlayer();
 </script>
 </body>
