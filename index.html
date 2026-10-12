@@ -317,6 +317,216 @@
     margin-top: 10px; 
   }
 
+  /* ===== СИСТЕМА ПРОГРЕССА (XP, УРОВНИ, КОИНЫ) ===== */
+  
+  .progress-section {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 15px var(--shadow);
+    backdrop-filter: blur(10px);
+    transition: all 0.5s ease;
+  }
+  
+  .level-display {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  
+  .level-badge {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+    border: 3px solid #fff;
+    position: relative;
+  }
+  
+  .level-badge::after {
+    content: attr(data-level);
+    position: absolute;
+    bottom: -5px;
+    right: -5px;
+    background: #FF1493;
+    color: #fff;
+    border-radius: 10px;
+    padding: 2px 6px;
+    font-size: 11px;
+    border: 2px solid #fff;
+  }
+  
+  .level-info {
+    flex: 1;
+  }
+  
+  .level-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #FF1493;
+    margin-bottom: 5px;
+  }
+  
+  .level-subtitle {
+    font-size: 12px;
+    color: var(--text-secondary);
+  }
+  
+  .xp-bar-container {
+    width: 100%;
+    height: 20px;
+    background: var(--comment-bg);
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 10px;
+    border: 2px solid var(--border-color);
+  }
+  
+  .xp-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #FF6B9D, #FFA94D, #FFD700);
+    border-radius: 10px;
+    transition: width 1s ease-out;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .xp-bar-fill::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+    animation: shimmer 2s infinite;
+  }
+  
+  @keyframes shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  .xp-text {
+    font-size: 12px;
+    color: var(--text-secondary);
+    text-align: center;
+  }
+  
+  .coins-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 18px;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+  }
+  
+  .coins-icon {
+    font-size: 24px;
+  }
+  
+  /* Всплывающее уведомление о получении XP/коинов */
+  .reward-popup {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #fff;
+    padding: 15px 25px;
+    border-radius: 15px;
+    font-weight: bold;
+    box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+    z-index: 5000;
+    animation: rewardSlide 3s ease-out forwards;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+  }
+  
+  @keyframes rewardSlide {
+    0% { transform: translateX(400px); opacity: 0; }
+    10% { transform: translateX(0); opacity: 1; }
+    80% { transform: translateX(0); opacity: 1; }
+    100% { transform: translateX(400px); opacity: 0; }
+  }
+  
+  /* Всплывающее уведомление о повышении уровня */
+  .level-up-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: linear-gradient(135deg, #FF6B9D, #FFA94D, #FFD700);
+    color: #fff;
+    padding: 30px 50px;
+    border-radius: 25px;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    box-shadow: 0 15px 50px rgba(255, 20, 147, 0.5);
+    z-index: 6000;
+    animation: levelUpPop 3s ease-out forwards;
+    border: 4px solid #fff;
+  }
+  
+  @keyframes levelUpPop {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    20% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+    30% { transform: translate(-50%, -50%) scale(1); }
+    80% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(0.8); opacity: 0; }
+  }
+  
+  .level-up-title {
+    font-size: 32px;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+  }
+  
+  .level-up-subtitle {
+    font-size: 16px;
+    opacity: 0.9;
+  }
+  
+  /* Кнопка магазина */
+  .shop-btn {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 14px;
+    box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+    transition: transform 0.2s;
+    margin-top: 10px;
+    width: 100%;
+  }
+  
+  .shop-btn:hover {
+    transform: scale(1.05);
+  }
+
   /* ===== ОБЩИЕ СТИЛИ ДЛЯ КАРТОЧЕК ===== */
   .create-post, .post, .chat-list-item, .chat-window {
     background: var(--card-bg); 
@@ -1701,7 +1911,7 @@
     Смешарики Social
   </h1>
   <div class="header-buttons">
-    <button id="themeBtn" class="btn btn-theme"></button>
+    <button id="themeBtn" class="btn btn-theme">🌙</button>
     <button id="authBtn" class="btn btn-google">🔑 Войти</button>
   </div>
 </header>
@@ -1739,7 +1949,7 @@
     <div class="nav-tabs">
       <div class="nav-tab active" data-tab="feed">📰 Лента</div>
       <div class="nav-tab" data-tab="chats">💬 Чаты<span id="unreadBadgeTab" class="unread-badge-tab hidden">0</span></div>
-      <div class="nav-tab" data-tab="profile">👤 Профиль</div>
+      <div class="nav-tab" data-tab="profile"> Профиль</div>
     </div>
 
     <!-- ВКЛАДКА ПРОФИЛЯ -->
@@ -1753,6 +1963,28 @@
           <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">✉️ Написать</button>
         </div>
       </div>
+      
+      <!-- БЛОК ПРОГРЕССА (XP, УРОВЕНЬ, КОИНЫ) -->
+      <div id="progressSection" class="progress-section">
+        <div class="level-display">
+          <div class="level-badge" id="levelBadge" data-level="1"></div>
+          <div class="level-info">
+            <div class="level-title" id="levelTitle">Новичок</div>
+            <div class="level-subtitle" id="levelSubtitle">Уровень 1</div>
+          </div>
+        </div>
+        <div class="xp-bar-container">
+          <div class="xp-bar-fill" id="xpBarFill" style="width: 0%"></div>
+        </div>
+        <div class="xp-text" id="xpText">0 / 100 XP</div>
+        <div class="coins-display">
+          <span class="coins-icon">💰</span>
+          <span id="coinsCount">0</span>
+          <span>Смеш-коинов</span>
+        </div>
+        <button class="shop-btn" onclick="openShop()">🛍️ Магазин (скоро!)</button>
+      </div>
+      
       <h3 class="profile-section-title" id="postsSectionTitle">Мои посты</h3>
       <div id="myPosts"></div>
     </div>
@@ -1776,7 +2008,7 @@
         
         <div id="recordingIndicator" class="recording-indicator">
           <div class="recording-dot"></div>
-          <span> Запись голосового...</span>
+          <span>🎤 Запись голосового...</span>
           <span class="recording-timer" id="recordingTimer">0:00</span>
           <button onclick="cancelRecording()" class="btn btn-small" style="background:#fff;color:#ff3b3b;margin-left:10px;">Отмена</button>
         </div>
@@ -1791,7 +2023,7 @@
         
         <div class="chat-input-row">
           <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
-          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
+          <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото"></button>
           <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;">🎤</button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
           <button onclick="sendMessage()" class="btn btn-primary">➤</button>
@@ -1807,7 +2039,7 @@
         <img id="postImagePreview" class="image-preview" style="display: none;">
         <div style="display: flex; gap: 10px; margin-top: 10px; flex-wrap: wrap;">
           <button onclick="document.getElementById('postImageInput').click()" class="btn btn-secondary">📷 Фото</button>
-          <button onclick="createPost()" class="btn btn-primary" style="flex: 1;">🚀 Опубликовать</button>
+          <button onclick="createPost()" class="btn btn-primary" style="flex: 1;"> Опубликовать</button>
         </div>
       </div>
       <div id="feedPosts"></div>
@@ -1823,7 +2055,7 @@
       <input type="email" id="emailInput" placeholder="your@email.com">
       <div class="password-wrapper">
         <input type="password" id="passwordInput" placeholder="Пароль (минимум 6 символов)">
-        <button type="button" class="toggle-password" onclick="togglePassword('passwordInput', this)">️</button>
+        <button type="button" class="toggle-password" onclick="togglePassword('passwordInput', this)">👁️</button>
       </div>
       <div style="display: flex; gap: 10px; margin-top: 15px;">
         <button onclick="closeEmailModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
@@ -1841,7 +2073,7 @@
 
 <div id="registerModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;"> Регистрация</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Регистрация</h3>
     <input type="email" id="regEmailInput" placeholder="your@email.com">
     <div class="password-wrapper">
       <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
@@ -1860,7 +2092,7 @@
 
 <div id="editMessageModal" class="modal">
   <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">️ Редактировать сообщение</h3>
+    <h3 style="color: #FF1493; margin-bottom: 15px;">✏️ Редактировать сообщение</h3>
     <textarea id="editMessageText" style="width:100%; min-height:100px; border:2px solid var(--border-color); border-radius:10px; padding:10px; font-family:inherit; font-size:14px; background:var(--input-bg); color:var(--text-color);"></textarea>
     <div style="display: flex; gap: 10px; margin-top: 15px;">
       <button onclick="closeEditMessageModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
@@ -2033,6 +2265,194 @@
   
   // Переменная для ответа на сообщение
   let replyingToMessage = null;
+
+  // ===== ПЕРЕМЕННЫЕ ДЛЯ СИСТЕМЫ ПРОГРЕССА =====
+  let userXP = 0;
+  let userLevel = 1;
+  let userCoins = 0;
+  let userAchievements = [];
+  
+  // Таблица уровней (сколько XP нужно для каждого уровня)
+  const LEVELS = [
+    { level: 1,  title: 'Новичок',            xp: 0,    emoji: '🌱' },
+    { level: 2,  title: 'Ученик',             xp: 100,  emoji: '📚' },
+    { level: 3,  title: 'Путешественник',     xp: 300,  emoji: '🧭' },
+    { level: 4,  title: 'Исследователь',      xp: 600,  emoji: '🔭' },
+    { level: 5,  title: 'Мастер',             xp: 1000, emoji: '🎯' },
+    { level: 6,  title: 'Знаток',             xp: 1500, emoji: '' },
+    { level: 7,  title: 'Эксперт',            xp: 2200, emoji: '' },
+    { level: 8,  title: 'Легенда',            xp: 3000, emoji: '' },
+    { level: 9,  title: 'Герой Долины',       xp: 4000, emoji: '' },
+    { level: 10, title: 'Мудрец Лосяша',      xp: 5500, emoji: '🦉' }
+  ];
+  
+  // Награды за разные действия
+  const REWARDS = {
+    post:       { xp: 10, coins: 2,  text: 'за пост' },
+    like:       { xp: 1,  coins: 0,  text: 'за лайк' },
+    comment:    { xp: 3,  coins: 1,  text: 'за комментарий' },
+    message:    { xp: 1,  coins: 0,  text: 'за сообщение' },
+    voice:      { xp: 5,  coins: 2,  text: 'за голосовое' },
+    story:      { xp: 15, coins: 5,  text: 'за историю' },
+    gift_sent:  { xp: 5,  coins: 0,  text: 'за подарок' },
+    gift_recv:  { xp: 3,  coins: 0,  text: 'за получение подарка' },
+    daily:      { xp: 20, coins: 10, text: 'ежедневный бонус' }
+  };
+
+  // ===== СИСТЕМА ПРОГРЕССА (XP, УРОВНИ, КОИНЫ) =====
+  
+  // Загрузка данных прогресса из Firebase
+  async function loadProgressData() {
+    if (!currentUser) return;
+    try {
+      const userDoc = await getDoc(doc(db, 'users', currentUser.uid));
+      if (userDoc.exists()) {
+        const data = userDoc.data();
+        userXP = data.xp || 0;
+        userLevel = data.level || 1;
+        userCoins = data.coins || 0;
+        userAchievements = data.achievements || [];
+        updateProgressUI();
+      }
+    } catch (err) {
+      console.error('Ошибка загрузки прогресса:', err);
+    }
+  }
+  
+  // Сохранение данных прогресса в Firebase
+  async function saveProgressData() {
+    if (!currentUser) return;
+    try {
+      await setDoc(doc(db, 'users', currentUser.uid), {
+        xp: userXP,
+        level: userLevel,
+        coins: userCoins,
+        achievements: userAchievements
+      }, { merge: true });
+    } catch (err) {
+      console.error('Ошибка сохранения прогресса:', err);
+    }
+  }
+  
+  // Добавление XP и коинов с проверкой уровня
+  async function addReward(actionType) {
+    const reward = REWARDS[actionType];
+    if (!reward) return;
+    
+    const oldLevel = userLevel;
+    
+    userXP += reward.xp;
+    userCoins += reward.coins;
+    
+    // Проверка повышения уровня
+    checkLevelUp();
+    
+    // Сохранение в Firebase
+    await saveProgressData();
+    
+    // Обновление UI
+    updateProgressUI();
+    
+    // Показ уведомления
+    if (reward.xp > 0 || reward.coins > 0) {
+      showRewardPopup(reward.xp, reward.coins, reward.text);
+    }
+    
+    // Если повысился уровень — особый попап
+    if (userLevel > oldLevel) {
+      setTimeout(() => showLevelUpPopup(oldLevel, userLevel), 500);
+    }
+  }
+  
+  // Проверка и повышение уровня
+  function checkLevelUp() {
+    while (userLevel < LEVELS.length) {
+      const nextLevel = LEVELS[userLevel];
+      if (userXP >= nextLevel.xp) {
+        userLevel++;
+      } else {
+        break;
+      }
+    }
+  }
+  
+  // Обновление UI прогресса
+  function updateProgressUI() {
+    const currentLevelData = LEVELS[userLevel - 1];
+    const nextLevelData = LEVELS[userLevel] || null;
+    
+    // Бейдж уровня
+    const levelBadge = document.getElementById('levelBadge');
+    if (levelBadge) {
+      levelBadge.textContent = currentLevelData.emoji;
+      levelBadge.dataset.level = userLevel;
+    }
+    
+    // Название уровня
+    const levelTitle = document.getElementById('levelTitle');
+    if (levelTitle) levelTitle.textContent = currentLevelData.title;
+    
+    // Подзаголовок
+    const levelSubtitle = document.getElementById('levelSubtitle');
+    if (levelSubtitle) levelSubtitle.textContent = `Уровень ${userLevel}`;
+    
+    // XP-бар
+    const xpBarFill = document.getElementById('xpBarFill');
+    const xpText = document.getElementById('xpText');
+    
+    if (nextLevelData) {
+      const currentLevelXP = currentLevelData.xp;
+      const nextLevelXP = nextLevelData.xp;
+      const progress = ((userXP - currentLevelXP) / (nextLevelXP - currentLevelXP)) * 100;
+      
+      if (xpBarFill) xpBarFill.style.width = Math.min(progress, 100) + '%';
+      if (xpText) xpText.textContent = `${userXP} / ${nextLevelXP} XP`;
+    } else {
+      // Максимальный уровень
+      if (xpBarFill) xpBarFill.style.width = '100%';
+      if (xpText) xpText.textContent = `${userXP} XP (МАКС!)`;
+    }
+    
+    // Коины
+    const coinsCount = document.getElementById('coinsCount');
+    if (coinsCount) coinsCount.textContent = userCoins;
+  }
+  
+  // Всплывающее уведомление о награде
+  function showRewardPopup(xp, coins, text) {
+    const popup = document.createElement('div');
+    popup.className = 'reward-popup';
+    
+    let content = '✨ Награда ';
+    if (xp > 0) content += `+${xp} XP `;
+    if (coins > 0) content += `+${coins} 💰 `;
+    content += `(${text})`;
+    
+    popup.textContent = content;
+    document.body.appendChild(popup);
+    
+    setTimeout(() => popup.remove(), 3000);
+  }
+  
+  // Всплывающее уведомление о повышении уровня
+  function showLevelUpPopup(oldLevel, newLevel) {
+    const levelData = LEVELS[newLevel - 1];
+    const popup = document.createElement('div');
+    popup.className = 'level-up-popup';
+    popup.innerHTML = `
+      <div class="level-up-title">🎉 УРОВЕНЬ ПОВЫШЕН!</div>
+      <div>${levelData.emoji} Уровень ${newLevel}</div>
+      <div class="level-up-subtitle">${levelData.title}</div>
+    `;
+    document.body.appendChild(popup);
+    
+    setTimeout(() => popup.remove(), 3000);
+  }
+  
+  // Заглушка для магазина (добавим в Этапе 3)
+  window.openShop = function() {
+    alert('🛍️ Магазин скоро откроется!\nСледи за обновлениями!');
+  };
 
   // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
   
@@ -2216,14 +2636,14 @@
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '️☀️' : '🌙';
+  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
   
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
     document.documentElement.setAttribute('data-theme', newTheme);
     localStorage.setItem('theme', newTheme);
-    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    themeBtn.textContent = newTheme === 'dark' ? '☀️' : '';
   };
 
   // ===== НАВИГАЦИЯ ПО ВКЛАДКАМ =====
@@ -2266,6 +2686,7 @@
       }
       
       updateProfileUI(); 
+      loadProgressData();   // Загружаем прогресс
       loadFeed(); 
       loadStories(); 
       loadChats();
@@ -2559,6 +2980,7 @@
       postData.image = postImageData; 
       postImageData = null; 
     }
+    await addReward('post');
     try { await addDoc(collection(db, 'posts'), postData); } 
     catch (err) { alert('Ошибка при публикации: ' + err.message); }
   };
@@ -2605,6 +3027,7 @@
       comment.likes = comment.likes.filter(id => id !== currentUser.uid);
     } else {
       comment.likes.push(currentUser.uid);
+      addReward('like');
     }
     await updateDoc(postRef, { comments });
   };
@@ -2657,6 +3080,7 @@
       likes: [] 
     });
     await updateDoc(postRef, { comments });
+    addReward('comment');
     delete openReplyInputs[replyKey];
   };
 
@@ -2767,7 +3191,10 @@
     const postData = postSnap.data();
     let likes = postData.likes || [];
     if (likes.includes(currentUser.uid)) likes = likes.filter(id => id !== currentUser.uid);
-    else likes.push(currentUser.uid);
+    else {
+      likes.push(currentUser.uid);
+      addReward('like');
+    }
     await updateDoc(postRef, { likes });
   };
 
@@ -2790,6 +3217,7 @@
       likes: [] 
     });
     await updateDoc(postRef, { comments });
+    addReward('comment');
     input.value = '';
   };
 
@@ -3028,6 +3456,7 @@
         createdAt: serverTimestamp() 
       }, { merge: true });
       await addDoc(collection(db, 'chats', currentChatId, 'messages'), messageData);
+      addReward('voice');
       playSound('send');
     } catch (err) { 
       console.error('Ошибка отправки голосового:', err); 
@@ -3260,6 +3689,7 @@
         createdAt: serverTimestamp() 
       }, { merge: true }); 
       await addDoc(collection(db, 'chats', currentChatId, 'messages'), messageData); 
+      addReward('message');
       playSound('send'); 
     } catch (err) { 
       console.error('Ошибка отправки:', err); 
@@ -3455,6 +3885,7 @@
     if (storyImageData) storyData.image = storyImageData;
     try { 
       await addDoc(collection(db, 'stories'), storyData); 
+      addReward('story');
       closeCreateStoryModal(); 
       alert('История опубликована! 🎉'); 
     } catch (err) { alert('Ошибка: ' + err.message); }
@@ -3514,17 +3945,17 @@
   const currentTrackArtistEl = document.getElementById('currentTrackArtist');
   const playlistContainer = document.getElementById('playlistContainer');
 
-    // ===== ПЛЕЙЛИСТ: Смешарики OST =====
+  // ===== ПЛЕЙЛИСТ: Смешарики OST =====
   // Музыка к мультсериалу «Смешарики» написана композиторами Мариной Ландой и Сергеем Васильевым
   const playlist = [
-    { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (OST Причастность)', src: 'smeshariki1.mp3' },
-    { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (OST Фотография)', src: 'smeshariki2.mp3' },
-    { name: 'Винтики', artist: 'Марина Ланда и Сергей Васильев (OST Винтики)', src: 'smeshariki3.mp3' },
-    { name: 'Коллекция', artist: 'Марина Ланда и Сергей Васильев (OST Коллекция)', src: 'smeshariki4.mp3' },
-    { name: 'Китай', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki5.mp3' },
-    { name: 'Финал', artist: 'Марина Ланда и Сергей Васильев (OST Пирамидка)', src: 'smeshariki6.mp3' },
-    { name: 'Бараш в одуванчиках', artist: 'Марина Ланда и Сергей Васильев (OST Подарок судьбы)', src: 'smeshariki7.mp3' },
-    { name: 'Научная тема', artist: 'Марина Ланда и Сергей Васильев (OST Педагогическая поэма)', src: 'smeshariki8.mp3' }
+    { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (Серия "Причастность")', src: 'smeshariki1.mp3' },
+    { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (Серия "Регтайм")', src: 'smeshariki2.mp3' },
+    { name: 'Винтики', artist: 'Марина Ланда и Сергей Васильев (Серия "Винтики")', src: 'smeshariki3.mp3' },
+    { name: 'Коллекция', artist: 'Марина Ланда и Сергей Васильев (Серия "Коллекция")', src: 'smeshariki4.mp3' },
+    { name: 'Китай', artist: 'Марина Ланда и Сергей Васильев (Серия "Пирамидка")', src: 'smeshariki5.mp3' },
+    { name: 'Финал', artist: 'Марина Ланда и Сергей Васильев (Серия "Пирамидка")', src: 'smeshariki6.mp3' },
+    { name: 'Бараш в одуванчиках', artist: 'Марина Ланда и Сергей Васильев (Серия "Подарок судьбы")', src: 'smeshariki7.mp3' },
+    { name: 'Научная тема', artist: 'Марина Ланда и Сергей Васильев (Серия "Педагогическая поэма")', src: 'smeshariki8.mp3' }
   ];
 
   let currentTrackIndex = 0;
