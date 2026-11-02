@@ -1,0 +1,21 @@
+{
+  "name": "Смешарики Social",
+  "short_name": "Смешарики",
+  "description": "Социальная сеть для фанатов Смешариков",
+  "start_url": "/smeshariki-social/",
+  "display": "standalone",
+  "background_color": "#FF6B9D",
+  "theme_color": "#FF1493",
+  "icons": [
+    {
+      "src": "favicon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "favicon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
