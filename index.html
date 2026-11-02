@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Смешарики Social</title>
 <link rel="icon" type="image/png" href="favicon.png">
+
+<!-- ===== PWA МЕТА-ТЕГИ ===== -->
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#FF1493">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Смешарики">
+<link rel="apple-touch-icon" href="favicon.png">
+
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   
@@ -1232,6 +1241,8 @@
     Смешарики Social
   </h1>
   <div class="header-buttons">
+    <!-- ===== КНОПКА УСТАНОВКИ PWA ===== -->
+    <button id="installBtn" class="btn btn-primary" style="display: none;">📲 Установить</button>
     <button id="themeBtn" class="btn btn-theme">🌙</button>
     <button id="authBtn" class="btn btn-google">🔑 Войти</button>
   </div>
@@ -1272,7 +1283,7 @@
         <div id="profileName" class="profile-name"></div>
         <div id="profileBio" class="profile-bio"></div>
         <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
-          <button id="editProfileBtn" onclick="openEditModal()" class="btn btn-secondary edit-profile-btn">️ Редактировать</button>
+          <button id="editProfileBtn" onclick="openEditModal()" class="btn btn-secondary edit-profile-btn">✏️ Редактировать</button>
           <button id="messageProfileBtn" onclick="messageFromProfile()" class="btn btn-primary edit-profile-btn" style="display:none;">✉️ Написать</button>
         </div>
       </div>
@@ -1314,7 +1325,7 @@
         <div class="chat-input-row">
           <input type="file" id="chatImageInput" class="chat-image-input" accept="image/*">
           <button onclick="document.getElementById('chatImageInput').click()" class="btn btn-secondary btn-small" title="Прикрепить фото">📷</button>
-          <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;"></button>
+          <button id="recordBtn" onclick="toggleRecording()" class="btn btn-secondary btn-small" title="Голосовое сообщение" style="font-size:18px;padding:8px 12px;">🎤</button>
           <input type="text" id="chatInput" placeholder="Написать сообщение...">
           <button onclick="sendMessage()" class="btn btn-primary">➤</button>
         </div>
@@ -1365,7 +1376,7 @@
     <input type="email" id="regEmailInput" placeholder="your@email.com">
     <div class="password-wrapper">
       <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
-      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordInput', this)">️</button>
+      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordInput', this)">👁️</button>
     </div>
     <div class="password-wrapper">
       <input type="password" id="regPasswordConfirm" placeholder="Повтори пароль">
@@ -1445,7 +1456,7 @@
 <div id="musicPlayer" class="music-player">
   <div class="music-player-header">
     <h3>🎵 Музыкальный плеер</h3>
-    <button onclick="closeMusicPlayer()" class="btn btn-small" style="background:#eee;color:#333;"></button>
+    <button onclick="closeMusicPlayer()" class="btn btn-small" style="background:#eee;color:#333;">✕</button>
   </div>
   
   <div class="music-player-info">
@@ -1469,7 +1480,7 @@
   </div>
   
   <div class="music-player-volume">
-    <span></span>
+    <span>🔊</span>
     <input type="range" id="volumeSlider" class="music-volume-slider" min="0" max="100" value="20">
   </div>
   
@@ -1553,7 +1564,6 @@
     document.getElementById('disclaimerModal').classList.remove('open');
   };
 
-  // Показываем дисклеймер при загрузке, если ещё не принят
   window.addEventListener('load', function() {
     if (!localStorage.getItem('disclaimerAccepted')) {
       document.getElementById('disclaimerModal').classList.add('open');
@@ -1717,7 +1727,7 @@
   const themeBtn = document.getElementById('themeBtn');
   const savedTheme = localStorage.getItem('theme') || 'light';
   document.documentElement.setAttribute('data-theme', savedTheme);
-  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '';
+  themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
   themeBtn.onclick = () => {
     const current = document.documentElement.getAttribute('data-theme');
     const newTheme = current === 'dark' ? 'light' : 'dark';
@@ -2667,7 +2677,7 @@
       document.querySelectorAll('audio').forEach(a => { a.pause(); a.currentTime = 0; });
       document.querySelectorAll('.voice-play-btn').forEach(b => b.textContent = '▶️');
       audio.play(); 
-      btn.textContent = '️';
+      btn.textContent = '⏸️';
       audio.onended = () => { btn.textContent = '▶️'; };
     } else { 
       audio.pause(); 
@@ -2998,7 +3008,6 @@
   const currentTrackArtistEl = document.getElementById('currentTrackArtist');
   const playlistContainer = document.getElementById('playlistContainer');
 
-  // ===== ПЛЕЙЛИСТ С МУЗЫКОЙ ИЗ СМЕШАРИКОВ =====
   const playlist = [
     { name: 'Причастность', artist: 'Марина Ланда и Сергей Васильев (Серия "Причастность")', src: 'track1.mp3' },
     { name: 'Регтайм', artist: 'Марина Ланда и Сергей Васильев (Серия "Регтайм")', src: 'track2.mp3' },
@@ -3154,6 +3163,33 @@
   };
 
   initMusicPlayer();
+
+  // ===== УСТАНОВКА PWA =====
+  let deferredPrompt;
+  const installBtn = document.getElementById('installBtn');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+  });
+
+  installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      const { outcome } = await deferredPrompt.userChoice;
+      if (outcome === 'accepted') {
+        console.log('Пользователь установил приложение');
+      }
+      deferredPrompt = null;
+      installBtn.style.display = 'none';
+    }
+  });
+
+  window.addEventListener('appinstalled', () => {
+    console.log('Приложение установлено');
+    installBtn.style.display = 'none';
+  });
 </script>
 </body>
 </html>
