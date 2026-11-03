@@ -48,7 +48,6 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 .btn:hover { transform: scale(1.05); }
 .btn:active { transform: scale(0.95); }
 .btn-google { background: #fff; color: #333; display: flex; align-items: center; gap: 8px; }
-.btn-email { background: #74C0FC; color: #fff; display: flex; align-items: center; gap: 8px; }
 .btn-anon { background: #A9E34B; color: #fff; display: flex; align-items: center; gap: 8px; }
 .btn-primary { background: #FF1493; color: #fff; }
 .btn-secondary { background: #74C0FC; color: #fff; }
@@ -69,7 +68,7 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 .profile-bio { color: var(--text-secondary); font-style: italic; margin-bottom: 15px; }
 .edit-profile-btn { font-size: 12px; margin-top: 10px; }
 .create-post, .post, .chat-list-item, .chat-window { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px var(--shadow); backdrop-filter: blur(10px); transition: all 0.5s ease; }
-.create-post textarea, .create-post input[type="text"], .modal-content input[type="email"], .modal-content input[type="password"], .modal-content input[type="text"] { width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px; font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px; transition: all 0.3s ease; }
+.create-post textarea, .create-post input[type="text"], .modal-content input[type="text"] { width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px; font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px; transition: all 0.3s ease; }
 .create-post textarea:focus, .modal-content input:focus { border-color: #FF1493; outline: none; }
 .post-image, .chat-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 15px; margin: 10px 0; cursor: pointer; }
 .chat-image { max-height: 250px; }
@@ -167,10 +166,6 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 .image-modal img { max-width: 90%; max-height: 90%; object-fit: contain; }
 .profile-section-title { margin-bottom: 15px; color: #FF1493; }
 .anon-warning { background: rgba(255, 243, 205, 0.95); border: 2px solid #ffc107; border-radius: 15px; padding: 15px; margin-bottom: 20px; color: #856404; font-size: 14px; backdrop-filter: blur(10px); }
-.password-wrapper { position: relative; width: 100%; margin: 10px 0; }
-.password-wrapper input { width: 100%; padding-right: 45px !important; min-height: auto !important; }
-.toggle-password { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; font-size: 20px; padding: 5px; color: var(--text-secondary); transition: color 0.2s; z-index: 10; }
-.toggle-password:hover { color: #FF1493; }
 .stories-container { background: var(--card-bg); border-radius: 20px; padding: 15px; margin-bottom: 15px; box-shadow: 0 4px 15px var(--shadow); overflow-x: auto; display: flex; gap: 15px; scrollbar-width: none; backdrop-filter: blur(10px); transition: all 0.5s ease; }
 .stories-container::-webkit-scrollbar { display: none; }
 .story-item { display: flex; flex-direction: column; align-items: center; cursor: pointer; min-width: 70px; position: relative; }
@@ -279,7 +274,7 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
   <div class="help-content">
     <button class="help-close-btn" onclick="closeHelpModal()">✕</button>
     <h2>📚 Помощь по сайту</h2>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🔑 Как зарегистрироваться?</span></div><div class="faq-answer">Нажми "🔑 Войти" в правом верхнем углу. Выбери: <b>Google</b> — быстрый вход, <b>Email</b> — с подтверждением, <b>Анонимно</b> — без регистрации (данные не сохранятся).</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🔑 Как войти?</span></div><div class="faq-answer">Нажми "🔑 Войти" в правом верхнем углу. Выбери: <b>Google</b> — быстрый вход через аккаунт Google, или <b>Анонимно</b> — без регистрации (данные не сохранятся при выходе).</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>📝 Как создать пост?</span></div><div class="faq-answer">На вкладке "📰 Лента" напиши текст и нажми "🚀 Опубликовать". Можно прикрепить фото кнопкой "📷 Фото".</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>💬 Как написать в чат?</span></div><div class="faq-answer">Найди пост пользователя → "✉️ Написать", или зайди в "💬 Чаты". Можно отправлять текст и фото.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>📲 Как установить как приложение?</span></div><div class="faq-answer"><b>Android:</b> кнопка "📲 Установить" в шапке. <b>iPhone:</b> "Поделиться" → "На экран Домой". <b>ПК:</b> иконка в адресной строке или меню браузера.</div></div>
@@ -326,13 +321,12 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
         <svg width="20" height="20" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
         Войти через Google
       </button>
-      <button id="loginBtnEmail" class="btn btn-email" style="justify-content: center;">📧 Войти по Email</button>
       <button id="loginBtnAnon" class="btn btn-anon" style="justify-content: center;">👤 Анонимный вход</button>
       <p class="login-hint">Анонимный вход: все функции доступны, но данные не сохранятся при выходе</p>
     </div>
   </div>
   <div id="appScreen" class="hidden">
-    <div id="anonWarning" class="anon-warning hidden">⚠️ Ты вошёл анонимно. Все функции доступны, но если ты выйдешь, твой профиль и посты не сохранятся. <button onclick="showEmailLogin()" class="btn btn-primary" style="margin-top: 10px; font-size: 12px;">Создать аккаунт</button></div>
+    <div id="anonWarning" class="anon-warning hidden">⚠️ Ты вошёл анонимно. Все функции доступны, но если ты выйдешь, твой профиль и посты не сохранятся. <button onclick="signInWithGoogle()" class="btn btn-primary" style="margin-top: 10px; font-size: 12px;">Войти через Google</button></div>
     <div id="storiesContainer" class="stories-container hidden"></div>
     <div class="nav-tabs">
       <div class="nav-tab active" data-tab="feed">📰 Лента</div>
@@ -393,46 +387,6 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
         </div>
       </div>
       <div id="feedPosts"></div>
-    </div>
-  </div>
-</div>
-<div id="emailModal" class="modal">
-  <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Вход по Email</h3>
-    <div id="emailStep1">
-      <input type="email" id="emailInput" placeholder="your@email.com">
-      <div class="password-wrapper">
-        <input type="password" id="passwordInput" placeholder="Пароль (минимум 6 символов)">
-        <button type="button" class="toggle-password" onclick="togglePassword('passwordInput', this)">👁️</button>
-      </div>
-      <div style="display: flex; gap: 10px; margin-top: 15px;">
-        <button onclick="closeEmailModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
-        <button onclick="emailLogin()" class="btn btn-primary" style="flex:1;">Войти</button>
-      </div>
-      <button onclick="showEmailRegister()" class="btn btn-secondary" style="width:100%; margin-top: 10px;">Нет аккаунта? Зарегистрироваться</button>
-    </div>
-    <div id="emailStep2" style="display: none;">
-      <p style="margin-bottom: 15px;">На <span id="sentEmail"></span> отправлено письмо.</p>
-      <button onclick="checkEmailVerified()" class="btn btn-primary" style="width:100%;">Я подтвердил email</button>
-      <button onclick="closeEmailModal()" class="btn" style="width:100%; margin-top: 10px; background:#eee;">Отмена</button>
-    </div>
-  </div>
-</div>
-<div id="registerModal" class="modal">
-  <div class="modal-content">
-    <h3 style="color: #FF1493; margin-bottom: 15px;">📧 Регистрация</h3>
-    <input type="email" id="regEmailInput" placeholder="your@email.com">
-    <div class="password-wrapper">
-      <input type="password" id="regPasswordInput" placeholder="Пароль (минимум 6 символов)">
-      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordInput', this)">👁️</button>
-    </div>
-    <div class="password-wrapper">
-      <input type="password" id="regPasswordConfirm" placeholder="Повтори пароль">
-      <button type="button" class="toggle-password" onclick="togglePassword('regPasswordConfirm', this)">👁️</button>
-    </div>
-    <div style="display: flex; gap: 10px; margin-top: 15px;">
-      <button onclick="closeRegisterModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
-      <button onclick="emailRegister()" class="btn btn-primary" style="flex:1;">Зарегистрироваться</button>
     </div>
   </div>
 </div>
@@ -526,13 +480,13 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 <audio id="audioPlayer"></audio>
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendEmailVerification, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged, signOut, signInAnonymously } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore, collection, addDoc, doc, getDoc, setDoc, updateDoc, onSnapshot, query, where, orderBy, serverTimestamp, deleteDoc, getDocs, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 const firebaseConfig = { apiKey: "AIzaSyC8lTu5KGLu9mEF8X1efmnUo0fM4srTEU8", authDomain: "smeshariki-85f6c.firebaseapp.com", projectId: "smeshariki-85f6c", storageBucket: "smeshariki-85f6c.firebasestorage.app", messagingSenderId: "546701015586", appId: "1:546701015586:web:1a75658bff7037d8dd687b", measurementId: "G-VKGBXDGX7L" };
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-let currentUser = null, userData = null, currentChatPartner = null, currentChatId = null, postImageData = null, chatImageData = null, chatUnsubscribe = null, viewingOtherProfile = false, viewingProfileData = null, pendingEmailUser = null, editingMessageId = null, previousMessageIds = new Set(), audioContext = null, audioUnlocked = false, chatsUnsubscribe = null, unreadCounts = {}, isChatWindowOpen = false, storyImageData = null, storyViewerTimeout = null, storyProgressInterval = null, openReplyInputs = {};
+let currentUser = null, userData = null, currentChatPartner = null, currentChatId = null, postImageData = null, chatImageData = null, chatUnsubscribe = null, viewingOtherProfile = false, viewingProfileData = null, editingMessageId = null, previousMessageIds = new Set(), audioContext = null, audioUnlocked = false, chatsUnsubscribe = null, unreadCounts = {}, isChatWindowOpen = false, storyImageData = null, storyViewerTimeout = null, storyProgressInterval = null, openReplyInputs = {};
 let lastSeenInterval = null, typingTimeout = null, typingData = {}, partnerTypingTimeout = null, replyingToMessage = null;
 window.acceptDisclaimer = function() { localStorage.setItem('disclaimerAccepted', 'true'); document.getElementById('disclaimerModal').classList.remove('open'); };
 window.addEventListener('load', function() { if (!localStorage.getItem('disclaimerAccepted')) document.getElementById('disclaimerModal').classList.add('open'); });
@@ -562,12 +516,12 @@ window.findAndChatWithAuthor = async function() {
     setTimeout(() => openChat(authorData.id, authorData.name, authorData.avatar), 300);
   } catch (err) { errorEl.textContent = 'Ошибка поиска: ' + err.message; errorEl.style.display = 'block'; }
 };
+window.signInWithGoogle = function() { signInWithPopup(auth, new GoogleAuthProvider()); };
 function createAvatarFallback(name, size = 50) { const letter = (name || '?').charAt(0).toUpperCase(); const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B']; const color = colors[(name || '').length % colors.length]; return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`; }
 function initAudio() { if (audioUnlocked) return; try { audioContext = new (window.AudioContext || window.webkitAudioContext)(); audioUnlocked = true; } catch (e) { console.log('Audio не поддерживается:', e); } }
 document.addEventListener('click', initAudio, { once: true });
 document.addEventListener('touchstart', initAudio, { once: true });
 function playSound(type) { if (!audioUnlocked || !audioContext) return; try { const oscillator = audioContext.createOscillator(); const gainNode = audioContext.createGain(); oscillator.connect(gainNode); gainNode.connect(audioContext.destination); if (type === 'receive') { oscillator.frequency.setValueAtTime(880, audioContext.currentTime); oscillator.frequency.setValueAtTime(1100, audioContext.currentTime + 0.1); gainNode.gain.setValueAtTime(0.3, audioContext.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3); oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.3); } else if (type === 'send') { oscillator.frequency.value = 600; gainNode.gain.setValueAtTime(0.2, audioContext.currentTime); gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.15); oscillator.start(audioContext.currentTime); oscillator.stop(audioContext.currentTime + 0.15); } } catch (e) { console.log('Ошибка звука:', e); } }
-window.togglePassword = function(inputId, button) { const input = document.getElementById(inputId); if (input.type === 'password') { input.type = 'text'; button.textContent = '🙈'; } else { input.type = 'password'; button.textContent = '👁️'; } };
 function setupAvatarFallbacks(container) { container.querySelectorAll('img.post-avatar, img.chat-avatar, img.profile-avatar, img.story-avatar, img.story-header-avatar').forEach(img => { if (!img.dataset.fallbackSetup) { img.dataset.fallbackSetup = 'true'; img.addEventListener('error', function() { const name = this.dataset.name || this.dataset.partnerName || 'П'; this.src = createAvatarFallback(name, this.offsetWidth || 50); this.style.objectFit = 'cover'; }); } }); }
 async function updateLastSeen() { if (!currentUser) return; try { await setDoc(doc(db, 'users', currentUser.uid), { lastSeen: serverTimestamp() }, { merge: true }); } catch (err) { console.error('Ошибка обновления lastSeen:', err); } }
 function startLastSeenUpdater() { if (lastSeenInterval) clearInterval(lastSeenInterval); updateLastSeen(); lastSeenInterval = setInterval(updateLastSeen, 30000); }
@@ -582,17 +536,9 @@ document.documentElement.setAttribute('data-theme', savedTheme);
 themeBtn.textContent = savedTheme === 'dark' ? '☀️' : '🌙';
 themeBtn.onclick = () => { const current = document.documentElement.getAttribute('data-theme'); const newTheme = current === 'dark' ? 'light' : 'dark'; document.documentElement.setAttribute('data-theme', newTheme); localStorage.setItem('theme', newTheme); themeBtn.textContent = newTheme === 'dark' ? '☀️' : '🌙'; };
 document.querySelectorAll('.nav-tab').forEach(tab => { tab.addEventListener('click', () => switchTab(tab.dataset.tab)); });
-onAuthStateChanged(auth, async (user) => { if (!user) { currentUser = null; userData = null; viewingOtherProfile = false; viewingProfileData = null; unreadCounts = {}; stopLastSeenUpdater(); document.getElementById('loginScreen').classList.remove('hidden'); document.getElementById('appScreen').classList.add('hidden'); document.getElementById('authBtn').textContent = '🔑 Войти'; document.getElementById('authBtn').onclick = () => showEmailLogin(); return; } if (!currentUser || currentUser.uid !== user.uid) { currentUser = user; document.getElementById('profileName').textContent = 'Загрузка...'; const userDocRef = doc(db, 'users', user.uid); const userDoc = await getDoc(userDocRef); if (userDoc.exists()) { userData = userDoc.data(); } else { userData = { name: user.displayName || user.email?.split('@')[0] || 'Аноним', avatar: createAvatarFallback(user.displayName || user.email?.split('@')[0] || 'А', 200), bio: 'Привет! Я фанат Смешариков!' }; await setDoc(userDocRef, userData); } updateProfileUI(); loadFeed(); loadStories(); loadChats(); startLastSeenUpdater(); document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden'); if (user.isAnonymous) { document.getElementById('anonWarning').classList.remove('hidden'); document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; } else { document.getElementById('anonWarning').classList.add('hidden'); document.getElementById('authBtn').textContent = '🚪 Выйти'; } document.getElementById('authBtn').onclick = async () => { if (user.isAnonymous) { if (confirm('Ты выйдешь из анонимного аккаунта. Все данные будут потеряны. Продолжить?')) await signOut(auth); } else await signOut(auth); }; } });
+onAuthStateChanged(auth, async (user) => { if (!user) { currentUser = null; userData = null; viewingOtherProfile = false; viewingProfileData = null; unreadCounts = {}; stopLastSeenUpdater(); document.getElementById('loginScreen').classList.remove('hidden'); document.getElementById('appScreen').classList.add('hidden'); document.getElementById('authBtn').textContent = '🔑 Войти'; document.getElementById('authBtn').onclick = () => signInWithPopup(auth, new GoogleAuthProvider()); return; } if (!currentUser || currentUser.uid !== user.uid) { currentUser = user; document.getElementById('profileName').textContent = 'Загрузка...'; const userDocRef = doc(db, 'users', user.uid); const userDoc = await getDoc(userDocRef); if (userDoc.exists()) { userData = userDoc.data(); } else { userData = { name: user.displayName || user.email?.split('@')[0] || 'Аноним', avatar: createAvatarFallback(user.displayName || user.email?.split('@')[0] || 'А', 200), bio: 'Привет! Я фанат Смешариков!' }; await setDoc(userDocRef, userData); } updateProfileUI(); loadFeed(); loadStories(); loadChats(); startLastSeenUpdater(); document.getElementById('loginScreen').classList.add('hidden'); document.getElementById('appScreen').classList.remove('hidden'); if (user.isAnonymous) { document.getElementById('anonWarning').classList.remove('hidden'); document.getElementById('authBtn').textContent = '🚪 Выйти (аноним)'; } else { document.getElementById('anonWarning').classList.add('hidden'); document.getElementById('authBtn').textContent = '🚪 Выйти'; } document.getElementById('authBtn').onclick = async () => { if (user.isAnonymous) { if (confirm('Ты выйдешь из анонимного аккаунта. Все данные будут потеряны. Продолжить?')) await signOut(auth); } else await signOut(auth); }; } });
 document.getElementById('loginBtnGoogle').onclick = () => signInWithPopup(auth, new GoogleAuthProvider());
-document.getElementById('loginBtnEmail').onclick = () => showEmailLogin();
 document.getElementById('loginBtnAnon').onclick = async () => { try { await signInAnonymously(auth); } catch (error) { alert('Ошибка анонимного входа: ' + error.message); } };
-window.showEmailLogin = function() { document.getElementById('emailModal').classList.add('open'); document.getElementById('emailStep1').style.display = 'block'; document.getElementById('emailStep2').style.display = 'none'; };
-window.closeEmailModal = function() { document.getElementById('emailModal').classList.remove('open'); document.getElementById('emailInput').value = ''; document.getElementById('passwordInput').value = ''; pendingEmailUser = null; };
-window.emailLogin = async function() { const email = document.getElementById('emailInput').value.trim(); const password = document.getElementById('passwordInput').value; if (!email || !password) { alert('Введи email и пароль!'); return; } try { const userCredential = await signInWithEmailAndPassword(auth, email, password); const user = userCredential.user; if (!user.emailVerified) { alert('Email не подтверждён. Проверь почту и кликни по ссылке.'); await signOut(auth); return; } closeEmailModal(); } catch (error) { if (error.code === 'auth/user-not-found') alert('Пользователь не найден. Зарегистрируйся!'); else if (error.code === 'auth/wrong-password') alert('Неверный пароль!'); else if (error.code === 'auth/invalid-email') alert('Неверный формат email!'); else alert('Ошибка: ' + error.message); } };
-window.showEmailRegister = function() { document.getElementById('emailModal').classList.remove('open'); document.getElementById('registerModal').classList.add('open'); };
-window.closeRegisterModal = function() { document.getElementById('registerModal').classList.remove('open'); document.getElementById('regEmailInput').value = ''; document.getElementById('regPasswordInput').value = ''; document.getElementById('regPasswordConfirm').value = ''; };
-window.emailRegister = async function() { const email = document.getElementById('regEmailInput').value.trim(); const password = document.getElementById('regPasswordInput').value; const passwordConfirm = document.getElementById('regPasswordConfirm').value; if (!email || !password) { alert('Введи email и пароль!'); return; } if (password.length < 6) { alert('Пароль должен быть минимум 6 символов!'); return; } if (password !== passwordConfirm) { alert('Пароли не совпадают!'); return; } try { const userCredential = await createUserWithEmailAndPassword(auth, email, password); const user = userCredential.user; await sendEmailVerification(user); pendingEmailUser = user; document.getElementById('registerModal').classList.remove('open'); document.getElementById('sentEmail').textContent = email; document.getElementById('emailStep1').style.display = 'none'; document.getElementById('emailStep2').style.display = 'block'; document.getElementById('emailModal').classList.add('open'); alert('Регистрация успешна! Проверь почту и кликни по ссылке.'); } catch (error) { if (error.code === 'auth/email-already-in-use') alert('Этот email уже зарегистрирован!'); else if (error.code === 'auth/invalid-email') alert('Неверный формат email!'); else if (error.code === 'auth/weak-password') alert('Пароль слишком слабый!'); else alert('Ошибка: ' + error.message); } };
-window.checkEmailVerified = async function() { if (!pendingEmailUser) return; try { await pendingEmailUser.reload(); if (pendingEmailUser.emailVerified) { alert('Email подтверждён! Добро пожаловать!'); closeEmailModal(); } else alert('Email ещё не подтверждён.'); } catch (error) { alert('Ошибка проверки: ' + error.message); } };
 function updateProfileUI() { const avatarImg = document.getElementById('profileAvatar'); const editBtn = document.getElementById('editProfileBtn'); const msgBtn = document.getElementById('messageProfileBtn'); const postsTitle = document.getElementById('postsSectionTitle'); if (viewingOtherProfile && viewingProfileData) { document.getElementById('profileName').textContent = viewingProfileData.name || 'Пользователь'; document.getElementById('profileBio').textContent = viewingProfileData.bio || ''; avatarImg.src = viewingProfileData.avatar || ''; avatarImg.dataset.name = viewingProfileData.name || 'П'; editBtn.style.display = 'none'; msgBtn.style.display = 'inline-block'; postsTitle.textContent = `Посты пользователя ${viewingProfileData.name || ''}`; } else if (userData) { document.getElementById('profileName').textContent = userData.name || 'Аноним'; document.getElementById('profileBio').textContent = userData.bio || ''; avatarImg.src = userData.avatar || createAvatarFallback(userData.name || 'А', 200); avatarImg.dataset.name = userData.name || 'П'; document.getElementById('editName').value = userData.name || ''; document.getElementById('editBio').value = userData.bio || ''; document.getElementById('editAvatar').value = userData.avatar || ''; document.getElementById('avatarPreview').style.display = 'none'; editBtn.style.display = 'inline-block'; msgBtn.style.display = 'none'; postsTitle.textContent = 'Мои посты'; } setupAvatarFallbacks(document.getElementById('profileTab')); }
 window.viewPartnerProfile = async function() { if (!currentChatPartner) return; viewingOtherProfile = true; viewingProfileData = { ...currentChatPartner }; try { const userDoc = await getDoc(doc(db, 'users', currentChatPartner.id)); if (userDoc.exists()) viewingProfileData = { ...viewingProfileData, ...userDoc.data() }; } catch (err) { console.error('Ошибка загрузки профиля:', err); } switchTab('profile'); };
 window.messageFromProfile = function() { if (!viewingProfileData) return; switchTab('chats'); setTimeout(() => openChat(viewingProfileData.id, viewingProfileData.name, viewingProfileData.avatar), 200); };
