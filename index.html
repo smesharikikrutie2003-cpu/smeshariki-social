@@ -250,6 +250,7 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 .faq-item.open .faq-answer { padding: 15px; max-height: 500px; }
 .help-close-btn { position: absolute; top: 15px; right: 15px; background: none; border: none; font-size: 28px; cursor: pointer; color: var(--text-secondary); }
 .help-close-btn:hover { color: #FF1493; }
+.author-chat-btn { width: 100%; margin-top: 20px; padding: 15px; font-size: 16px; }
 @media (max-width: 600px) {
   header { padding: 10px 15px; } header h1 { font-size: 20px; } header h1 img { width: 28px; height: 28px; margin-right: 8px; }
   .btn { padding: 8px 15px; font-size: 13px; } .btn-theme { padding: 6px 12px; font-size: 16px; }
@@ -289,6 +290,20 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🎵 Почему не играет музыка?</span></div><div class="faq-answer">Проверь, что track1-8.mp3 загружены в репозиторий. Нажми "🎵" внизу справа → "▶️". Обнови страницу (Ctrl+F5).</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🗑️ Как удалить комментарий?</span></div><div class="faq-answer">Под своими комментариями есть "🗑️ Удалить". Вместе с ним удалятся ответы.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>❓ Что делать если не работает?</span></div><div class="faq-answer">1. Обнови (Ctrl+F5). 2. Очисти кэш. 3. Другой браузер. 4. Проверь интернет. Если не помогло — напиши автору.</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>✉️ Как написать автору сайта?</span></div><div class="faq-answer">Нажми кнопку "Написать автору" внизу этого окна. Введи никнейм автора и нажми "Найти". Откроется чат!</div></div>
+    <button onclick="openAuthorChat()" class="btn btn-primary author-chat-btn">✉️ Написать автору</button>
+  </div>
+</div>
+<div id="authorChatModal" class="modal">
+  <div class="modal-content">
+    <h3 style="color:#FF1493;margin-bottom:15px;">✉️ Найти автора</h3>
+    <p style="margin-bottom:15px;color:var(--text-secondary);font-size:14px;">Введи никнейм автора сайта:</p>
+    <input type="text" id="authorNameInput" placeholder="Например: СмешарикиКрутые2003" style="width:100%;padding:12px;border:2px solid var(--border-color);border-radius:10px;font-family:inherit;font-size:16px;background:var(--input-bg);color:var(--text-color);margin-bottom:15px;">
+    <div style="display:flex;gap:10px;">
+      <button onclick="closeAuthorChatModal()" class="btn" style="flex:1;background:#eee;">Отмена</button>
+      <button onclick="findAndChatWithAuthor()" class="btn btn-primary" style="flex:1;">Найти</button>
+    </div>
+    <p id="authorSearchError" style="color:#f33;margin-top:10px;font-size:13px;display:none;"></p>
   </div>
 </div>
 <header>
@@ -525,6 +540,28 @@ window.toggleFaq = function(el) { el.parentElement.classList.toggle('open'); };
 document.getElementById('helpBtn').addEventListener('click', function() { document.getElementById('helpModal').classList.add('open'); });
 window.closeHelpModal = function() { document.getElementById('helpModal').classList.remove('open'); };
 document.getElementById('helpModal').addEventListener('click', function(e) { if (e.target === this) closeHelpModal(); });
+window.openAuthorChat = function() { document.getElementById('authorChatModal').classList.add('open'); document.getElementById('authorNameInput').value = ''; document.getElementById('authorSearchError').style.display = 'none'; };
+window.closeAuthorChatModal = function() { document.getElementById('authorChatModal').classList.remove('open'); };
+document.getElementById('authorChatModal').addEventListener('click', function(e) { if (e.target === this) closeAuthorChatModal(); });
+window.findAndChatWithAuthor = async function() {
+  const name = document.getElementById('authorNameInput').value.trim();
+  const errorEl = document.getElementById('authorSearchError');
+  if (!name) { errorEl.textContent = 'Введи никнейм!'; errorEl.style.display = 'block'; return; }
+  if (!currentUser) { errorEl.textContent = 'Сначала войди в аккаунт!'; errorEl.style.display = 'block'; return; }
+  errorEl.style.display = 'none';
+  try {
+    const q = query(collection(db, 'users'), where('name', '==', name));
+    const snapshot = await getDocs(q);
+    if (snapshot.empty) { errorEl.textContent = 'Пользователь не найден. Проверь никнейм!'; errorEl.style.display = 'block'; return; }
+    let authorData = null;
+    snapshot.forEach(docSnap => { authorData = { id: docSnap.id, ...docSnap.data() }; });
+    if (authorData.id === currentUser.uid) { errorEl.textContent = 'Это твой аккаунт!'; errorEl.style.display = 'block'; return; }
+    closeAuthorChatModal();
+    closeHelpModal();
+    switchTab('chats');
+    setTimeout(() => openChat(authorData.id, authorData.name, authorData.avatar), 300);
+  } catch (err) { errorEl.textContent = 'Ошибка поиска: ' + err.message; errorEl.style.display = 'block'; }
+};
 function createAvatarFallback(name, size = 50) { const letter = (name || '?').charAt(0).toUpperCase(); const colors = ['#FF6B9D', '#FFA94D', '#74C0FC', '#A9E34B', '#B197FC', '#FFD43B']; const color = colors[(name || '').length % colors.length]; return `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="${size}" height="${size}"><rect width="${size}" height="${size}" rx="${size/2}" fill="${color}"/><text x="50%" y="50%" dominant-baseline="central" text-anchor="middle" font-family="Arial" font-size="${size/2}" font-weight="bold" fill="white">${letter}</text></svg>`)}`; }
 function initAudio() { if (audioUnlocked) return; try { audioContext = new (window.AudioContext || window.webkitAudioContext)(); audioUnlocked = true; } catch (e) { console.log('Audio не поддерживается:', e); } }
 document.addEventListener('click', initAudio, { once: true });
