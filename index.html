@@ -6,7 +6,7 @@
 <title>Смешарики Social</title>
 <link rel="icon" type="image/png" href="favicon.png">
 
-<!-- ===== PWA МЕТА-ТЕГИ ===== -->
+<!-- PWA мета-теги -->
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#FF1493">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -1177,6 +1177,135 @@
     font-size: 16px;
   }
 
+  /* ===== КНОПКА ПОМОЩИ ===== */
+  .help-btn {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #74C0FC, #A9E34B);
+    color: #fff;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    z-index: 999;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .help-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+  }
+
+  .help-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 4000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+  }
+
+  .help-modal.open {
+    display: flex;
+  }
+
+  .help-content {
+    background: var(--card-bg);
+    padding: 25px;
+    border-radius: 25px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    border: 3px solid #74C0FC;
+  }
+
+  .help-content h2 {
+    color: #FF1493;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .faq-item {
+    margin-bottom: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 2px solid var(--border-color);
+    background: var(--comment-bg);
+  }
+
+  .faq-question {
+    padding: 15px;
+    background: var(--card-bg);
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.2s;
+  }
+
+  .faq-question:hover {
+    background: rgba(255,20,147,0.1);
+  }
+
+  .faq-question::after {
+    content: '▼';
+    font-size: 12px;
+    transition: transform 0.3s;
+  }
+
+  .faq-item.open .faq-question::after {
+    transform: rotate(180deg);
+  }
+
+  .faq-answer {
+    padding: 0 15px;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .faq-item.open .faq-answer {
+    padding: 15px;
+    max-height: 500px;
+  }
+
+  .help-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    font-size: 28px;
+    cursor: pointer;
+    color: var(--text-secondary);
+    transition: color 0.2s;
+  }
+
+  .help-close-btn:hover {
+    color: #FF1493;
+  }
+
   @media (max-width: 600px) {
     header { padding: 10px 15px; }
     header h1 { font-size: 20px; }
@@ -1211,6 +1340,17 @@
     .disclaimer-content h2 {
       font-size: 20px;
     }
+    .help-btn {
+      width: 50px;
+      height: 50px;
+      font-size: 20px;
+    }
+    .help-content {
+      padding: 20px;
+    }
+    .help-content h2 {
+      font-size: 20px;
+    }
   }
 
   @media (max-width: 400px) {
@@ -1235,13 +1375,160 @@
   </div>
 </div>
 
+<!-- ===== КНОПКА ПОМОЩИ ===== -->
+<button id="helpBtn" class="help-btn" title="Помощь">❓</button>
+
+<!-- ===== МОДАЛЬНОЕ ОКНО ПОМОЩИ ===== -->
+<div id="helpModal" class="help-modal">
+  <div class="help-content" style="position: relative;">
+    <button class="help-close-btn" onclick="closeHelpModal()">✕</button>
+    <h2>📚 Помощь по сайту</h2>
+    
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>🔑 Как зарегистрироваться?</span>
+      </div>
+      <div class="faq-answer">
+        Нажми кнопку "🔑 Войти" в правом верхнем углу. Выбери один из способов:<br><br>
+        • <b>Google</b> — быстрый вход через аккаунт Google<br>
+        • <b>Email</b> — регистрация с подтверждением почты<br>
+        • <b>Анонимно</b> — без регистрации (данные не сохранятся при выходе)
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>📝 Как создать пост?</span>
+      </div>
+      <div class="faq-answer">
+        На вкладке "📰 Лента" вверху есть поле для текста. Напиши что-нибудь и нажми "🚀 Опубликовать".<br><br>
+        Можно также прикрепить фото, нажав кнопку "📷 Фото".
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>💬 Как написать в чат?</span>
+      </div>
+      <div class="faq-answer">
+        1. Найди пост пользователя в ленте<br>
+        2. Нажми "✉️ Написать" под постом<br>
+        3. Или зайди во вкладку "💬 Чаты" и выбери собеседника<br><br>
+        В чате можно отправлять текст, фото и голосовые сообщения!
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>🎤 Как отправить голосовое сообщение?</span>
+      </div>
+      <div class="faq-answer">
+        В чате нажми кнопку "🎤" рядом с полем ввода. Браузер попросит разрешение на микрофон — нажми "Разрешить".<br><br>
+        Говори! Максимум 30 секунд. Чтобы остановить запись, нажми "⏹️".<br><br>
+        Для отмены нажми "Отмена" в индикаторе записи.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>📲 Как установить сайт как приложение?</span>
+      </div>
+      <div class="faq-answer">
+        <b>На Android (Chrome):</b><br>
+        Нажми кнопку "📲 Установить" в шапке сайта. Сайт добавится на домашний экран.<br><br>
+        <b>На iPhone (Safari):</b><br>
+        Нажми "Поделиться" → "На экран Домой".<br><br>
+        <b>На ПК (Chrome/Edge):</b><br>
+        В адресной строке появится иконка установки, или через меню браузера: "Установить Смешарики Social..."
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>🌙 Как сменить тему (светлую/тёмную)?</span>
+      </div>
+      <div class="faq-answer">
+        Нажми кнопку "🌙" или "☀️" в правом верхнем углу шапки сайта. Тема сохранится автоматически.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>📸 Как создать историю?</span>
+      </div>
+      <div class="faq-answer">
+        На вкладке "📰 Лента" вверху есть раздел историй. Нажми на свой аватар с кнопкой "+" или "Добавить".<br><br>
+        Выбери фото и добавь текст (необязательно). История будет видна 24 часа.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>↩️ Как ответить на сообщение в чате?</span>
+      </div>
+      <div class="faq-answer">
+        <b>На компьютере:</b> Правый клик на сообщение → появится панель ответа.<br><br>
+        <b>На телефоне:</b> Долгое нажатие (0.5 сек) на сообщение.<br><br>
+        Над полем ввода появится цитата. Напиши ответ и отправь. Чтобы отменить — нажми "✕" на панели.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>✏️ Как редактировать профиль?</span>
+      </div>
+      <div class="faq-answer">
+        Зайди на вкладку "👤 Профиль" и нажми "✏️ Редактировать".<br><br>
+        Можно изменить:<br>
+        • Имя (уникальное, до 30 символов)<br>
+        • Описание (био, до 100 символов)<br>
+        • Аватар (ссылка или загрузка файла)
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>🎵 Почему не играет музыка?</span>
+      </div>
+      <div class="faq-answer">
+        1. Убедись, что mp3 файлы загружены в репозиторий (track1.mp3 - track8.mp3)<br>
+        2. Нажми кнопку "🎵" в правом нижнем углу<br>
+        3. В открывшемся плеере нажми "▶️"<br><br>
+        Если не работает — обнови страницу (Ctrl+F5) или проверь консоль браузера (F12).
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>🗑️ Как удалить свой комментарий?</span>
+      </div>
+      <div class="faq-answer">
+        Под своими комментариями есть кнопка "🗑️ Удалить". Нажми её и подтверди удаление.<br><br>
+        Вместе с комментарием удалятся все ответы на него.
+      </div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-question" onclick="toggleFaq(this)">
+        <span>❓ Что делать, если что-то не работает?</span>
+      </div>
+      <div class="faq-answer">
+        1. Обнови страницу (Ctrl+F5 или Cmd+Shift+R на Mac)<br>
+        2. Очисти кэш браузера<br>
+        3. Попробуй другой браузер<br>
+        4. Проверь подключение к интернету<br><br>
+        Если проблема сохраняется — напиши автору сайта!
+      </div>
+    </div>
+  </div>
+</div>
+
 <header>
   <h1>
     <img src="favicon.png" alt="Логотип" class="favicon-glow" style="width: 35px; height: 35px; vertical-align: middle; margin-right: 10px; transition: transform 0.3s;" onmouseover="this.style.transform='rotate(15deg)'" onmouseout="this.style.transform='rotate(0deg)'">
     Смешарики Social
   </h1>
   <div class="header-buttons">
-    <!-- ===== КНОПКА УСТАНОВКИ PWA ===== -->
     <button id="installBtn" class="btn btn-primary" style="display: none;">📲 Установить</button>
     <button id="themeBtn" class="btn btn-theme">🌙</button>
     <button id="authBtn" class="btn btn-google">🔑 Войти</button>
@@ -1567,6 +1854,27 @@
   window.addEventListener('load', function() {
     if (!localStorage.getItem('disclaimerAccepted')) {
       document.getElementById('disclaimerModal').classList.add('open');
+    }
+  });
+
+  // ===== ПОМОЩЬ (FAQ) =====
+  window.toggleFaq = function(element) {
+    const faqItem = element.parentElement;
+    faqItem.classList.toggle('open');
+  };
+
+  document.getElementById('helpBtn').addEventListener('click', function() {
+    document.getElementById('helpModal').classList.add('open');
+  });
+
+  window.closeHelpModal = function() {
+    document.getElementById('helpModal').classList.remove('open');
+  };
+
+  // Закрытие по клику вне окна
+  document.getElementById('helpModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+      closeHelpModal();
     }
   });
 
@@ -2997,7 +3305,6 @@
     return text.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); 
   }
 
-  // ===== МУЗЫКАЛЬНЫЙ ПЛЕЕР =====
   const audioPlayer = document.getElementById('audioPlayer');
   const playPauseBtn = document.getElementById('playPauseBtn');
   const progressBar = document.getElementById('progressBar');
