@@ -68,8 +68,8 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
 .profile-bio { color: var(--text-secondary); font-style: italic; margin-bottom: 15px; }
 .edit-profile-btn { font-size: 12px; margin-top: 10px; }
 .create-post, .post, .chat-list-item, .chat-window { background: var(--card-bg); border-radius: 20px; padding: 20px; margin-bottom: 15px; box-shadow: 0 4px 15px var(--shadow); backdrop-filter: blur(10px); transition: all 0.5s ease; }
-.create-post textarea, .create-post input[type="text"], .modal-content input[type="text"] { width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px; font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px; transition: all 0.3s ease; }
-.create-post textarea:focus, .modal-content input:focus { border-color: #FF1493; outline: none; }
+.create-post textarea, .create-post input[type="text"], .modal-content input[type="text"], .modal-content textarea { width: 100%; border: 2px solid var(--border-color); border-radius: 15px; padding: 12px; font-family: inherit; resize: vertical; min-height: 80px; margin-bottom: 10px; outline: none; background: var(--input-bg); color: var(--text-color); font-size: 14px; transition: all 0.3s ease; }
+.create-post textarea:focus, .modal-content input:focus, .modal-content textarea:focus { border-color: #FF1493; outline: none; }
 .post-image, .chat-image { width: 100%; max-height: 400px; object-fit: cover; border-radius: 15px; margin: 10px 0; cursor: pointer; }
 .chat-image { max-height: 250px; }
 .image-preview { max-width: 200px; max-height: 150px; border-radius: 10px; margin: 10px 0; border: 2px solid var(--border-color); }
@@ -283,7 +283,7 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🌙 Как сменить тему?</span></div><div class="faq-answer">Кнопка "🌙"/"☀️" в шапке. Тема сохраняется автоматически.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>📸 Как создать историю?</span></div><div class="faq-answer">Вверху ленты нажми на свой аватар с "+". Выбери фото, добавь текст. История видна 24 часа.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>↩️ Как ответить на сообщение?</span></div><div class="faq-answer"><b>ПК:</b> правый клик на сообщение. <b>Телефон:</b> долгое нажатие. Появится цитата — напиши ответ и отправь.</div></div>
-    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>✏️ Как редактировать профиль?</span></div><div class="faq-answer">Вкладка "👤 Профиль" → "✏️ Редактировать". Можно изменить имя, био и аватар.</div></div>
+    <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>✏️ Как редактировать профиль или пост?</span></div><div class="faq-answer">Вкладка "👤 Профиль" → "✏️ Редактировать". У своих постов есть кнопка "✏️ Редактировать" рядом с удалением.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🎵 Почему не играет музыка?</span></div><div class="faq-answer">Проверь, что track1-8.mp3 загружены в репозиторий. Нажми "🎵" внизу справа → "▶️". Обнови страницу (Ctrl+F5).</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>🗑️ Как удалить комментарий?</span></div><div class="faq-answer">Под своими комментариями есть "🗑️ Удалить". Вместе с ним удалятся ответы.</div></div>
     <div class="faq-item"><div class="faq-question" onclick="toggleFaq(this)"><span>❓ Что делать если не работает?</span></div><div class="faq-answer">1. Обнови (Ctrl+F5). 2. Очисти кэш. 3. Другой браузер. 4. Проверь интернет. Если не помогло — напиши автору.</div></div>
@@ -393,6 +393,19 @@ header h1 { font-size: 28px; color: #fff; text-shadow: 2px 2px 0 #FF1493; displa
     </div>
   </div>
 </div>
+
+<!-- Модалка редактирования поста -->
+<div id="editPostModal" class="modal">
+  <div class="modal-content">
+    <h3 style="color: #FF1493; margin-bottom: 15px;">✏️ Редактировать пост</h3>
+    <textarea id="editPostText" style="width:100%; min-height:100px;"></textarea>
+    <div style="display: flex; gap: 10px; margin-top: 15px;">
+      <button onclick="closeEditPostModal()" class="btn" style="flex:1; background:#eee;">Отмена</button>
+      <button onclick="saveEditedPost()" class="btn btn-primary" style="flex:1;">Сохранить</button>
+    </div>
+  </div>
+</div>
+
 <div id="editMessageModal" class="modal">
   <div class="modal-content">
     <h3 style="color: #FF1493; margin-bottom: 15px;">✏️ Редактировать сообщение</h3>
@@ -489,7 +502,7 @@ const firebaseConfig = { apiKey: "AIzaSyC8lTu5KGLu9mEF8X1efmnUo0fM4srTEU8", auth
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
-let currentUser = null, userData = null, currentChatPartner = null, currentChatId = null, postImageData = null, chatImageData = null, chatUnsubscribe = null, viewingOtherProfile = false, viewingProfileData = null, editingMessageId = null, previousMessageIds = new Set(), audioContext = null, audioUnlocked = false, chatsUnsubscribe = null, unreadCounts = {}, isChatWindowOpen = false, storyImageData = null, storyViewerTimeout = null, storyProgressInterval = null, openReplyInputs = {};
+let currentUser = null, userData = null, currentChatPartner = null, currentChatId = null, postImageData = null, chatImageData = null, chatUnsubscribe = null, viewingOtherProfile = false, viewingProfileData = null, editingMessageId = null, currentEditingPostId = null, previousMessageIds = new Set(), audioContext = null, audioUnlocked = false, chatsUnsubscribe = null, unreadCounts = {}, isChatWindowOpen = false, storyImageData = null, storyViewerTimeout = null, storyProgressInterval = null, openReplyInputs = {};
 let lastSeenInterval = null, typingTimeout = null, typingData = {}, partnerTypingTimeout = null, replyingToMessage = null;
 let notificationsEnabled = false;
 
@@ -606,6 +619,34 @@ window.switchTab = function(tab) {
 document.getElementById('postImageInput').addEventListener('change', function(e) { const file = e.target.files[0]; if (!file) return; if (file.size > 2 * 1024 * 1024) { alert('Файл слишком большой! Максимум 2 МБ.'); return; } const reader = new FileReader(); reader.onload = function(event) { const img = new Image(); img.onload = function() { const canvas = document.createElement('canvas'); const maxSize = 800; let width = img.width, height = img.height; if (width > height) { if (width > maxSize) { height *= maxSize / width; width = maxSize; } } else { if (height > maxSize) { width *= maxSize / height; height = maxSize; } } canvas.width = width; canvas.height = height; canvas.getContext('2d').drawImage(img, 0, 0, width, height); postImageData = canvas.toDataURL('image/jpeg', 0.8); const preview = document.getElementById('postImagePreview'); preview.src = postImageData; preview.style.display = 'block'; }; img.src = event.target.result; }; reader.readAsDataURL(file); });
 document.getElementById('chatImageInput').addEventListener('change', function(e) { const file = e.target.files[0]; if (!file) return; if (file.size > 2 * 1024 * 1024) { alert('Файл слишком большой! Максимум 2 МБ.'); return; } const reader = new FileReader(); reader.onload = function(event) { const img = new Image(); img.onload = function() { const canvas = document.createElement('canvas'); const maxSize = 800; let width = img.width, height = img.height; if (width > height) { if (width > maxSize) { height *= maxSize / width; width = maxSize; } } else { if (height > maxSize) { width *= maxSize / height; height = maxSize; } } canvas.width = width; canvas.height = height; canvas.getContext('2d').drawImage(img, 0, 0, width, height); chatImageData = canvas.toDataURL('image/jpeg', 0.8); const preview = document.getElementById('chatImagePreview'); preview.src = chatImageData; preview.style.display = 'block'; }; img.src = event.target.result; }; reader.readAsDataURL(file); });
 window.createPost = async function() { const text = document.getElementById('postText').value.trim(); if (!text && !postImageData) return alert('Напиши что-нибудь или прикрепи фото!'); if (!userData) return alert('Подождите, загружается профиль...'); document.getElementById('postText').value = ''; document.getElementById('postImagePreview').style.display = 'none'; const postData = { authorId: currentUser.uid, authorName: userData.name, authorAvatar: userData.avatar, text: text, likes: [], comments: [], timestamp: serverTimestamp() }; if (postImageData) { postData.image = postImageData; postImageData = null; } try { await addDoc(collection(db, 'posts'), postData); } catch (err) { alert('Ошибка при публикации: ' + err.message); } };
+
+// === Функции редактирования поста ===
+window.openEditPost = function(postId, currentText) {
+  currentEditingPostId = postId;
+  document.getElementById('editPostText').value = currentText;
+  document.getElementById('editPostModal').classList.add('open');
+};
+window.closeEditPostModal = function() {
+  document.getElementById('editPostModal').classList.remove('open');
+  document.getElementById('editPostText').value = '';
+  currentEditingPostId = null;
+};
+window.saveEditedPost = async function() {
+  if (!currentEditingPostId) return;
+  const newText = document.getElementById('editPostText').value.trim();
+  if (!newText) { alert('Пост не может быть пустым!'); return; }
+  try {
+    await updateDoc(doc(db, 'posts', currentEditingPostId), {
+      text: newText,
+      edited: true,
+      editedAt: serverTimestamp()
+    });
+    closeEditPostModal();
+  } catch (err) {
+    alert('Ошибка редактирования: ' + err.message);
+  }
+};
+
 function renderComments(postId, comments) { if (!comments || comments.length === 0) return ''; const topLevel = comments.filter(c => !c.replyTo); const replies = comments.filter(c => c.replyTo); let html = ''; topLevel.forEach(c => { html += renderSingleComment(postId, c, false); const commentReplies = replies.filter(r => r.replyTo === c.authorName + '_' + c.timestamp); commentReplies.forEach(r => { html += renderSingleComment(postId, r, true); }); }); replies.forEach(r => { const hasParent = topLevel.some(c => c.authorName + '_' + c.timestamp === r.replyTo); if (!hasParent) html += renderSingleComment(postId, r, false); }); return html; }
 function renderSingleComment(postId, c, isReply) {
   const isLiked = c.likes && c.likes.includes(currentUser?.uid);
@@ -627,15 +668,17 @@ function renderPost(post, isMyPost = false, authorStatuses = {}) {
   const isLiked = post.likes && post.likes.includes(currentUser.uid);
   const likeCount = post.likes ? post.likes.length : 0;
   const timeStr = post.timestamp ? new Date(post.timestamp.toDate()).toLocaleString('ru-RU', {day:'numeric', month:'short', hour:'2-digit', minute:'2-digit'}) : 'только что';
+  const editedTag = post.edited ? ' <span style="font-size:10px; opacity:0.6;">(ред.)</span>' : '';
   const commentsHtml = renderComments(post.id, post.comments || []);
   const imageHtml = post.image ? `<img src="${post.image}" class="post-image" onclick="openImageModal(this.src)">` : '';
   const authorLastSeen = authorStatuses[post.authorId] || null;
   const authorStatus = getUserStatus(authorLastSeen);
   const statusHtml = renderStatusIndicator(authorStatus);
   const parsedPost = parseVideoLinks(post.text);
+  const safeText = post.text.replace(/\\/g, '\\\\').replace(/'/g, "\\'").replace(/"/g, '\\"').replace(/\n/g, '\\n').replace(/\r/g, '');
   const postTextHtml = parsedPost.text ? `<div class="post-text">${escapeHtml(parsedPost.text)}</div>` : '';
   const postVideoHtml = parsedPost.embeds;
-  return `<div class="post" data-author-id="${post.authorId}" data-author-name="${escapeHtml(post.authorName)}" data-author-avatar="${escapeHtml(post.authorAvatar || '')}"><div class="post-header"><img src="${post.authorAvatar || ''}" class="post-avatar chat-trigger" data-name="${escapeHtml(post.authorName || '')}"><div><div class="post-author chat-trigger">${escapeHtml(post.authorName)}</div>${statusHtml}<div class="post-time">${timeStr}</div></div></div>${postTextHtml}${imageHtml}${postVideoHtml}<div class="post-actions"><button class="action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button><button class="action-btn" onclick="toggleComments('${post.id}')">💬 Комментарии (${post.comments ? post.comments.length : 0})</button><button class="action-btn chat-trigger-btn">✉️ Написать</button>${isMyPost ? `<button class="action-btn" style="margin-left:auto; color:#f33;" onclick="deletePost('${post.id}')">🗑️ Удалить</button>` : ''}</div><div id="comments-${post.id}" class="comments-section">${commentsHtml}<div class="comment-input-row"><input type="text" id="comment-input-${post.id}" placeholder="Написать комментарий..."><button class="btn btn-primary" style="padding: 8px 15px;" onclick="addComment('${post.id}')">➤</button></div></div></div>`;
+  return `<div class="post" data-author-id="${post.authorId}" data-author-name="${escapeHtml(post.authorName)}" data-author-avatar="${escapeHtml(post.authorAvatar || '')}"><div class="post-header"><img src="${post.authorAvatar || ''}" class="post-avatar chat-trigger" data-name="${escapeHtml(post.authorName || '')}"><div><div class="post-author chat-trigger">${escapeHtml(post.authorName)}</div>${statusHtml}<div class="post-time">${timeStr}${editedTag}</div></div></div>${postTextHtml}${imageHtml}${postVideoHtml}<div class="post-actions"><button class="action-btn ${isLiked ? 'liked' : ''}" onclick="toggleLike('${post.id}')">❤️ ${likeCount > 0 ? likeCount : 'Нравится'}</button><button class="action-btn" onclick="toggleComments('${post.id}')">💬 Комментарии (${post.comments ? post.comments.length : 0})</button><button class="action-btn chat-trigger-btn">✉️ Написать</button>${isMyPost ? `<button class="action-btn" style="color:#74C0FC;" onclick="openEditPost('${post.id}', '${safeText}')">✏️ Редактировать</button><button class="action-btn" style="color:#f33;" onclick="deletePost('${post.id}')">🗑️ Удалить</button>` : ''}</div><div id="comments-${post.id}" class="comments-section">${commentsHtml}<div class="comment-input-row"><input type="text" id="comment-input-${post.id}" placeholder="Написать комментарий..."><button class="btn btn-primary" style="padding: 8px 15px;" onclick="addComment('${post.id}')">➤</button></div></div></div>`;
 }
 document.getElementById('feedPosts').addEventListener('click', function(e) { const chatBtn = e.target.closest('.chat-trigger-btn'); const chatTrigger = e.target.closest('.chat-trigger'); if (chatBtn || chatTrigger) { const post = e.target.closest('.post'); if (post) { const partnerId = post.dataset.authorId; const partnerName = post.dataset.authorName; const partnerAvatar = post.dataset.authorAvatar; if (partnerId && partnerId !== currentUser.uid) startChat(partnerId, partnerName, partnerAvatar); } } });
 function loadFeed() { const q = query(collection(db, 'posts'), orderBy('timestamp', 'desc')); onSnapshot(q, async (snapshot) => { const container = document.getElementById('feedPosts'); if (snapshot.empty) { container.innerHTML = '<div style="text-align:center; color:var(--text-secondary); padding:20px;">Пока нет постов. Будь первым!</div>'; return; } const posts = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() })); const authorIds = new Set(); posts.forEach(post => { if (post.authorId) authorIds.add(post.authorId); }); const authorStatuses = {}; for (const authorId of authorIds) { try { const userDoc = await getDoc(doc(db, 'users', authorId)); if (userDoc.exists()) authorStatuses[authorId] = userDoc.data().lastSeen || null; } catch (err) { console.error('Ошибка загрузки статуса автора:', err); } } container.innerHTML = posts.map(post => renderPost(post, false, authorStatuses)).join(''); setupAvatarFallbacks(container); }); }
